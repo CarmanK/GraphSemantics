@@ -59,8 +59,8 @@ with open('scrapedText.txt', 'w') as file:
                     abstract = ""
                     print("Error finding abstract data at {0}".format(layers[i][j]))
 
-                file.write(str(i + 1))
-                file.write("\n" + title + "\n")
+                file.write(str(i + 1) + "\n")
+                file.write(title + "\n")
                 file.write(abstract + "\n")
             else:
                 print("Error scraping data from {0}".format(layers[i][j]))
