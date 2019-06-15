@@ -64,4 +64,3 @@ with open('scrapedText.txt', 'w') as file:
                 file.write(abstract + "\n")
             else:
                 print("Error scraping data from {0}".format(layers[i][j]))
-    file.write("EOF")
