@@ -30,8 +30,14 @@ es = Elasticsearch()
 # Allows all the newly indexed items to be searchable
 # es.indices.refresh(index = "pubmed")
 
-
-
+result = es.search(index = "pubmed", body = {
+    "query": {
+        "match_phrase": {
+            "abstract": ""
+        }
+    }
+})
+print("%d Hits" % result['hits']['total']['value'])
 
 
 
@@ -44,8 +50,8 @@ es = Elasticsearch()
 # for hit in res['hits']['hits']:
 #     print("Abstract: %(abstract)s" % hit["_source"])
 
-res = es.count(index = "pubmed")
-print("Count: " + res['count'])
+# res = es.count(index = "pubmed")
+# print("Count: " + res["count"])
 
 # res = es.get(index = "pubmed", id = 24)
 # print(res)
