@@ -2,7 +2,6 @@ import json
 from elasticsearch import Elasticsearch
 es = Elasticsearch()
 
-
 # Create a list of document dictionaries from the scraptedText file
 # docs = []
 # with open("scrapedText.txt", "r") as file:
@@ -32,93 +31,39 @@ es = Elasticsearch()
 # Allows all the newly indexed items to be searchable
 # es.indices.refresh(index = "pubmed")
 
-# This obviously shouldn't just be copy pasted 3 times and should be made scalable
-# keys = []
-# output_data = []
-# with open("layer_1_output.json", "w") as output:
-#     with open("layer_1.json") as file:
-#         layer_1 = json.load(file)
-#     for key in layer_1:
-#         keys.append(key)
-#     for i in range(len(keys)):
-#         for j in range(i, len(keys)):
-#             if i != j:
-#                 # print(keys[i] + ' ' + keys[j])
-#                 result = es.search(index = "pubmed", body = {
-#                     "query": {
-#                         "match": {
-#                             "abstract": keys[i] + " " + keys[j]
-#                         }
-#                     }
-#                 })
-#                 # print("%d Hits" % result['hits']['total']['value'])
-#                 top_articles = result["hits"]["total"]["value"]
-#                 if top_articles > 10:
-#                     top_articles = 10
-#                 for k in range(top_articles):
-#                     output_data.append({
-#                         "phrase": keys[i] + " " + keys[j],
-#                         "id": result["hits"]["hits"][k]["_id"],
-#                         "article": result["hits"]["hits"][k]["_source"]["abstract"]
-#                     })
-#     json.dump(output_data, output)
-
-# keys = []
-# output_data = []
-# with open("layer_2_output.json", "w") as output:
-#     with open("layer_2.json") as file:
-#         layer_1 = json.load(file)
-#     for key in layer_1:
-#         keys.append(key)
-#     for i in range(len(keys)):
-#         for j in range(i, len(keys)):
-#             if i != j:
-#                 # print(keys[i] + ' ' + keys[j])
-#                 result = es.search(index = "pubmed", body = {
-#                     "query": {
-#                         "match": {
-#                             "abstract": keys[i] + " " + keys[j]
-#                         }
-#                     }
-#                 })
-#                 # print("%d Hits" % result['hits']['total']['value'])
-#                 top_articles = result["hits"]["total"]["value"]
-#                 if top_articles > 10:
-#                     top_articles = 10
-#                 for k in range(top_articles):
-#                     output_data.append({
-#                         "phrase": keys[i] + " " + keys[j],
-#                         "id": result["hits"]["hits"][k]["_id"],
-#                         "article": result["hits"]["hits"][k]["_source"]["abstract"]
-#                     })
-#     json.dump(output_data, output)
-
-# keys = []
-# output_data = []
-# with open("layer_3_output.json", "w") as output:
-#     with open("layer_3.json") as file:
-#         layer_1 = json.load(file)
-#     for key in layer_1:
-#         keys.append(key)
-#     for i in range(len(keys)):
-#         for j in range(i, len(keys)):
-#             if i != j:
-#                 # print(keys[i] + ' ' + keys[j])
-#                 result = es.search(index = "pubmed", body = {
-#                     "query": {
-#                         "match": {
-#                             "abstract": keys[i] + " " + keys[j]
-#                         }
-#                     }
-#                 })
-#                 # print("%d Hits" % result['hits']['total']['value'])
-#                 top_articles = result["hits"]["total"]["value"]
-#                 if top_articles > 10:
-#                     top_articles = 10
-#                 for k in range(top_articles):
-#                     output_data.append({
-#                         "phrase": keys[i] + " " + keys[j],
-#                         "id": result["hits"]["hits"][k]["_id"],
-#                         "article": result["hits"]["hits"][k]["_source"]["abstract"]
-#                     })
-#     json.dump(output_data, output)
+# Searches the elasticsearch data for every pair of phrases within the layer and outputs the top-k ids, and articles for every phrase to a json file
+input_files = [
+    "layer_1.json",
+    "layer_2.json",
+    "layer_3.json"
+]
+layer_index = 1
+for input in input_files:
+    keys = []
+    output_data = []
+    with open("layer_" + str(layer_index) + "_output.json", "w") as output_file:
+        with open(input) as file:
+            layer = json.load(file)
+        for key in layer: # This makes a list of all the attribute names of the input json file
+            keys.append(key)
+        for i in range(len(keys)):
+            for j in range(i, len(keys)):
+                if i != j:
+                    result = es.search(index = "pubmed", body = {
+                        "query": {
+                            "match": {
+                                "abstract": keys[i] + " " + keys[j]
+                            }
+                        }
+                    })
+                    top_articles = result["hits"]["total"]["value"]
+                    if top_articles > 10: # We selected our top-k articles to be 10 instead of 100
+                        top_articles = 10
+                    for k in range(top_articles):
+                        output_data.append({
+                            "phrase": keys[i] + " " + keys[j],
+                            "id": result["hits"]["hits"][k]["_id"],
+                            "article": result["hits"]["hits"][k]["_source"]["abstract"]
+                        })
+        json.dump(output_data, output_file)
+    layer_index += 1
