@@ -32,6 +32,7 @@ es = Elasticsearch()
 # es.indices.refresh(index = "pubmed")
 
 # Searches the elasticsearch data for every pair of phrases within the layer and outputs the top-k ids, and articles for every phrase to a json file
+k = 50 # Number of articles to return and output to the json
 input_files = [
     "layer_1.json",
     "layer_2.json",
@@ -55,10 +56,10 @@ for input in input_files:
                                 "abstract": keys[i] + " " + keys[j]
                             }
                         }
-                    })
+                    }, size = k)
                     top_articles = result["hits"]["total"]["value"]
-                    if top_articles > 10: # We selected our top-k articles to be 10 instead of 100
-                        top_articles = 10
+                    if top_articles > k: # We selected our top-k articles to be 10 instead of 100
+                        top_articles = k
                     for k in range(top_articles):
                         output_data.append({
                             "phrase": keys[i] + " " + keys[j],
