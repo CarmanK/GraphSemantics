@@ -35,7 +35,7 @@ es = Elasticsearch()
 # Searches the elasticsearch data for every pair of phrases within the layer and outputs the top-k ids, and articles for every phrase to a json file
 if not os.path.exists('output_data'):
     os.mkdir('output_data')
-k = 50 # Number of articles to return and output to the json
+k = 10 # Number of articles to return and output to the json
 input_files = [
     "layer_1.json",
     "layer_2.json",
@@ -66,7 +66,6 @@ for input in input_files:
                     for x in range(top_articles):
                         output_data.append({
                             "phrase": keys[i] + " " + keys[j],
-                            "id": result["hits"]["hits"][x]["_id"],
                             "article": result["hits"]["hits"][x]["_source"]["abstract"]
                         })
         json.dump(output_data, output_file)
