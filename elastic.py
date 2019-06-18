@@ -60,11 +60,12 @@ for input in input_files:
                     top_articles = result["hits"]["total"]["value"]
                     if top_articles > k: # We selected our top-k articles to be 10 instead of 100
                         top_articles = k
-                    for k in range(top_articles):
+                    for x in range(top_articles):
+                        print("appended" + keys[i] + ' ' + keys[j])
                         output_data.append({
                             "phrase": keys[i] + " " + keys[j],
-                            "id": result["hits"]["hits"][k]["_id"],
-                            "article": result["hits"]["hits"][k]["_source"]["abstract"]
+                            "id": result["hits"]["hits"][x]["_id"],
+                            "article": result["hits"]["hits"][x]["_source"]["abstract"]
                         })
         json.dump(output_data, output_file)
     layer_index += 1
