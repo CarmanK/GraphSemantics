@@ -66,7 +66,6 @@ for input in input_files:
                     for x in range(top_articles):
                         output_data.append({
                             "phrase": keys[i] + " " + keys[j],
-                            "id": result["hits"]["hits"][x]["_id"],
                             "article": result["hits"]["hits"][x]["_source"]["abstract"]
                         })
         json.dump(output_data, output_file)

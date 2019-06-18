@@ -14,7 +14,7 @@ Note that this is currently a proof of concept and much of the code is messy and
      * abstract
    * This output should probably be converted to a json list of lists where the first index is the layer number and the title and abstract are combined in another list in thatlayer.
 
-2. The scrapedText.txt is then run through AutoPhrase, which was trained on a 1GB file containing various other PubMed abstracts, and output to segmentation.txt. This text file tags all of the important phrases obtained from step 1.
+2. The scrapedText.txt is then run through AutoPhrase, which was trained on a 1GB file containing various other PubMed abstracts, and output to segmentation.txt. This text file tags all of the important phrases obtained from step 1.1.
 3. The jupiter file named step1.jpynb then extracts the phrases from segmentation.txt with regards to their respective layer and calculates the TF-IDF scores to select the top-k phrases per layer.
 
   * The k we chose for this proof of concept was 10. This k should be tinkered with for more efficient computations.
@@ -31,9 +31,7 @@ Note that this is currently a proof of concept and much of the code is messy and
    
   * The current output format is:
      * "phrase": phrases
-     * "id": id number
      * "article": article
-  * The id number does not need to be saved, which will cut down on space.
   * The phrase may or may not need to be saved, to be determined.
   * The output is stored in a folder named output_data, and the other outputs should also be moved to this folder.
   * The output is currently stored in a separate file per layer named layer_number_output.json, but this can also be converted to a json list.
@@ -43,3 +41,10 @@ Note that this is currently a proof of concept and much of the code is messy and
 3. The last step takes the output_data folder and computes the BM25 score to find which sentences cover the most unique phrases.
 
   * This step can be optimized to be more efficient.
+
+## Thoughts/changes for future iterations
+* Use greedy algorithm, choose the sentence that covers the most number of unvisited phrase or unvisted pair of phrases at each iteration instead of BM25? for step 2.3 (and other tweeks)
+* fixes noted above in the other steps (in progress)
+* tweek the values of our k
+* upload 100MB to elasticsearch instead of only 10MB
+* retrain the 1GB model in autophrase and make sure to cat the scraped titles+abstracts into it
