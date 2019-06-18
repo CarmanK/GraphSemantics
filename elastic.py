@@ -1,3 +1,4 @@
+import os
 import json
 from elasticsearch import Elasticsearch
 es = Elasticsearch()
@@ -32,6 +33,8 @@ es = Elasticsearch()
 # es.indices.refresh(index = "pubmed")
 
 # Searches the elasticsearch data for every pair of phrases within the layer and outputs the top-k ids, and articles for every phrase to a json file
+if not os.path.exists('output_data'):
+    os.mkdir('output_data')
 k = 50 # Number of articles to return and output to the json
 input_files = [
     "layer_1.json",
@@ -42,8 +45,8 @@ layer_index = 1
 for input in input_files:
     keys = []
     output_data = []
-    with open("layer_" + str(layer_index) + "_output.json", "w") as output_file:
-        with open(input) as file:
+    with open("./output_data/layer_" + str(layer_index) + "_output.json", "w") as output_file:
+        with open("./jupter/top_k_output/" + input, "r") as file:
             layer = json.load(file)
         for key in layer: # This makes a list of all the attribute names of the input json file
             keys.append(key)
@@ -61,7 +64,6 @@ for input in input_files:
                     if top_articles > k: # We selected our top-k articles to be 10 instead of 100
                         top_articles = k
                     for x in range(top_articles):
-                        print("appended" + keys[i] + ' ' + keys[j])
                         output_data.append({
                             "phrase": keys[i] + " " + keys[j],
                             "id": result["hits"]["hits"][x]["_id"],
