@@ -1,6 +1,5 @@
 __pycache__/
-elasticTest.py
+.vscode/
 # output_data/
 AutoPhrase/tmp
 AutoPhrase/data/combined.txt
-AutoPhrase/models/GraphSemantics/segmentation.txt
