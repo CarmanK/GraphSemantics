@@ -43,4 +43,4 @@ with open('./input_data/links.json', 'r') as input_file:
 
 # Save the data
 with open('./output_data/tmp/meta_scraped_text.json', 'w') as meta_file:
-    json.dump(lengths, meta_file)
+    json.dump(lengths, meta_file, indent = 4)

@@ -16,7 +16,7 @@ def create_parsed_list_in_one_layer(doc):
     for i in range(len(doc)):
         tmpdoc = []
         #do it for each doc[i]
-        soup = BeautifulSoup(doc[i])
+        soup = BeautifulSoup(doc[i], 'lxml')
         for p in soup.find_all(["phrase"]):
             tmpdoc.append(p.get_text())
         #save back to mother
@@ -220,5 +220,6 @@ b = final[1].nlargest(top_k_selected)
 c = final[2].nlargest(top_k_selected)
 
 phrases = [a, b, c]
+# print(a)
 with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
-    json_out.write(json.dumps([df.to_dict() for df in phrases]))
+    json_out.write(json.dumps([df.to_dict() for df in phrases], indent = 4))

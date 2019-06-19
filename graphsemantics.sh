@@ -1,6 +1,6 @@
-echo "=== Starting Scraper ==="
-python3 ./scraper.py
-echo "=== Scraper Finished ==="
+echo "=== Scraping Data ==="
+# python3 ./scraper.py
+echo "=== Data Scraping Finished ==="
 
 echo "=== Starting AutoPhrase ==="
 cd AutoPhrase/
@@ -8,9 +8,9 @@ cd AutoPhrase/
 cd ..
 echo "=== AutoPhrase Finished ==="
 
-echo "=== Starting Phrase Selector ==="
+echo "=== Selecting Phrases ==="
 python3 ./phrase_selector.py
-echo "=== Phrase Selector Finished ==="
+echo "=== Phrase Selecting Finished ==="
 
 # echo "=== Starting to Index Text to Elasticsearch ==="
 # echo "=== Indexing Text to Elasticsearch Finished ==="
