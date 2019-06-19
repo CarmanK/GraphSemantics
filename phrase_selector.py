@@ -1,12 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import pandas as pd
 import numpy as np
-import sklearn #for tf-idf
+import sklearn
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from bs4 import BeautifulSoup
@@ -14,51 +8,8 @@ import csv
 import math
 import scipy
 from scipy.sparse import csr_matrix
+import json
 eps = 1e-8
-
-
-# # June 14
-# # change the '1\n' to for different layer
-
-# In[ ]:
-
-
-# doc = []
-# with open('./1gb_model/layer1.txt','r') as open_f:
-#     contents = open_f.read()
-#     for entry in contents.split('1\n'):
-#         doc.append(entry)
-# doc = doc[1:]
-
-
-# # For each doc[i], get all parsed thing, and put it in another list
-
-# In[ ]:
-
-
-# doc_parsed_list = []
-# for i in range(len(doc)):
-#     tmpdoc = []
-#     #do it for each doc[i]
-#     soup = BeautifulSoup(doc[i])
-#     for p in soup.find_all(["phrase"]):
-#         tmpdoc.append(p.get_text())
-#     #save back to mother
-#     doc_parsed_list.append(tmpdoc)
-
-
-# In[4]:
-
-
-def read_document_in_one_layer(path,parameter):
-    splitstr = str(parameter)+'\n'
-    doc = []
-    with open(path,'r') as open_f:
-        contents = open_f.read()
-        for entry in contents.split(splitstr):
-            doc.append(entry)
-    doc = doc[1:]
-    return doc
 
 def create_parsed_list_in_one_layer(doc):
     doc_parsed_list = []
@@ -72,32 +23,12 @@ def create_parsed_list_in_one_layer(doc):
         doc_parsed_list.append(tmpdoc)
     return doc_parsed_list
 
-def get_doc_parsed_list(path,parameter):
-    doc = read_document_in_one_layer(path,parameter)
-    return create_parsed_list_in_one_layer(doc)
-
-
-# # Currently, specify the loc of three layer
-
-# In[5]:
-
-
-path1 = './1gb_model/layer1.txt'
-path2 = './1gb_model/layer2.txt'
-path3 = './1gb_model/layer3.txt'
-
-
-# # Function to compute tf-idf-ratio score 
-
-# In[6]:
-
-
+# # Function to compute tf-idf-ratio score
 def union_set(doc_list):#1
     wordSet = set(doc_list[0])
     for i in range(1,len(doc_list)):
         wordSet=wordSet.union(set(doc_list[i]))
     return wordSet
-
 
 def create_wordDict_list(doc_list,wordSet):  #depends on how many documents we have
     wordDict_list = []
@@ -107,9 +38,6 @@ def create_wordDict_list(doc_list,wordSet):  #depends on how many documents we h
 
 def createPd(wordDict_list):
     return pd.DataFrame(wordDict_list)
-
-
-
 
 def computeIDF(docList):
     import math
@@ -133,7 +61,6 @@ def computeTFIDF(tfBow, idfs):
         tfidf[word] = val*idfs[word]
     return tfidf
 
-
 def populate_word_dic(wordDict_list,doc_parsed_list):
     for i in range(len(doc_parsed_list)):
         for word in doc_parsed_list[i]:
@@ -145,7 +72,6 @@ def computeTF(wordDict, bow):
     for word, count in wordDict.items():
         tfDict[word] = count/float(bowCount)
     return tfDict
-
 
 def computetf(wordDict_list,doc_list):
     tf_list = []
@@ -179,7 +105,6 @@ def computetf_hyper(wordDict_list,doc_list):
         tf_list.append(single_list)
     return tf_list
 
-
 def computeidf(wordDict_list):
     return computeIDF(wordDict_list)
 
@@ -190,7 +115,6 @@ def compute_tf_idf_list(tf_list,idfs):
         
     return tfidf_list
 
-
 def df_ifd_generator(doc_parsed_list_uni):
     wordSet = union_set(doc_parsed_list_uni)
     wordDict_list = create_wordDict_list(doc_parsed_list_uni,wordSet)
@@ -200,13 +124,8 @@ def df_ifd_generator(doc_parsed_list_uni):
     tfidf_list = compute_tf_idf_list(tflist,idflist)
     return pd.DataFrame(tfidf_list),pd.DataFrame(tflist)
 
-
 # # Create function to compute ratio
-
 # # First create another df only contains tf for each layer
-
-# In[7]:
-
 
 def compute_ratio_for_current_layer(tfidf_pd_list,tf_pd_list):
     #step1. choose a layer as target layer, set the rest layer as layers used to compute ratio
@@ -266,23 +185,19 @@ def generate_top_k_pd(ratio_list):
         list_store_top_layer_record.append(pd.Series(tmp_dic))
     return list_store_top_layer_record
 
-
 # # Generate tf-idf pandas
+with open('./output_data/tmp/meta_scraped_text.json', 'r') as lengths_file:
+    lengths = json.load(lengths_file)
+with open('./output_data/tmp/segmentation.txt', 'r') as scraped_input_file:
+    lines = scraped_input_file.readlines()
 
-# In[8]:
-
-
-doc_parsed_list1 = get_doc_parsed_list(path1,1)
-doc_parsed_list2 = get_doc_parsed_list(path2,2)
-doc_parsed_list3 = get_doc_parsed_list(path3,3)
+doc_parsed_list1 = create_parsed_list_in_one_layer(lines[0:lengths[0]])
+doc_parsed_list2 = create_parsed_list_in_one_layer(lines[lengths[0]:lengths[0] + lengths[1]])
+doc_parsed_list3 = create_parsed_list_in_one_layer(lines[lengths[0] + lengths[1]:])
 
 pd1,tflist1_pd= df_ifd_generator(doc_parsed_list1)
 pd2,tflist2_pd= df_ifd_generator(doc_parsed_list2)
 pd3,tflist3_pd= df_ifd_generator(doc_parsed_list3)
-
-
-# In[9]:
-
 
 tfidf_pd_list = []
 tfidf_pd_list.append(pd1)
@@ -293,88 +208,17 @@ tf_pd_list.append(tflist1_pd)
 tf_pd_list.append(tflist2_pd)
 tf_pd_list.append(tflist3_pd)
 
-
-# In[10]:
-
-
 ratio_list = compute_ratio_for_current_layer(tfidf_pd_list,tf_pd_list)
-
-
-# In[11]:
-
 
 final = generate_top_k_pd(ratio_list)
 
-
 # # find top k for layer1
-# # Save result to json file
+# # Save results to json file
+top_k_selected = 5
+a = final[0].nlargest(top_k_selected)
+b = final[1].nlargest(top_k_selected)
+c = final[2].nlargest(top_k_selected)
 
-# In[12]:
-
-
-final[0].nlargest(5)
-
-
-# In[13]:
-
-
-a = final[0].nlargest(10)
-
-
-# In[14]:
-
-
-a.to_json('./top_k_output/layer_1.json')
-
-
-# In[15]:
-
-
-a
-
-
-# # find top k for layer2
-
-# In[16]:
-
-
-final[1].nlargest(10)
-
-
-# In[17]:
-
-
-b = final[1].nlargest(10)
-
-
-# In[18]:
-
-
-b.to_json('./top_k_output/layer_2.json')
-
-
-# # find top k for layer3
-
-# In[19]:
-
-
-final[2].nlargest(10)
-
-
-# In[20]:
-
-
-c = final[2].nlargest(10)
-
-
-# In[21]:
-
-
-c.to_json('./top_k_output/layer_3.json')
-
-
-# In[ ]:
-
-
-
-
+phrases = [a, b, c]
+with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
+    json_out.write(json.dumps([df.to_dict() for df in phrases]))

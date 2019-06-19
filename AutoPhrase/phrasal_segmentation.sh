@@ -1,7 +1,8 @@
 MODEL=${MODEL:- "models/GraphSemantics"}
+OUTPUT_LOCATION=${OUTPUT_LOCATION:- ../output_data/tmp}
 TEXT_TO_SEG=${TEXT_TO_SEG:-../output_data/tmp/scraped_text.txt}
-HIGHLIGHT_MULTI=${HIGHLIGHT_MULTI:- 0.5}
-HIGHLIGHT_SINGLE=${HIGHLIGHT_SINGLE:- 0.8}
+HIGHLIGHT_MULTI=${HIGHLIGHT_MULTI:- 0.4}
+HIGHLIGHT_SINGLE=${HIGHLIGHT_SINGLE:- 0.9}
 
 SEGMENTATION_MODEL=${MODEL}/segmentation.model
 TOKEN_MAPPING=${MODEL}/token_mapping.txt
@@ -72,6 +73,6 @@ fi
 ### END Segphrasing ###
 
 echo ${green}===Generating Output===${reset}
-java $TOKENIZER -m segmentation -i $TEXT_TO_SEG -segmented tmp/tokenized_segmented_sentences.txt -o ${MODEL}/segmentation.txt -tokenized_raw tmp/raw_tokenized_text_to_seg.txt -tokenized_id tmp/tokenized_text_to_seg.txt -c N
+java $TOKENIZER -m segmentation -i $TEXT_TO_SEG -segmented tmp/tokenized_segmented_sentences.txt -o ${OUTPUT_LOCATION}/segmentation.txt -tokenized_raw tmp/raw_tokenized_text_to_seg.txt -tokenized_id tmp/tokenized_text_to_seg.txt -c N
 
 ### END Generating Output for Checking Quality ###

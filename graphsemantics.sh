@@ -8,5 +8,9 @@ cd AutoPhrase/
 cd ..
 echo "=== AutoPhrase Finished ==="
 
-echo "=== Starting Phrase Analysis ==="
-echo "=== Phrase Analysis Finished ==="
+echo "=== Starting Phrase Selector ==="
+python3 ./phrase_selector.py
+echo "=== Phrase Selector Finished ==="
+
+# echo "=== Starting to Index Text to Elasticsearch ==="
+# echo "=== Indexing Text to Elasticsearch Finished ==="

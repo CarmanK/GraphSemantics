@@ -1,7 +1,6 @@
 __pycache__/
 elasticTest.py
 output_data/
-AutoPhrase/data/PubMed
 AutoPhrase/tmp
 AutoPhrase/data/combined.txt
 AutoPhrase/models/GraphSemantics/segmentation.txt
