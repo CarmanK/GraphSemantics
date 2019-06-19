@@ -214,7 +214,7 @@ final = generate_top_k_pd(ratio_list)
 
 # # find top k for layer1
 # # Save results to json file
-top_k_selected = 5
+top_k_selected = 10
 a = final[0].nlargest(top_k_selected)
 b = final[1].nlargest(top_k_selected)
 c = final[2].nlargest(top_k_selected)
