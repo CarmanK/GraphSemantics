@@ -1,38 +1,38 @@
 [
-    {
-        "sulfite": 1473772.3075447797,
-        "aromatic ring": 884263.7845268678,
-        "copper": 884263.7845268678,
-        "redox": 722911.9919994886,
-        "ATCC": 589509.5230179118,
-        "Desulfovibrio desulfuricans": 589509.5230179118,
-        "catalytic activity": 589509.5230179118,
-        "partially reduced": 589509.5230179118,
-        "photosystem II": 589509.5230179118,
-        "reaction": 589509.5230179118
-    },
-    {
-        "quaternary": 2789765.457881085,
-        "porphyrin": 1083167.4011897373,
-        "Thionville": 970778.732576574,
-        "alpha1beta2 interface": 858390.0639634106,
-        "et al": 812375.800892303,
-        "human": 676980.000743586,
-        "Bohr effect": 647186.1550510493,
-        "deoxy Hb": 647186.1550510493,
-        "sulfate": 647186.1550510493,
-        "alpha and beta": 541584.2005948686
-    },
-    {
-        "NOX": 1847498.8088176714,
-        "gas": 615833.6029392238,
-        "nitric oxide": 615833.6029392238,
-        "polar": 615833.6029392238,
-        "sensor": 615833.6029392238,
-        "Aromatic Residue": 307917.3014696119,
-        "Binding Site": 307917.3014696119,
-        "C-Type Cytochromes": 307917.3014696119,
-        "Coarse-grained molecular dynamics simulations": 307917.3014696119,
-        "Heme": 307917.3014696119
-    }
+    [
+        "sulfite",
+        "aromatic ring",
+        "copper",
+        "redox",
+        "ATCC",
+        "Desulfovibrio desulfuricans",
+        "catalytic activity",
+        "partially reduced",
+        "photosystem II",
+        "reaction"
+    ],
+    [
+        "quaternary",
+        "porphyrin",
+        "Thionville",
+        "alpha1beta2 interface",
+        "et al",
+        "human",
+        "Bohr effect",
+        "deoxy Hb",
+        "sulfate",
+        "alpha and beta"
+    ],
+    [
+        "NOX",
+        "gas",
+        "nitric oxide",
+        "polar",
+        "sensor",
+        "Aromatic Residue",
+        "Binding Site",
+        "C-Type Cytochromes",
+        "Coarse-grained molecular dynamics simulations",
+        "Heme"
+    ]
 ]

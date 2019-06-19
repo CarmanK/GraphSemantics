@@ -219,7 +219,22 @@ a = final[0].nlargest(top_k_selected)
 b = final[1].nlargest(top_k_selected)
 c = final[2].nlargest(top_k_selected)
 
-phrases = [a, b, c]
-# print(a)
+keys = []
+temp_keys = []
+temp = a.keys()
+for i in range(len(temp)):
+    temp_keys.append(temp[i])
+keys.append(temp_keys)
+temp_keys = []
+temp = b.keys()
+for i in range(len(temp)):
+    temp_keys.append(temp[i])
+keys.append(temp_keys)
+temp_keys = []
+temp = c.keys()
+for i in range(len(temp)):
+    temp_keys.append(temp[i])
+keys.append(temp_keys)
+
 with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
-    json_out.write(json.dumps([df.to_dict() for df in phrases], indent = 4))
+    json.dump(keys, json_out, indent = 4)

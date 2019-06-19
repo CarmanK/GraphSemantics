@@ -1,5 +1,5 @@
 echo "=== Scraping Data ==="
-# python3 ./scraper.py
+python3 ./scraper.py
 echo "=== Data Scraping Finished ==="
 
 echo "=== Starting AutoPhrase ==="
@@ -14,5 +14,3 @@ echo "=== Phrase Selecting Finished ==="
 
 # echo "=== Starting to Index Text to Elasticsearch ==="
 # echo "=== Indexing Text to Elasticsearch Finished ==="
-
-# eventually pass in the top-k phrases or decide on a best number

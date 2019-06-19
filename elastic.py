@@ -35,14 +35,9 @@ es = Elasticsearch()
 
 # Searches the elasticsearch data for every pair of phrases within the layer and outputs the top-k ids, and articles for every phrase to a json file
 top_k = 10 # Number of articles to return and output to the json
+
 with open('./output_data/tmp/selected_phrases.json', 'r') as input_file:
-    phrase_list = json.load(input_file)
-keylist = []
-for i in range(len(phrase_list)):
-    keys = []
-    for key in phrase_list[i]:
-        keys.append(key)
-    keylist.append(keys)
+    keylist = json.load(input_file)
 
 output = []
 for i in range(len(keylist)):
