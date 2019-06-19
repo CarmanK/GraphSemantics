@@ -33,8 +33,6 @@ es = Elasticsearch()
 # es.indices.refresh(index = "pubmed")
 
 # Searches the elasticsearch data for every pair of phrases within the layer and outputs the top-k ids, and articles for every phrase to a json file
-if not os.path.exists('output_data'):
-    os.mkdir('output_data')
 k = 10 # Number of articles to return and output to the json
 input_files = [
     "layer_1.json",

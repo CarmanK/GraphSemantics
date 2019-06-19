@@ -1,6 +1,7 @@
-test.py
 __pycache__/
 elasticTest.py
-xawx.txt
-10.txt
-105.txt
+output_data/
+AutoPhrase/data/PubMed
+AutoPhrase/tmp
+AutoPhrase/data/combined.txt
+AutoPhrase/models/GraphSemantics/segmentation.txt
