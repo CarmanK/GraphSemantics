@@ -4,17 +4,18 @@ Traverse an Abello fixed point. Scrape the metadata associated with each vertex.
 # Documentation
 Note that this is currently a proof of concept and much of the code is messy and unorganized and doesn't transition fluenty yet. This documentation was also written fairly quickly.
 
+The entire process will eventually be able to run all sequentially once everything is finished in the graphsemantics.sh script. This will be machine dependant due to the use of elasticsearch!
+
 ## Step 1
 1. scraper.py takes lists of urls associated with each layer (the metadata for each protein vertex) and uses the functions defined in html_requests.py to scrape the title and abstract of the associated PubMed publication.
 
   * This is currently specific to this component for scraping the exact paragraph and header associated with the title and abstract of the publication.
-  * The output is named scrapedText.txt and is in the following format:
-     * layer number
-     * title
-     * abstract
-   * This output should probably be converted to a json list of lists where the first index is the layer number and the title and abstract are combined in another list in thatlayer.
+  * The output is stored in two places:
+     * output_data/tmp/scraped_text.txt: each line is in the form title + ' ' + abstract for each website
+     * output_data/tmp/meta_scraped_text.txt: a list of the lengths of the various layers for use in decomposing the scraped_txt file back to layers later on.
 
-2. The scrapedText.txt is then run through AutoPhrase, which was trained on a 1GB file containing various other PubMed abstracts, and output to segmentation.txt. This text file tags all of the important phrases obtained from step 1.1.
+2. The scraped_text.txt is then run through AutoPhrase, which was trained on a 1GB file containing various other PubMed abstracts concatenated with the scraped text from the websites. The output is stored in AutoPhrases/models/GraphSemantics/egmentation.txt. This text file tags all of the important phrases obtained from step 1.1.
+   
 3. The jupiter file named step1.jpynb then extracts the phrases from segmentation.txt with regards to their respective layer and calculates the TF-IDF scores to select the top-k phrases per layer.
 
   * The k we chose for this proof of concept was 10. This k should be tinkered with for more efficient computations.

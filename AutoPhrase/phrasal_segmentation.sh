@@ -1,5 +1,5 @@
 MODEL=${MODEL:- "models/GraphSemantics"}
-TEXT_TO_SEG=${TEXT_TO_SEG:-data/PubMed/scrapedText.txt}
+TEXT_TO_SEG=${TEXT_TO_SEG:-../output_data/tmp/scraped_text.txt}
 HIGHLIGHT_MULTI=${HIGHLIGHT_MULTI:- 0.5}
 HIGHLIGHT_SINGLE=${HIGHLIGHT_SINGLE:- 0.8}
 
