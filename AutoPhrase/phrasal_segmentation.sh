@@ -2,7 +2,7 @@ MODEL=${MODEL:- "models/GraphSemantics"}
 OUTPUT_LOCATION=${OUTPUT_LOCATION:- ../output_data/tmp}
 TEXT_TO_SEG=${TEXT_TO_SEG:-../output_data/tmp/scraped_text.txt}
 HIGHLIGHT_MULTI=${HIGHLIGHT_MULTI:- 0.4}
-HIGHLIGHT_SINGLE=${HIGHLIGHT_SINGLE:- 0.9}
+HIGHLIGHT_SINGLE=${HIGHLIGHT_SINGLE:- 0.5}
 
 SEGMENTATION_MODEL=${MODEL}/segmentation.model
 TOKEN_MAPPING=${MODEL}/token_mapping.txt
