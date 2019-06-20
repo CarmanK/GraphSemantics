@@ -2,9 +2,10 @@
 Traverse an Abello fixed point. Scrape the metadata associated with each vertex. Use AutoPhrase to extract information about the data. Build a story of all of the data.
 
 # Documentation
-Note that this is currently a proof of concept and much of the code is messy and unorganized and doesn't transition fluenty yet. This documentation was also written fairly quickly.
+Note that this is currently a proof of concept and much of the code is still messy. This documentation was also written fairly quickly.
 
-The entire process will eventually be able to run all sequentially once everything is finished in the graphsemantics.sh script. This will be machine dependant due to the use of elasticsearch!
+## Running
+Simply run the graphsemantics shell script to sequentially run all of the different processes.
 
 ## Step 1
 1. scraper.py takes lists of urls associated with each layer (the metadata for each protein vertex) and uses the functions defined in html_requests.py to scrape the title and abstract of the associated PubMed publication.
@@ -16,17 +17,14 @@ The entire process will eventually be able to run all sequentially once everythi
 
 2. The scraped_text.txt is then run through AutoPhrase, which was trained on a 1GB file containing various other PubMed abstracts concatenated with the scraped text from the websites. The output is stored in ../output_data/tmp/segmentation.txt. This text file tags all of the important phrases obtained from step 1.1.
    
-3. The jupiter file named phrase_selector.py then extracts the phrases from segmentation.txt with regards to their respective layer and calculates the TF-IDF scores to select the top-k phrases per layer.
+3. The phrase_selector.py then extracts the phrases from segmentation.txt with regards to their respective layer and calculates the TF-IDF scores to select the top-k phrases per layer.
 
   * The k we chose for this proof of concept was 10. This k should be tinkered with for more efficient computations.
 
 ## Step 2
-1. elastic.py then indexes all of the titles + abstracts obtained in step 1.1 to our elasticsearch index.
+1. elastic_indexer.py then indexes all of the titles + abstracts obtained in step 1.1 to our elasticsearch index.
 
-  * Currently, our indexing is in one file combined with the querying, and is not in function form, and should be separated and cleaned up.
-  * elastic.py should use the count() method to obtain the current id for a specific index instead of just using the variable i like we did.
-
-2. elastic.py then takes the top-k output obtained from step 1.3 and queries every possible phrase combination in each layer in our indexed abstracts. The top-k articles are then jumped to a json file.
+2. elastic_querier.py then takes the top-k phrases obtained from step 1.3 and queries every possible phrase combination in each layer in our elasticsearch. The top-k articles are then dumped to a json file.
    
   * The current output format is:
      * "phrase": phrases
@@ -34,14 +32,12 @@ The entire process will eventually be able to run all sequentially once everythi
   * The output is stored as ./output_data/tmp/article_pool.json.
   * We are still currently playing around with the value of k for the pool of articles. We have tried 10 and 50 so far, but the next step is computationally heavy, so there needs to be a healthy balance.
 
-3. The last step takes the output_data folder and computes the BM25 score to find which sentences cover the most unique phrases.
+3. The last step takes the article_pool.json and uses a greedy algorithm to find which sentences cover the most unique phrases and generate a summary.
 
-  * This step can be optimized to be more efficient.
+  * The output is stored in ./output_data/summaries.json as a list of lists for each summaries of each layer.
 
 ## Thoughts/changes for future iterations
 * tweek the values of our k
-* upload 100MB to elasticsearch instead of only 10MB
 * phrase_selector.py needs to be cleaned up and be made scalable/more efficient
-* The elastic search step needs to be broken into two steps
-  * First, the unique, newly scraped text needs to be indexed by elasticsearch
-  * Second, the pairs need to be queried and the article pool needs to be built
+* summarizer.py needs to tweak its output to one file
+* needs a requirements document

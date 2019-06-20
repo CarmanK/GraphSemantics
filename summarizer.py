@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[39]:
-
-
 import pandas as pd
 import numpy as np
 import csv
@@ -14,62 +10,28 @@ from rank_bm25 import BM25Okapi
 import json
 from termcolor import colored
 
-
 # # Read the json file from kevin
-
-# In[40]:
-
 
 with open('./output_data/tmp/article_pool.json', 'r') as input_file:
     phrase_list = json.load(input_file)
 
-
-# In[41]:
-
-
 data_df_layer_1 = pd.DataFrame(phrase_list[2])
-
-
-# In[42]:
-
 
 #get the layer number
 layer_num = len(phrase_list)
 
-
 # # Find the pair of unique phrase in layer1
-
-# In[43]:
-
-
 unique_phrase_list = np.unique(data_df_layer_1['phrase'].values)
-
-
-# In[44]:
-
-
 unique_phrase_list
 
 
 # # Find the unique phrase in layer 1
-
-# In[45]:
-
-
 p_list = list(pd.read_json('./output_data/tmp/selected_phrases.json',typ='series')[0])
-
-
-# In[46]:
-
 
 p_list
 
 
 # # Create list of list(unique phrase) for current pair
-
-# In[47]:
-
-
 #loop throught every pair of phrase
 list_of_phrase_list = []
 for i in range(len(unique_phrase_list)):
@@ -78,10 +40,6 @@ for i in range(len(unique_phrase_list)):
         if p_list[j] in unique_phrase_list[i]:
             tmplist.append(p_list[j])
     list_of_phrase_list.append(tmplist)
-
-
-# In[48]:
-
 
 def create_sentece_list(unique_phrase_list):
     list_of_phrase_list = []
@@ -107,9 +65,6 @@ def create_sentece_list(unique_phrase_list):
 # # recompute the BM25 in unused sentence pool
 # # and iterate all sentece until all phrase been coverd
 
-# In[49]:
-
-
 #create the article pool now
 article_list = data_df_layer_1['article'].values
 #for each article, find all sentence
@@ -127,10 +82,6 @@ for i in range(len(article_list)):
         s_count +=1
 list_sentence = np.unique(list_sentence)
 
-
-# In[50]:
-
-
 def create_sentence_pool(data_df_layer_1):
     article_list = data_df_layer_1['article'].values
     #for each article, find all sentence
@@ -147,10 +98,6 @@ def create_sentence_pool(data_df_layer_1):
             list_sentence.append(tmp_sentence_list[j])
             s_count +=1
     return np.unique(list_sentence)
-
-
-# In[51]:
-
 
 def BM25_score(sentence_list,unique_phrase_list,p_list):
     #at each iteration
@@ -262,10 +209,6 @@ def BM25_score(sentence_list,unique_phrase_list,p_list):
 
     return answer_sentence_list
 
-
-# In[52]:
-
-
 def set_cover(sentence_list,unique_phrase_list,p_list):
     #at each iteration
         #find the sentence that cover most number of unvisted phrase
@@ -320,10 +263,6 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
 #         print('len of remainng list', p_list)
     return answer_sentence_list
 
-
-# In[53]:
-
-
 def annotating_function(answer,p_list): #only mark the first occurance of a phrase exist in sentence
     #iter through every answer
     for i in range(len(answer)):
@@ -336,14 +275,11 @@ def annotating_function(answer,p_list): #only mark the first occurance of a phra
     for i in range(len(answer)):
         print('index :', i, '', answer[i] +'\n')
 
-
-# In[57]:
-
-
 def main_func():
     with open('./output_data/tmp/article_pool.json', 'r') as input_file:
         phrase_list = json.load(input_file)
     layer_num = len(phrase_list)  #how many layer
+    full_output = []
     for i in range(layer_num):
         data_df_layer_1 = pd.DataFrame(phrase_list[i])
         unique_phrase_list = np.unique(data_df_layer_1['phrase'].values)
@@ -352,30 +288,12 @@ def main_func():
         list_sentence = create_sentence_pool(data_df_layer_1)
         #run
         answer = set_cover(list(list_sentence),list(unique_phrase_list),p_list.copy())
-        #save it to json file
-        path = "./output_data/out_2d_layer_" + str(i) + '.json'
-
-        with open(path, 'w') as outfile:
-            json.dump(answer, outfile, indent = 4)
-            
+        full_output.append(answer)
         print('current layer is: ',i )
         annotating_function(answer.copy(),p_list)
 
+    with open('./output_data/summaries.json', 'w') as outfile:
+            json.dump(full_output, outfile, indent = 4)
 
-# In[58]:
-
-
+# Runs the entire program
 main_func()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
