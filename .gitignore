@@ -3,3 +3,4 @@ __pycache__/
 # output_data/
 AutoPhrase/tmp
 AutoPhrase/data/combined.txt
+input_data/100MB.txt

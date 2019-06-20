@@ -21,8 +21,10 @@ echo "=== Phrase Selecting Finished ==="
 # echo "=== Top Article Pooling Finished ==="
 
 # echo "=== Generating Summary ==="
+# python3 ./summarizer.py
 # echo "=== Summary Generating Finished ==="
 
 # delete the output_data/tmp directory?
 # don't forget to add the output_data directory back to .gitignore
 # possibly create a folder for all of the binaries that must be run and only leave the shell scripts outside
+# requirements document
