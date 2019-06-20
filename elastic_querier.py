@@ -3,11 +3,12 @@ from elasticsearch import Elasticsearch
 es = Elasticsearch()
 
 TOP_K = 10 # Number of articles to return per pair of phrase
+INDEX = 'pubmed'
 
 with open('./output_data/tmp/selected_phrases.json', 'r') as input_file:
     keylist = json.load(input_file)
 
-es.indices.refresh(index = 'pubmed')
+es.indices.refresh(index = INDEX)
 
 # Searches the elasticsearch data for every pair of phrases within the layer and outputs the top-k ids, and articles for every phrase to a json file
 output = []
@@ -16,7 +17,7 @@ for i in range(len(keylist)):
     for j in range(len(keylist[i])):
         for k in range(j, len(keylist[i])):
             if j != k:
-                result = es.search(index = 'pubmed', body = {
+                result = es.search(index = INDEX, body = {
                     'query': {
                         'match': {
                             'abstract': keylist[i][j] + ' ' + keylist[i][k]

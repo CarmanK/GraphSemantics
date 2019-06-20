@@ -3,37 +3,38 @@ es = Elasticsearch()
 
 INDEX = 'pubmed'
 
-# Allows all the newly indexed items to be searchable
-es.indices.refresh(index = INDEX)
-print(es.count(index = INDEX)['count'])
+with open('./output_data/tmp/scraped_text.txt', 'r') as scraped_file:
+    lines = scraped_file.readlines()
 
+try:
+    # Allows all the newly indexed items to be searchable
+    es.indices.refresh(index = INDEX)
+    count = es.count(index = INDEX)['count']
+except:
+    count = 0
 
-# res = es.search(index="test-index", body={"query": {"match_all": {}}})
-# print("Got %d Hits:" % res['hits']['total']['value'])
-# for hit in res['hits']['hits']:
-#     print("%(timestamp)s %(author)s: %(text)s\n %(title)s" % hit["_source"])
+# Index the unique data that is scraped from the website
+# May just index duplicates in the future to reduce the massive computation time
+duplicate_counter = 0
+for line in lines:
+    result = es.search(index = INDEX, body = {
+        'query': {
+            'match': {
+                'abstract': {
+                    'query': line[:-1],
+                    'operator': 'and'
+                }
+            }
+        }
+    }, size = 1)
+    if result['hits']['total']['value'] >= 1:
+        duplicate_counter += 1
+    else:
+        # Index the unique data
+        es.index(index = INDEX, id = count, body = {
+            'abstract': line[:-1]
+        })
+        count += 1
+        es.indices.refresh(index = INDEX)
 
-# Allows all the newly indexed items to be searchable
-# es.indices.refresh(index = "pubmed")
-
-# Searches for all documents indexed as 'pubmed' and prints the results
-# res = es.search(index = "pubmed") #Defaults size to 10
-# print("Got %d Hits:" % res['hits']['total']['value'])
-
-# res = es.count(index = "pubmed")
-# print(res)
-
-
-# Searches for all documents indexed as 'pubmed' and prints the results
-# res = es.search(index = "pubmed") # Defaults size to 10
-# print("Got %d Hits" % res['hits']['total']['value'])
-# print(res)
-# for hit in res['hits']['hits']:
-#     print("Abstract: %(abstract)s" % hit["_source"])
-
-# res = es.count(index = "pubmed")
-# print("Count: " + res["count"])
-
-# res = es.get(index = "pubmed", id = 24)
-# print(res)
-
+print(str(len(lines) - duplicate_counter) + ' unique documents indexed.')

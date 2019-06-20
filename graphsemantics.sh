@@ -13,15 +13,15 @@ python3 ./phrase_selector.py
 echo "=== Phrase Selecting Finished ==="
 
 # echo "=== Indexing Scraped Text to Elasticsearch ==="
-# python3 ./elastic_indexer.py
+python3 ./elastic_indexer.py
 # echo "=== Scraped Text Indexing to Elasticsearch Finished ==="
 
 # echo "=== Pooling Top Articles ==="
-# python3 ./elastic_querier.py
+python3 ./elastic_querier.py
 # echo "=== Top Article Pooling Finished ==="
 
 # echo "=== Generating Summary ==="
-# python3 ./summarizer.py
+python3 ./summarizer.py
 # echo "=== Summary Generating Finished ==="
 
 # delete the output_data/tmp directory?
