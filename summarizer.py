@@ -353,10 +353,10 @@ def main_func():
         #run
         answer = set_cover(list(list_sentence),list(unique_phrase_list),p_list.copy())
         #save it to json file
-        path = "./output_data/out_2d_layer_" + str(i)
+        path = "./output_data/out_2d_layer_" + str(i) + '.json'
 
         with open(path, 'w') as outfile:
-            json.dump(answer, outfile)
+            json.dump(answer, outfile, indent = 4)
             
         print('current layer is: ',i )
         annotating_function(answer.copy(),p_list)
