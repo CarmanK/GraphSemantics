@@ -1,38 +1,38 @@
 [
     [
-        "MccA",
-        "Sr",
-        "PSII",
         "sulfite",
-        "3",
-        "Ca",
         "aromatic ring",
-        "c",
-        "reduction",
-        "1.9"
+        "copper",
+        "redox",
+        "ATCC",
+        "Desulfovibrio desulfuricans",
+        "catalytic activity",
+        "kinetics",
+        "partially reduced",
+        "photosystem II"
     ],
     [
         "quaternary",
-        "T",
-        "haems",
-        "transitions",
-        "constraints",
-        "about",
-        "dimer",
         "porphyrin",
-        "associated",
-        "Thionville"
+        "Thionville",
+        "alpha1beta2 interface",
+        "et al",
+        "human",
+        "Bohr effect",
+        "deoxy Hb",
+        "sulfate",
+        "alpha and beta"
     ],
     [
-        "H",
-        "NO",
         "NOX",
-        "quinol",
-        "coordinate",
-        "menaquinol",
-        "five",
         "gas",
-        "heme pocket",
-        "nitric oxide"
+        "nitric oxide",
+        "sensor",
+        "Aromatic Residue",
+        "Binding Site",
+        "C-Type Cytochromes",
+        "Coarse-grained molecular dynamics simulations",
+        "Heme",
+        "Membrane-bound"
     ]
 ]

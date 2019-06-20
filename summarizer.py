@@ -17,6 +17,7 @@ from gensim.summarization.bm25 import get_bm25_weights
 from rank_bm25 import BM25Okapi
 import json
 from termcolor import colored
+import re
 
 #%% [markdown]
 # # Read the json file from kevin
@@ -122,7 +123,7 @@ def create_sentence_pool(data_df_layer_1):
     s_count = 0 #sentence index
     for i in range(len(article_list)):
         #for every sentence, if not in sentence_list, push sentence in list
-        tmp_sentence_list = article_list[i].split(".")
+        tmp_sentence_list = re.split('(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', article_list[i])
         for j in range(len(tmp_sentence_list)):
 #          if tmp_sentence_list[j] not in article_list:
             sentence_dic[s_count] = tmp_sentence_list[j]
