@@ -37,7 +37,6 @@ Simply run the graphsemantics shell script to sequentially run all of the differ
   * The output is stored in ./output_data/summaries.json as a list of lists for each summaries of each layer.
 
 ## Thoughts/changes for future iterations
-* tweek the values of our k
+* tweak the values of our k
 * phrase_selector.py needs to be cleaned up and be made scalable/more efficient
-* summarizer.py needs to tweak its output to one file
 * needs a requirements document
