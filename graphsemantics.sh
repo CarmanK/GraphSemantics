@@ -1,6 +1,6 @@
-# echo "=== Scraping Data ==="
-# python3 ./scraper.py
-# echo "=== Data Scraping Finished ==="
+echo "=== Scraping Data ==="
+python3 ./scraper.py
+echo "=== Data Scraping Finished ==="
 
 echo "=== Starting AutoPhrase ==="
 cd AutoPhrase/
@@ -12,9 +12,9 @@ echo "=== Selecting Phrases ==="
 python3 ./phrase_selector.py
 echo "=== Phrase Selecting Finished ==="
 
-# echo "=== Indexing Scraped Text to Elasticsearch ==="
-# python3 ./elastic_indexer.py
-# echo "=== Scraped Text Indexing to Elasticsearch Finished ==="
+echo "=== Indexing Scraped Text to Elasticsearch ==="
+python3 ./elastic_indexer.py
+echo "=== Scraped Text Indexing to Elasticsearch Finished ==="
 
 echo "=== Pooling Top Articles ==="
 python3 ./elastic_querier.py

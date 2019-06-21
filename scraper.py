@@ -23,6 +23,8 @@ with open('./input_data/links.json', 'r') as input_file:
                     html_titles = html.find(id = 'primarycitation')
                     if html_titles is not None:
                         title = html_titles.select('h4')[0].text
+                        if title[-1:] is not '.':
+                            title += '.'
                     else:
                         title = ''
                         print('Error finding title data at ' + urls[i][j])
