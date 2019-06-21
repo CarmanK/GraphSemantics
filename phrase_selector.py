@@ -191,50 +191,34 @@ with open('./output_data/tmp/meta_scraped_text.json', 'r') as lengths_file:
 with open('./output_data/tmp/segmentation.txt', 'r') as scraped_input_file:
     lines = scraped_input_file.readlines()
 
-doc_parsed_list1 = create_parsed_list_in_one_layer(lines[0:lengths[0]])
-doc_parsed_list2 = create_parsed_list_in_one_layer(lines[lengths[0]:lengths[0] + lengths[1]])
-doc_parsed_list3 = create_parsed_list_in_one_layer(lines[lengths[0] + lengths[1]:])
-
-pd1,tflist1_pd= df_ifd_generator(doc_parsed_list1)
-pd2,tflist2_pd= df_ifd_generator(doc_parsed_list2)
-pd3,tflist3_pd= df_ifd_generator(doc_parsed_list3)
+total = 0
+doc_parsed_lists = []
+for length in lengths:
+    doc_parsed_lists.append(create_parsed_list_in_one_layer(lines[total:total + length]))
+    total += length
 
 tfidf_pd_list = []
-tfidf_pd_list.append(pd1)
-tfidf_pd_list.append(pd2)
-tfidf_pd_list.append(pd3)
 tf_pd_list = []
-tf_pd_list.append(tflist1_pd)
-tf_pd_list.append(tflist2_pd)
-tf_pd_list.append(tflist3_pd)
+for doc_parsed_list in doc_parsed_lists:
+    pd1, tflist_pd = df_ifd_generator(doc_parsed_list)
+    tfidf_pd_list.append(pd1)
+    tf_pd_list.append(tflist_pd)
 
-ratio_list = compute_ratio_for_current_layer(tfidf_pd_list,tf_pd_list)
+ratio_list = compute_ratio_for_current_layer(tfidf_pd_list, tf_pd_list)
+final_list = generate_top_k_pd(ratio_list)
 
-final = generate_top_k_pd(ratio_list)
+top_list = []
+TOP_K_SELECTED = 10
+for final in final_list:
+    top_list.append(final.nlargest(TOP_K_SELECTED))
 
-# # find top k for layer1
-# # Save results to json file
-top_k_selected = 10
-a = final[0].nlargest(top_k_selected)
-b = final[1].nlargest(top_k_selected)
-c = final[2].nlargest(top_k_selected)
-
-keys = []
-temp_keys = []
-temp = a.keys()
-for i in range(len(temp)):
-    temp_keys.append(temp[i])
-keys.append(temp_keys)
-temp_keys = []
-temp = b.keys()
-for i in range(len(temp)):
-    temp_keys.append(temp[i])
-keys.append(temp_keys)
-temp_keys = []
-temp = c.keys()
-for i in range(len(temp)):
-    temp_keys.append(temp[i])
-keys.append(temp_keys)
+keys_list = []
+for top in top_list:
+    temp_keys = []
+    temp = top.keys()
+    for i in range(len(temp)):
+        temp_keys.append(temp[i])
+    keys_list.append(temp_keys)
 
 with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
-    json.dump(keys, json_out, indent = 4)
+    json.dump(keys_list, json_out, indent = 4)

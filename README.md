@@ -35,8 +35,3 @@ Simply run the graphsemantics shell script to sequentially run all of the differ
 3. The last step takes the article_pool.json and uses a greedy algorithm to find which sentences cover the most unique phrases and generate a summary.
 
   * The output is stored in ./output_data/summaries.json as a list of lists for each summaries of each layer.
-
-## Thoughts/changes for future iterations
-* tweak the values of our k
-* phrase_selector.py needs to be cleaned up and be made scalable/more efficient
-* needs a requirements document
