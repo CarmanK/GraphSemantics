@@ -185,7 +185,7 @@ def generate_top_k_pd(ratio_list):
         list_store_top_layer_record.append(pd.Series(tmp_dic))
     return list_store_top_layer_record
 
-# # Generate tf-idf pandas
+# Generate tf-idf pandas
 with open('./output_data/tmp/meta_scraped_text.json', 'r') as lengths_file:
     lengths = json.load(lengths_file)
 with open('./output_data/tmp/segmentation.txt', 'r') as scraped_input_file:
@@ -207,11 +207,13 @@ for doc_parsed_list in doc_parsed_lists:
 ratio_list = compute_ratio_for_current_layer(tfidf_pd_list, tf_pd_list)
 final_list = generate_top_k_pd(ratio_list)
 
+# Select the TOP_K_SELECTED amount of phrases with a buffer of 10
 top_list = []
 TOP_K_SELECTED = 10
 for final in final_list:
-    top_list.append(final.nlargest(TOP_K_SELECTED))
+    top_list.append(final.nlargest(TOP_K_SELECTED + 10))
 
+# Convert the Series into a list of keys
 keys_list = []
 for top in top_list:
     temp_keys = []
@@ -220,5 +222,26 @@ for top in top_list:
         temp_keys.append(temp[i])
     keys_list.append(temp_keys)
 
+
+# Check the buffered amount of selected keys against the stopwords.txt file to ensure better quality phrases
+with open('./AutoPhrase/data/EN/stopwords.txt', 'r') as stopwords_file:
+    stopwords = stopwords_file.readlines()
+
+for i in range(len(keys_list)):
+    temp = []
+    for j in range(len(keys_list[i])):
+        for word in stopwords:
+            if keys_list[i][j] == word:
+                temp.append(j)
+                print('The selected phrase "' + word + '" was indetified as a stopword and removed.')
+                break
+    for j in temp:
+        del keys_list[i][j]
+
+# Remove the buffer
+for layer in range(len(keys_list)):
+    keys_list[layer] = keys_list[layer][:TOP_K_SELECTED]
+
+# Output the TOP_K_SELECTED phrases from each layer to a json file
 with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
     json.dump(keys_list, json_out, indent = 4)
