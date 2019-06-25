@@ -236,7 +236,12 @@ for i in range(len(keys_list)):
                 print('The selected phrase "' + word + '" was indetified as a stopword and removed.')
                 break
     for j in temp:
-        del keys_list[i][j]
+        # Ensure that at least K phrases are selected
+        if len(keys_list[i]) <= TOP_K_SELECTED:
+            print("Warning: Selected phrase quality may be lower than normal.")
+            break
+        else:
+            del keys_list[i][j]
 
 # Remove the buffer
 for layer in range(len(keys_list)):
