@@ -18,6 +18,8 @@ from rank_bm25 import BM25Okapi
 import json
 from termcolor import colored
 import re
+import itertools
+from functools import reduce
 
 #%% [markdown]
 # # Read the json file from kevin
@@ -300,6 +302,51 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
     return answer_sentence_list
 
 
+def ven_diagram(list_sentence,unique_phrase_list,p_list):
+    #generate the list of list
+    list_of_list_com = []
+    counter = len(p_list)
+    while counter > 0:
+        list_of_list_com.append(list(itertools.combinations(p_list,counter)))
+        counter-=1
+        
+    #venn cover
+    len_p_list = len(p_list)#len of p_list
+    #find the sentence that matches current cover
+    ans = []
+    for i in range(len(list_of_list_com)):
+        for j in range(len(list_of_list_com[i])):
+            #find the phrase list that not in com_list
+            cur_list = list(list_of_list_com[i][j])
+            not_in_list = []
+            for pos in range(len(p_list)):
+                if p_list[pos] not in cur_list:
+                    not_in_list.append(p_list[pos])
+            
+            #find the sentence that cover all phrase in list_of_list_com[i][j] and not covered in not_in_list
+            for p in  range(len(list_sentence)):
+                flag_good = True
+                flag_good_filter = True
+                for q in range(len(cur_list)):
+                    if cur_list[q] not in list_sentence[p]:
+                        flag_good = False
+                        break
+                for g in range(len(not_in_list)):
+                    if not_in_list[g] in list_sentence[p]:
+                        flag_good_filter = False
+                        break
+                #pass all exam
+                #push current setence to result
+                if flag_good==True and flag_good_filter==True and list_sentence[p] not in ans:
+                    ans.append(list_sentence[p])
+                    
+        print('combination:',len_p_list,' choose ',len_p_list - i,' current lengh of ans is', len(ans))
+                    
+    return ans
+
+
+
+
 #%%
 def annotating_function(answer,p_list): #only mark the first occurance of a phrase exist in sentence
     #iter through every answer
@@ -327,7 +374,7 @@ def main_func():
 #         list_of_phrase_list =  create_sentece_list(unique_phrase_list)
         list_sentence = create_sentence_pool(data_df_layer_1)
         #run
-        answer = set_cover(list(list_sentence),list(unique_phrase_list),p_list.copy())
+        answer = ven_diagram(list(list_sentence),list(unique_phrase_list),p_list.copy())  #i change this to van diagram 7/1/2019
         full_output.append(answer)          
         print('current layer is: ',i )
         annotating_function(answer.copy(),p_list)
