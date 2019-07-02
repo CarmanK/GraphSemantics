@@ -2,6 +2,9 @@ import json
 from bs4 import BeautifulSoup
 import math
 from collections import Counter
+from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize, word_tokenize
+ps = PorterStemmer()
 
 TOP_K_SELECTED = 10 # Adjust this value to the desired number of phrases to return
 
@@ -17,13 +20,29 @@ def main():
     for length in lengths:
         parsed_list.append(parse_phrases(lines[total:total + length]))
         total += length
+    # print(parsed_list)
 
-    print(parsed_list)
+    # Stem all of the phrases
+    stem_list = []
+    for i in range(len(parsed_list)):
+        stem_list.append(stem_phrases(parsed_list[i]))
+    # print(stem_list)
 
-    # tf_list = []
-    # for 
-    # cnt = Counter(parsed_list[0][0])
-    # print(cnt)
+    # Count the Stems
+    stem_frequency = []
+    for i in range(len(stem_list)):
+        stem_frequency.append(stem_counter(stem_list[i]))
+    # print(stem_frequency)
+
+    # Compute the TF score
+    total = 0
+    length_index = 0
+    tf_scores = []
+    for i in range(len(stem_frequency)):
+        tf_scores.append(tf_calculator(stem_frequency[i], lines[total:total + lengths[length_index]]))
+        total += lengths[length_index]
+        length_index += 1
+    # print(tf_scores)
 
 def parse_phrases(text):
     '''
@@ -33,11 +52,57 @@ def parse_phrases(text):
     layer = []
     for i in range(len(text)):
         temp_list = []
-        soup = BeautifulSoup(text[i], 'lxml')
+        soup = BeautifulSoup(text[i])
         for j in soup.find_all(['phrase']):
             temp_list.append(j.get_text().lower())
         layer.append(temp_list)
     return layer
+
+def stem_phrases(unstemmed_layer):
+    '''
+    Stem all of the phrases in a given layer
+    Return the stemmed phrases
+    '''
+    stemmed_layer = []
+    for i in range(len(unstemmed_layer)):
+        temp_stemmed_phrase_list = []
+        for phrase in unstemmed_layer[i]:
+            temp_stemmed_phrase_list.append(ps.stem(phrase))
+        stemmed_layer.append(temp_stemmed_phrase_list)
+    return stemmed_layer
+
+def stem_counter(stemmed_layer):
+    '''
+    Count all of the unique stems in the layer
+    Return the layer in counted form
+    '''
+    counted_layer = []
+    for i in range(len(stemmed_layer)):
+        counted_layer.append(Counter(stemmed_layer[i]))
+    return counted_layer
+
+def tf_calculator(counted_layer, documents):
+    '''
+    Calculate the term frequency value for each phrase in the layer
+    Return the term frequency values for the layer
+    '''
+
+    # Determine the lengths of the documents in the layer
+    document_lengths = []
+    for sentence in documents:
+        document_lengths.append(len(sentence.split(' ')))
+
+    # Computer the term frequency value in the layer
+    document_length_index = 0
+    layer_tf_score = []
+    for i in range(len(counted_layer)):
+        temp_tf_score = []
+        for key in list(counted_layer[i].keys()):
+            temp_tf_score.append(counted_layer[i][key] / document_lengths[document_length_index])
+        document_length_index += 1
+        temp_tf_score.sort(reverse = True)
+        layer_tf_score.append(temp_tf_score)
+    return layer_tf_score
 
 if __name__ == '__main__':
     main()
