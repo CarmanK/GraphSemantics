@@ -7,6 +7,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 ps = PorterStemmer()
 
 TOP_K_SELECTED = 10 # Adjust this value to the desired number of phrases to return
+BUFFER = 10 # This value shoudn't need to be adjusted. Its purpose is to lower the computation required for filtering the stopwords from the selected phrases.
 
 def main():
     with open('./output_data/tmp/segmentation.txt', 'r') as segmentation_file:
@@ -56,12 +57,21 @@ def main():
     combined_stem_tf = []
     for i in range(len(stem_frequency)):
         combined_stem_tf.append(combine_stem_tf(stem_frequency[i], tf_scores[i]))
-    print(combined_stem_tf)
+    # print(combined_stem_tf)
 
-    # Normalize the TF score
-
+    # Maximize the TF score
+    maximized_tf_score = []
+    for i in range(len(combined_stem_tf)):
+        maximized_tf_score.append(tf_max(combined_stem_tf[i]))
+    # print(maximized_tf_score)
 
     # Compute the TF-IDF score and combine the format to [[{'phrase':TF-IDF}]]
+    tf_idf_score = []
+    for i in range(len(maximized_tf_score)):
+        tf_idf_score.append(tf_idf_calculator(idf_scores[i], maximized_tf_score[i]))
+    # print(tf_idf_score)
+
+    # Choose the TOP-K phrases
 
 
     # Filter the stopwords
@@ -160,6 +170,43 @@ def combine_stem_tf(stem_frequency_layer, tf_score_layer):
             index += 1
         combined_list.append(temp_document)
     return combined_list
+
+def tf_max(combined_stem_tf_layer):
+    '''
+    Find the maximum tf score for each phrase in the layer
+    Return the maximum tf score for each phrase in the layer
+    '''
+    unique_phrase_list = []
+    max_tf_list = []
+    for i in range(len(combined_stem_tf_layer)):
+        for j in range(len(combined_stem_tf_layer[i])):
+            key = list(combined_stem_tf_layer[i][j].keys())[0]
+            # Search for the maximum TF score for each key
+            if key not in unique_phrase_list:
+                max_tf = combined_stem_tf_layer[i][j][key]
+                for k in range(len(combined_stem_tf_layer)):
+                    for m in range(len(combined_stem_tf_layer[k])):
+                        if key in list(combined_stem_tf_layer[k][m].keys()) and combined_stem_tf_layer[k][m][key] > max_tf:
+                            max_tf = combined_stem_tf_layer[k][m][key]
+                unique_phrase_list.append(key)
+                max_tf_list.append(max_tf)
+    
+    # Combine the unique phrases with their respective max score
+    maximized_tf_scores = []
+    for i in range(len(unique_phrase_list)):
+        maximized_tf_scores.append({unique_phrase_list[i]: max_tf_list[i]})
+    return maximized_tf_scores
+
+def tf_idf_calculator(idf_scores_layer, maximized_tf_scores_layer):
+    '''
+    Compute the TF-IDF score for each phrase in the layer
+    Return the TF-IDF scores for the layer
+    '''
+    tf_idf_scores = []
+    for i in range(len(idf_scores_layer)):
+        key = list(idf_scores_layer[i].keys())[0]
+        tf_idf_scores.append({key: idf_scores_layer[i][key] * maximized_tf_scores_layer[i][key]})
+    return tf_idf_scores
 
 if __name__ == '__main__':
     main()
