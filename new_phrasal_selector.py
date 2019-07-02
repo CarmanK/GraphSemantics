@@ -52,10 +52,13 @@ def main():
         length_index += 1
     # print(idf_scores)
 
+    # Adjust the stem list to the format [[[{'phrase': TF_score}]]]
+    combined_stem_tf = []
+    for i in range(len(stem_frequency)):
+        combined_stem_tf.append(combine_stem_tf(stem_frequency[i], tf_scores[i]))
+    print(combined_stem_tf)
+
     # Normalize the TF score
-
-
-    # Update the stem_frequency list to the format [[{'phrase': TF_score},]]
 
 
     # Compute the TF-IDF score and combine the format to [[{'phrase':TF-IDF}]]
@@ -122,7 +125,6 @@ def tf_calculator(counted_layer, documents):
         for key in list(counted_layer[i].keys()):
             temp_tf_score.append(counted_layer[i][key] / document_lengths[document_length_index])
         document_length_index += 1
-        temp_tf_score.sort(reverse = True)
         layer_tf_score.append(temp_tf_score)
     return layer_tf_score
 
@@ -143,6 +145,21 @@ def idf_calculator(counted_layer, number_of_documents):
                         document_count += 1
                 layer_idf_score.append({key:math.log(number_of_documents / document_count)})
     return layer_idf_score
+
+def combine_stem_tf(stem_frequency_layer, tf_score_layer):
+    '''
+    Combine the stem_frequency list and the tf_score list to the format [[[{'phrase': TF_score}]]]
+    Return the newly formatted list
+    '''
+    combined_list = []
+    for i in range(len(stem_frequency_layer)):
+        index = 0
+        temp_document = []
+        for key in list(stem_frequency_layer[i].keys()):
+            temp_document.append({key:tf_score_layer[i][index]})
+            index += 1
+        combined_list.append(temp_document)
+    return combined_list
 
 if __name__ == '__main__':
     main()
