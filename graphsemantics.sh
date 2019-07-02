@@ -2,11 +2,11 @@
 # python3 ./scraper.py
 # echo "=== Data Scraping Finished ==="
 
-# echo "=== Starting AutoPhrase ==="
-# cd AutoPhrase/
-# ./phrasal_segmentation.sh
-# cd ..
-# echo "=== AutoPhrase Finished ==="
+echo "=== Starting AutoPhrase ==="
+cd AutoPhrase/
+./phrasal_segmentation.sh
+cd ..
+echo "=== AutoPhrase Finished ==="
 
 echo "=== Selecting Phrases ==="
 python3 ./phrase_selector.py
