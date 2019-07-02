@@ -28,7 +28,7 @@ def main():
         stem_list.append(stem_phrases(parsed_list[i]))
     # print(stem_list)
 
-    # Count the Stems
+    # Count the stems
     stem_frequency = []
     for i in range(len(stem_list)):
         stem_frequency.append(stem_counter(stem_list[i]))
@@ -44,6 +44,29 @@ def main():
         length_index += 1
     # print(tf_scores)
 
+    # Compute the IDF score
+    length_index = 0
+    idf_scores = []
+    for i in range(len(stem_frequency)):
+        idf_scores.append(idf_calculator(stem_frequency[i], lengths[length_index] + 1))
+        length_index += 1
+    # print(idf_scores)
+
+    # Normalize the TF score
+
+
+    # Update the stem_frequency list to the format [[{'phrase': TF_score},]]
+
+
+    # Compute the TF-IDF score and combine the format to [[{'phrase':TF-IDF}]]
+
+
+    # Filter the stopwords
+
+
+    # Output
+
+
 def parse_phrases(text):
     '''
     Parse the tagged phrases from the segmentated text file
@@ -52,7 +75,7 @@ def parse_phrases(text):
     layer = []
     for i in range(len(text)):
         temp_list = []
-        soup = BeautifulSoup(text[i])
+        soup = BeautifulSoup(text[i], 'lxml')
         for j in soup.find_all(['phrase']):
             temp_list.append(j.get_text().lower())
         layer.append(temp_list)
@@ -86,7 +109,6 @@ def tf_calculator(counted_layer, documents):
     Calculate the term frequency value for each phrase in the layer
     Return the term frequency values for the layer
     '''
-
     # Determine the lengths of the documents in the layer
     document_lengths = []
     for sentence in documents:
@@ -103,6 +125,24 @@ def tf_calculator(counted_layer, documents):
         temp_tf_score.sort(reverse = True)
         layer_tf_score.append(temp_tf_score)
     return layer_tf_score
+
+def idf_calculator(counted_layer, number_of_documents):
+    '''
+    Calculate the inverse document frequency for each unique phrase in the layer
+    Return a list of dictionaries in the format [{'phrase': idf_score}]
+    '''
+    unique_phrase_list = []
+    layer_idf_score = []
+    for i in range(len(counted_layer)):
+        for key in list(counted_layer[i].keys()):
+            if key not in unique_phrase_list:
+                unique_phrase_list.append(key)
+                document_count = 1
+                for j in range(1, len(counted_layer)):
+                    if key in list(counted_layer[j].keys()):
+                        document_count += 1
+                layer_idf_score.append({key:math.log(number_of_documents / document_count)})
+    return layer_idf_score
 
 if __name__ == '__main__':
     main()
