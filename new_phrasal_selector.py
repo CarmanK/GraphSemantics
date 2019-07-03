@@ -4,6 +4,7 @@ import math
 from collections import Counter
 from nltk.stem import PorterStemmer
 from nltk.tokenize import sent_tokenize, word_tokenize
+nltk.download()
 ps = PorterStemmer()
 
 TOP_K_SELECTED = 10 # Adjust this value to the desired number of phrases to return
@@ -256,7 +257,7 @@ def filter_stopwords(buffered_top_phrases_layer, stopwords):
             break
         else:
             del phrase_list[i]
-    return phrase_list[:TOP_K_SELECTED]
+    return phrase_list #[:TOP_K_SELECTED]
 
 if __name__ == '__main__':
     main()
