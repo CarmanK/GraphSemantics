@@ -75,7 +75,7 @@ def main():
     buffered_top_phrases = []
     for i in range(len(tf_idf_score)):
         buffered_top_phrases.append(choose_top_phrases(tf_idf_score[i]))
-    print(buffered_top_phrases)
+    # print(buffered_top_phrases)
 
     # Filter the stopwords
     with open('./AutoPhrase/data/EN/stopwords.txt', 'r') as stopwords_file:
