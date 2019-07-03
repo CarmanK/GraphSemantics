@@ -70,12 +70,12 @@ def main():
     for i in range(len(maximized_tf_score)):
         tf_idf_score.append(tf_idf_calculator(idf_scores[i], maximized_tf_score[i]))
     # print(tf_idf_score)
-# TODO bug with multiple layers getting copied here
+
     # Choose the TOP-K phrases
     buffered_top_phrases = []
     for i in range(len(tf_idf_score)):
-        buffered_top_phrases.append(choose_top_phrases(tf_idf_score))
-    # print(buffered_top_phrases)
+        buffered_top_phrases.append(choose_top_phrases(tf_idf_score[i]))
+    print(buffered_top_phrases)
 
     # Filter the stopwords
     with open('./AutoPhrase/data/EN/stopwords.txt', 'r') as stopwords_file:
@@ -225,9 +225,7 @@ def choose_top_phrases(tf_idf_scores_layer):
     Select the TOP K + BUFFER phrases
     Return the selected phrases
     '''
-    sorted_list = []
-    for i in range(len(tf_idf_scores_layer)):
-        sorted_list = sorted(tf_idf_scores_layer[i], key = lambda j: (j['score'], j['phrase']))
+    sorted_list = sorted(tf_idf_scores_layer, key = lambda j: (j['score'], j['phrase']))
     return sorted_list[:TOP_K_SELECTED + BUFFER]
 
 def filter_stopwords(buffered_top_phrases_layer, stopwords):
