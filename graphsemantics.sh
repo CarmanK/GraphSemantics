@@ -9,7 +9,7 @@ cd ..
 echo "=== AutoPhrase Finished ==="
 
 echo "=== Selecting Phrases ==="
-python3 ./phrase_selector.py
+python3 ./new_phrasal_selector.py
 echo "=== Phrase Selecting Finished ==="
 
 # echo "=== Indexing Scraped Text to Elasticsearch ==="

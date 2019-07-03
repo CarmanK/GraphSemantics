@@ -374,7 +374,7 @@ def main_func():
 #         list_of_phrase_list =  create_sentece_list(unique_phrase_list)
         list_sentence = create_sentence_pool(data_df_layer_1)
         #run
-        answer = ven_diagram(list(list_sentence),list(unique_phrase_list),p_list.copy())  #i change this to van diagram 7/1/2019
+        answer = set_cover(list(list_sentence),list(unique_phrase_list),p_list.copy())  #i change this to van diagram 7/1/2019
         full_output.append(answer)          
         print('current layer is: ',i )
         annotating_function(answer.copy(),p_list)

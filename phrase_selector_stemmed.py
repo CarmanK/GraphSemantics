@@ -4,7 +4,6 @@ import math
 from collections import Counter
 from nltk.stem import PorterStemmer
 from nltk.tokenize import sent_tokenize, word_tokenize
-nltk.download()
 ps = PorterStemmer()
 
 TOP_K_SELECTED = 10 # Adjust this value to the desired number of phrases to return
@@ -71,7 +70,7 @@ def main():
     for i in range(len(maximized_tf_score)):
         tf_idf_score.append(tf_idf_calculator(idf_scores[i], maximized_tf_score[i]))
     # print(tf_idf_score)
-
+# TODO bug with multiple layers getting copied here
     # Choose the TOP-K phrases
     buffered_top_phrases = []
     for i in range(len(tf_idf_score)):
@@ -257,7 +256,7 @@ def filter_stopwords(buffered_top_phrases_layer, stopwords):
             break
         else:
             del phrase_list[i]
-    return phrase_list #[:TOP_K_SELECTED]
+    return phrase_list[:TOP_K_SELECTED]
 
 if __name__ == '__main__':
     main()
