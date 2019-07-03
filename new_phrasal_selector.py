@@ -72,13 +72,22 @@ def main():
     # print(tf_idf_score)
 
     # Choose the TOP-K phrases
-
+    buffered_top_phrases = []
+    for i in range(len(tf_idf_score)):
+        buffered_top_phrases.append(choose_top_phrases(tf_idf_score))
+    # print(buffered_top_phrases)
 
     # Filter the stopwords
-
+    with open('./AutoPhrase/data/EN/stopwords.txt', 'r') as stopwords_file:
+        stopwords = stopwords_file.readlines()
+    filtered_top_phrases = []
+    for i in range(len(buffered_top_phrases)):
+        filtered_top_phrases.append(filter_stopwords(buffered_top_phrases[i], stopwords))
+    # print(filtered_top_phrases)
 
     # Output
-
+    with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
+        json.dump(filtered_top_phrases, json_out, indent = 4)
 
 def parse_phrases(text):
     '''
@@ -205,8 +214,49 @@ def tf_idf_calculator(idf_scores_layer, maximized_tf_scores_layer):
     tf_idf_scores = []
     for i in range(len(idf_scores_layer)):
         key = list(idf_scores_layer[i].keys())[0]
-        tf_idf_scores.append({key: idf_scores_layer[i][key] * maximized_tf_scores_layer[i][key]})
+        tf_idf_scores.append({
+                'phrase': key,
+                'score': idf_scores_layer[i][key] * maximized_tf_scores_layer[i][key]
+            })
     return tf_idf_scores
+
+def choose_top_phrases(tf_idf_scores_layer):
+    '''
+    Select the TOP K + BUFFER phrases
+    Return the selected phrases
+    '''
+    sorted_list = []
+    for i in range(len(tf_idf_scores_layer)):
+        sorted_list = sorted(tf_idf_scores_layer[i], key = lambda j: (j['score'], j['phrase']))
+    return sorted_list[:TOP_K_SELECTED + BUFFER]
+
+def filter_stopwords(buffered_top_phrases_layer, stopwords):
+    '''
+    Remove any phrases that are defined as stopwords from the layer
+    Return the filtered list with the buyffer removed
+    '''
+    # Extract the phrases into a list
+    phrase_list = []
+    for i in range(len(buffered_top_phrases_layer)):
+        phrase_list.append(buffered_top_phrases_layer[i]['phrase'])
+
+    # Check the buffered amount of selected phrases against the provided stopwords
+    stopword_indexes = []
+    for i in range(len(phrase_list)):
+        for word in stopwords:
+            if phrase_list[i] == word:
+                stopword_indexes.append(i)
+                print('The selected phrase "' + word + '" was indetified as a stopword and removed.')
+                break
+    # Delete the identified stopwords from the list while ensuring at least K are returned
+    stopword_indexes.reverse()
+    for i in stopword_indexes:
+        if len(phrase_list) <= TOP_K_SELECTED:
+            print("Warning: Selected phrase quality may be lower than normal.")
+            break
+        else:
+            del phrase_list[i]
+    return phrase_list[:TOP_K_SELECTED]
 
 if __name__ == '__main__':
     main()
