@@ -7,3 +7,4 @@ input_data/100MB.txt
 vm.txt
 token.txt
 test.ipynb
+extra/tensorflow_test/

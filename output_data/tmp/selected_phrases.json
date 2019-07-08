@@ -1,26 +1,67 @@
 [
     [
-        "golf",
-        "golfer",
-        "lightweight",
-        "band",
-        "easy access",
-        "mouth",
-        "play",
-        "upper",
-        "water",
-        "rain"
+        [
+            "golf"
+        ],
+        [
+            "golfer"
+        ],
+        [
+            "lightweight"
+        ],
+        [
+            "band"
+        ],
+        [
+            "easy access"
+        ],
+        [
+            "mouth"
+        ],
+        [
+            "play"
+        ],
+        [
+            "upper"
+        ],
+        [
+            "water"
+        ],
+        [
+            "rain"
+        ]
     ],
     [
-        "golf",
-        "rain",
-        "cover",
-        "ga",
-        "play",
-        "polyethylen",
-        "golfer",
-        "lightweight",
-        "central cav",
-        "centrally loc"
+        [
+            "golf"
+        ],
+        [
+            "rain"
+        ],
+        [
+            "cover",
+            "covered"
+        ],
+        [
+            "gas"
+        ],
+        [
+            "play"
+        ],
+        [
+            "polyethylene"
+        ],
+        [
+            "golfer"
+        ],
+        [
+            "lightweight"
+        ],
+        [
+            "central cavity"
+        ],
+        [
+            "centrally located"
+        ]
     ]
 ]

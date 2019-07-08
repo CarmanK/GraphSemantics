@@ -23,11 +23,15 @@ def main():
         total += length
     # print(parsed_list)
 
-    # Stem all of the phrases
+    # Stem all of the phrases, also store the original phrase with the generated stem
     stem_list = []
+    stem_phrase_pairs = []
     for i in range(len(parsed_list)):
-        stem_list.append(stem_phrases(parsed_list[i]))
+        temp_stems, temp_stem_phrase_pairs = stem_phrases(parsed_list[i])
+        stem_list.append(temp_stems)
+        stem_phrase_pairs.append(temp_stem_phrase_pairs)
     # print(stem_list)
+    # print(stem_phrase_pair)
 
     # Count the stems
     stem_frequency = []
@@ -85,9 +89,15 @@ def main():
         filtered_top_phrases.append(filter_stopwords(buffered_top_phrases[i], stopwords))
     # print(filtered_top_phrases)
 
+    # Replace the stemmed phrases with their original phrases
+    final_selected_phrases = []
+    for i in range(len(filtered_top_phrases)):
+        final_selected_phrases.append(unstem_phrases(filtered_top_phrases[i], stem_phrase_pairs[i]))
+    # print(final_selected_phrases)
+
     # Output
     with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
-        json.dump(filtered_top_phrases, json_out, indent = 4)
+        json.dump(final_selected_phrases, json_out, indent = 4)
 
 def parse_phrases(text):
     '''
@@ -106,15 +116,26 @@ def parse_phrases(text):
 def stem_phrases(unstemmed_layer):
     '''
     Stem all of the phrases in a given layer
-    Return the stemmed phrases
+    Return the stemmed phrases in a list along with a second list of dictionarys containing the pairs of stems and unstemmed words
     '''
     stemmed_layer = []
+    before_and_after = []
     for i in range(len(unstemmed_layer)):
         temp_stemmed_phrase_list = []
         for phrase in unstemmed_layer[i]:
-            temp_stemmed_phrase_list.append(ps.stem(phrase))
+            stem = ps.stem(phrase)
+            stem_dict = list(filter(lambda temp_stem_dict: temp_stem_dict['stem'] == stem, before_and_after))
+            if stem_dict:
+                if phrase not in stem_dict[0]['phrase']:
+                    stem_dict[0]['phrase'].append(phrase)
+            else:
+                before_and_after.append({
+                    'stem': stem,
+                    'phrase': [phrase]
+                })
+            temp_stemmed_phrase_list.append(stem)
         stemmed_layer.append(temp_stemmed_phrase_list)
-    return stemmed_layer
+    return stemmed_layer, before_and_after
 
 def stem_counter(stemmed_layer):
     '''
@@ -255,6 +276,18 @@ def filter_stopwords(buffered_top_phrases_layer, stopwords):
         else:
             del phrase_list[i]
     return phrase_list[:TOP_K_SELECTED]
+
+def unstem_phrases(filtered_stemmed_layer, unstemmed_layer):
+    '''
+    Replace the stem with its original phrases
+    Return a list of the original phrases
+    '''
+    # stem_dict = list(filter(lambda temp_stem_dict: temp_stem_dict['stem'] == stem, before_and_after))
+    original_phrases = []
+    for stem in filtered_stemmed_layer:
+        original_dict = list(filter(lambda temp_pair: temp_pair['stem'] == stem, unstemmed_layer))
+        original_phrases.append(original_dict[0]['phrase'])
+    return original_phrases
 
 if __name__ == '__main__':
     main()
