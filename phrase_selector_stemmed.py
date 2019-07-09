@@ -118,8 +118,15 @@ def main():
     ### print(model_list[0].doesnt_match(['golf', 'golfer', 'lightweight', 'band', 'mouth', 'play', 'upper', 'water', 'easy_access', 'weather']))
 
     # Implementing option 1.
+    # Generate the most similar words of each of the selected phrases in a given layer
+    final_similar_phrases = []
+    for i in range(len(final_selected_phrases)):
+        final_similar_phrases.append(generate_similar_phrases(final_selected_phrases[i], model_list[i]))
+    print(final_similar_phrases)
 
-    
+    # with open('./output_data/tmp/selected_similar_phrases.json', 'w') as json_out:
+    #     json.dump(model_list[0].most_similar('golf'), json_out, indent = 4)
+
 def parse_phrases(text):
     '''
     Parse the tagged phrases from the segmentated text file
@@ -346,6 +353,15 @@ def model_trainer(layer):
     '''
     tokenized_corpus = [word_tokenize(sentence) for sentence in layer]
     return models.Word2Vec(tokenized_corpus, min_count = 1, size = 32, workers = 8)
+
+def generate_similar_phrases(layer, model):
+    '''
+    Generate the most similar words of each of the selected phrases
+    Return a list of dictionaries containing the phrase and the similar phrases
+    '''
+    similar_phrase_layer = []
+    for phrase_list in layer:
+        
 
 if __name__ == '__main__':
     main()
