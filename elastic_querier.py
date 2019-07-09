@@ -28,12 +28,12 @@ def elastic_query(phrase_list):
     articles = []
     for i in range(len(phrase_list)):
         term_1 = ''
-        term_2 = ''
         for phrase in phrase_list[i]:
-            term_1 = (phrase + ' ')
+            term_1 += (phrase + ' ')
         for j in range(i + 1, len(phrase_list)):
+            term_2 = ''
             for phrase in phrase_list[j]:
-                term_2 = (phrase + ' ')
+                term_2 += (phrase + ' ')
             pair = (term_1 + term_2)[:-1]
             result = es.search(index = INDEX, body = {
                 'query': {
