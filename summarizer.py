@@ -24,51 +24,6 @@ from functools import reduce
 #%% [markdown]
 # # Read the json file from kevin
 
-#%%
-with open('./output_data/tmp/article_pool.json', 'r') as input_file:
-    phrase_list = json.load(input_file)
-
-
-#%%
-data_df_layer_1 = pd.DataFrame(phrase_list[0])
-
-
-#%%
-#get the layer number
-layer_num = len(phrase_list)
-
-#%% [markdown]
-# # Find the pair of unique phrase in layer1
-
-#%%
-unique_phrase_list = np.unique(data_df_layer_1['phrase'].values)
-
-
-#%%
-unique_phrase_list
-
-#%% [markdown]
-# # Find the unique phrase in layer 1
-
-#%%
-p_list = list(pd.read_json('./output_data/tmp/selected_phrases.json',typ='series')[0])
-
-
-#%%
-p_list
-
-#%% [markdown]
-# # Create list of list(unique phrase) for current pair
-
-#%%
-#loop throught every pair of phrase
-list_of_phrase_list = []
-for i in range(len(unique_phrase_list)):
-    tmplist =[]
-    for j in range(len(p_list)):
-        if p_list[j] in unique_phrase_list[i]:
-            tmplist.append(p_list[j])
-    list_of_phrase_list.append(tmplist)
 
 
 #%%
@@ -81,6 +36,15 @@ def create_sentece_list(unique_phrase_list):
                 tmplist.append(p_list[j])
         list_of_phrase_list.append(tmplist)
     return list_of_phrase_list
+
+def p_list_fixed_points(layer_num):
+    ans = []
+    for i in range(layer_num):
+        p_list = list(pd.read_json('./output_data/tmp/selected_phrases.json',typ='series')[i])
+        for j in range(len(p_list)):
+            if p_list[j] not in ans:
+                ans.append(p_list[j])
+    return ans
 
 #%% [markdown]
 # # attention: Every sentence in the articles from the pool is a candidate sentence for the final summary.
@@ -96,23 +60,23 @@ def create_sentece_list(unique_phrase_list):
 # # recompute the BM25 in unused sentence pool
 # # and iterate all sentece until all phrase been coverd
 
-#%%
-#create the article pool now
-article_list = data_df_layer_1['article'].values
-#for each article, find all sentence
-article_list[0]
-sentence_dic = {}
-list_sentence = []
-s_count = 0 #sentence index
-for i in range(len(article_list)):
-    #for every sentence, if not in sentence_list, push sentence in list
-    tmp_sentence_list = article_list[i].split(".")    
-    for j in range(len(tmp_sentence_list)):
-#         if tmp_sentence_list[j] not in article_list:
-        sentence_dic[s_count] = tmp_sentence_list[j]
-        list_sentence.append(tmp_sentence_list[j])        
-        s_count +=1
-list_sentence = np.unique(list_sentence)
+# #%%
+# #create the article pool now
+# article_list = data_df_layer_1['article'].values
+# #for each article, find all sentence
+# article_list[0]
+# sentence_dic = {}
+# list_sentence = []
+# s_count = 0 #sentence index
+# for i in range(len(article_list)):
+#     #for every sentence, if not in sentence_list, push sentence in list
+#     tmp_sentence_list = article_list[i].split(".")    
+#     for j in range(len(tmp_sentence_list)):
+# #         if tmp_sentence_list[j] not in article_list:
+#         sentence_dic[s_count] = tmp_sentence_list[j]
+#         list_sentence.append(tmp_sentence_list[j])        
+#         s_count +=1
+# list_sentence = np.unique(list_sentence)
 
 
 #%%
@@ -132,7 +96,6 @@ def create_sentence_pool(data_df_layer_1):
             list_sentence.append(tmp_sentence_list[j])
             s_count +=1
     return np.unique(list_sentence)
-
 
 #%%
 def BM25_score(sentence_list,unique_phrase_list,p_list):
@@ -247,6 +210,7 @@ def BM25_score(sentence_list,unique_phrase_list,p_list):
 
 
 #%%
+#%%
 def set_cover(sentence_list,unique_phrase_list,p_list):
     #at each iteration
         #find the sentence that cover most number of unvisted phrase
@@ -255,7 +219,8 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
     answer_sentence_list = []
     touch_count_dic = []
     count = 0
-    while len(p_list) > 0:
+    isempty = False
+    while len(p_list) > 0 and isempty==False:
         #create a data structure to save how many unvisited phrase the current sentence touched
         touch_count_dic = {} #key as num of phrase touched, value is a list of index of sentence
         global_max_count = 0
@@ -263,8 +228,10 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
             #compute num of touched
             tmpcount = 0
             for j in range(len(p_list)):
-                if p_list[j] in sentence_list[i]:
+                if 1 in [c in sentence_list[i] for c in p_list[j]]:
+#                 if p_list[j] in sentence_list[i]:
                     tmpcount+=1
+    
             if tmpcount > global_max_count:
                 global_max_count = tmpcount
             # save current result in dic
@@ -287,11 +254,18 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
 #         print('what is sentence now', selected_max_sentence)
         
         for loc in range(len(p_list)):
-            if p_list[loc] in selected_max_sentence and p_list[loc] not in visited_list:
+            if 1 in [c in selected_max_sentence for c in p_list[loc]] and p_list[loc] not in visited_list:
+#             if p_list[loc] in selected_max_sentence and p_list[loc] not in visited_list:
                 visited_list.append(p_list[loc])
+                
         #delete all visited list
         print('!!!! visted list is', len(visited_list))
+        
+        
 #         print('what is sentence now', selected_max_sentence)
+        if len(visited_list) == 0:
+            isempty=True
+            break
         for pos2 in range(len(visited_list)):
             p_list.remove(visited_list[pos2])
         answer_sentence_list.append(selected_max_sentence)
@@ -300,7 +274,6 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
 #         print('length of sentence list is', len(sentence_list))
 #         print('len of remainng list', p_list)
     return answer_sentence_list
-
 
 def ven_diagram(list_sentence,unique_phrase_list,p_list):
     #generate the list of list
@@ -361,31 +334,140 @@ def annotating_function(answer,p_list): #only mark the first occurance of a phra
         print('index :', i, '', answer[i] +'\n')
 
 
+def new_annot(answer,p_list):
+    for i in range(len(answer)):
+        for j in range(len(p_list[0])):
+            #first check if that exist
+            if 1 in [c in answer[i] for c in p_list[0][j]]:
+                #find the index 
+                index = np.argmax([c in answer[i] for c in p_list[0][j]])
+#             if p_list[0][j] in answer[i]:
+                #find the starting index
+                start = answer[i].find(p_list[0][j][index])
+                end = start + len(p_list[0][j][index])
+                answer[i] = answer[i][0:start] + colored(p_list[0][j][index],'red') + answer[i][end:]
+                
+        for j in range(len(p_list[1])):
+            if 1 in [c in answer[i] for c in p_list[1][j]]:
+                #find the index 
+                index = np.argmax([c in answer[i] for c in p_list[1][j]])
+#             if p_list[0][j] in answer[i]:
+                #find the starting index
+                start = answer[i].find(p_list[1][j][index])
+                end = start + len(p_list[1][j][index])
+                answer[i] = answer[i][0:start] + colored(p_list[1][j][index],'green') + answer[i][end:]
+                
+                
+        if len(p_list) >=3:       
+            for j in range(len(p_list[2])):
+                if 1 in [c in answer[i] for c in p_list[2][j]]:
+                    #find the index 
+                    index = np.argmax([c in answer[i] for c in p_list[2][j]])
+    #             if p_list[0][j] in answer[i]:
+                    #find the starting index
+                    start = answer[i].find(p_list[2][j][index])
+                    end = start + len(p_list[2][j][index])
+                    answer[i] = answer[i][0:start] + colored(p_list[2][j][index],'blue') + answer[i][end:]
+
+                
+    for i in range(len(answer)):
+        print('index :', i, '', answer[i] +'\n')
+        
+
+#scoring system
+ # of phrases covered
+ # of pairs of phrases covered
+ # of layers covered
+
+def filter_sentence(full_output,list_phrase):
+    final_ans = []
+    #save sentence that beencoved from multip layer phrase and sentence that covered by at least 3 phrase in 
+    for i in range(len(full_output)):
+        #iter through every sentence
+        flag_list = [0]*len(list_phrase)
+        for j in range(len(list_phrase)):
+            #at current 
+            for pos in range(len(list_phrase[j])):
+                if 1 in [c in full_output[i] for c in list_phrase[j][pos]]:
+                #if list_phrase[j][pos] in full_output[i]:
+                    flag_list[j] = 1
+                    break
+        if flag_list.count(1) >=2:
+            
+            if full_output[i] not in final_ans:
+                final_ans.append(full_output[i])
+        
+        count_list =[0]*len(list_phrase)
+        for j2 in range(len(list_phrase)):
+            counter = 0
+            for pos2 in range(len(list_phrase[j])):
+                if 1 in [c in full_output[i] for c in list_phrase[j2][pos2]]:
+                #if list_phrase[j2][pos2] in full_output[i]:
+                    counter+=1
+            count_list[j2] = counter
+        
+#         print('what is count_list', count_list)
+        if np.max(count_list) >=3:
+            if full_output[i] not in final_ans:
+                final_ans.append(full_output[i])
+            
+    return final_ans
 #%%
-def main_func():
+
+
+#%%
+def main_func_new():
     with open('./output_data/tmp/article_pool.json', 'r') as input_file:
         phrase_list = json.load(input_file)
     layer_num = len(phrase_list)  #how many layer
     full_output = []
+    #<change on 07032019>
+    list_phrase = []
+    allsentence = []
+    #<change on 07032019>
     for i in range(layer_num):
         data_df_layer_1 = pd.DataFrame(phrase_list[i])
         unique_phrase_list = np.unique(data_df_layer_1['phrase'].values)
-        p_list = list(pd.read_json('./output_data/tmp/selected_phrases.json',typ='series')[i])
+        #p_list = list(pd.read_json('./output_data/tmp/selected_phrases.json',typ='series')[i])
 #         list_of_phrase_list =  create_sentece_list(unique_phrase_list)
+        p_list = p_list_fixed_points(layer_num)
+        #<change on 07032019 >
+        list_phrase.append(list(pd.read_json('./output_data/tmp/selected_phrases.json',typ='series')[i]))
+        #<change on 07032019 >
         list_sentence = create_sentence_pool(data_df_layer_1)
         #run
-        answer = set_cover(list(list_sentence),list(unique_phrase_list),p_list.copy())  #i change this to van diagram 7/1/2019
-        full_output.append(answer)          
+        
+    
+        answer = set_cover(list(list_sentence),list(unique_phrase_list),p_list.copy())
+        full_output.append(answer)
+        #change 07032019
+        allsentence += answer
+        #change 07032019
         print('current layer is: ',i )
-        annotating_function(answer.copy(),p_list)
+        #annotating_function(answer.copy(),p_list)
+        print('length of current p_list ', len(p_list))
+        
+    #<------change on 0703/2019------------->
+    #filter the selected sentence
+    
+    
+   
+    #<------change on 0703/2019------------->
+#     with open('./output_data/summaries.json', 'w') as outfile:
+#             json.dump(full_output, outfile, indent = 4)
+    
+    a =  filter_sentence(allsentence,list_phrase)
 
+    new_annot(a,list_phrase)
     with open('./output_data/summaries.json', 'w') as outfile:
-            json.dump(full_output, outfile, indent = 4)
+        json.dump(a, outfile, indent = 4)
+
+
 
 
 #%%
 # Runs the entire program
-main_func()
+main_func_new()
 
 
 #%%
