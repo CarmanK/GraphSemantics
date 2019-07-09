@@ -3,8 +3,11 @@ from bs4 import BeautifulSoup
 import math
 from collections import Counter
 from nltk.stem import PorterStemmer
-from nltk.tokenize import sent_tokenize, word_tokenize
 ps = PorterStemmer()
+from nltk.tokenize import word_tokenize
+import pandas as pd
+from gensim import models
+import re
 
 TOP_K_SELECTED = 10 # Adjust this value to the desired number of phrases to return
 BUFFER = 10 # This value shoudn't need to be adjusted. Its purpose is to lower the computation required for filtering the stopwords from the selected phrases.
@@ -15,13 +18,13 @@ def main():
     with open('./output_data/tmp/meta_scraped_text.json', 'r') as lengths_file:
         lengths = json.load(lengths_file)
 
+    # Phrase Selection
     # Create a list of all of the parsed phrases for all of the layers
     total = 0
     parsed_list = []
     for length in lengths:
         parsed_list.append(parse_phrases(lines[total:total + length]))
         total += length
-    # print(parsed_list)
 
     # Stem all of the phrases, also store the original phrase with the generated stem
     stem_list = []
@@ -30,14 +33,11 @@ def main():
         temp_stems, temp_stem_phrase_pairs = stem_phrases(parsed_list[i])
         stem_list.append(temp_stems)
         stem_phrase_pairs.append(temp_stem_phrase_pairs)
-    # print(stem_list)
-    # print(stem_phrase_pair)
 
     # Count the stems
     stem_frequency = []
     for i in range(len(stem_list)):
         stem_frequency.append(stem_counter(stem_list[i]))
-    # print(stem_frequency)
 
     # Compute the TF score
     total = 0
@@ -47,7 +47,6 @@ def main():
         tf_scores.append(tf_calculator(stem_frequency[i], lines[total:total + lengths[length_index]]))
         total += lengths[length_index]
         length_index += 1
-    # print(tf_scores)
 
     # Compute the IDF score
     length_index = 0
@@ -55,31 +54,26 @@ def main():
     for i in range(len(stem_frequency)):
         idf_scores.append(idf_calculator(stem_frequency[i], lengths[length_index] + 1))
         length_index += 1
-    # print(idf_scores)
 
     # Adjust the stem list to the format [[[{'phrase': TF_score}]]]
     combined_stem_tf = []
     for i in range(len(stem_frequency)):
         combined_stem_tf.append(combine_stem_tf(stem_frequency[i], tf_scores[i]))
-    # print(combined_stem_tf)
 
     # Maximize the TF score
     maximized_tf_score = []
     for i in range(len(combined_stem_tf)):
         maximized_tf_score.append(tf_max(combined_stem_tf[i]))
-    # print(maximized_tf_score)
 
     # Compute the TF-IDF score and combine the format to [[{'phrase':TF-IDF}]]
     tf_idf_score = []
     for i in range(len(maximized_tf_score)):
         tf_idf_score.append(tf_idf_calculator(idf_scores[i], maximized_tf_score[i]))
-    # print(tf_idf_score)
 
     # Choose the TOP-K phrases
     buffered_top_phrases = []
     for i in range(len(tf_idf_score)):
         buffered_top_phrases.append(choose_top_phrases(tf_idf_score[i]))
-    # print(buffered_top_phrases)
 
     # Filter the stopwords
     with open('./AutoPhrase/data/EN/stopwords.txt', 'r') as stopwords_file:
@@ -87,17 +81,42 @@ def main():
     filtered_top_phrases = []
     for i in range(len(buffered_top_phrases)):
         filtered_top_phrases.append(filter_stopwords(buffered_top_phrases[i], stopwords))
-    # print(filtered_top_phrases)
 
     # Replace the stemmed phrases with their original phrases
     final_selected_phrases = []
     for i in range(len(filtered_top_phrases)):
         final_selected_phrases.append(unstem_phrases(filtered_top_phrases[i], stem_phrase_pairs[i]))
-    # print(final_selected_phrases)
 
-    # Output
+    # Output selected phrases
     with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
         json.dump(final_selected_phrases, json_out, indent = 4)
+
+    # Word2Vec
+    # Create a list of layers from segmentation.txt but remove the <phrase> tags and replace all of the spaces with underscores of multi-word tagged phrases
+    total = 0
+    formatted_abstracts = []
+    for length in lengths:
+        formatted_abstracts.append(phrase_formatter(lines[total:total + length]))
+        total += length
+    
+    # Split the abstracts in a given layer into sentences and join them to one list per layer
+    layers_of_sentences = []
+    for layer in formatted_abstracts:
+        layers_of_sentences.append(sentence_splitter(layer))
+
+    # Train the word2vec model on a given layer
+    model_list = []
+    for layer in layers_of_sentences:
+        model_list.append(model_trainer(layer))
+
+    # Ideas on how to implement this
+    ## Compute the top model.most_similar words and output them to a separate file. This file can then be used as a secondary ranking when selecting sentences.
+    ### print(model_list[0].most_similar('golf'))
+    ## Check the selected phrases against each other and disgard phrases that do not pass a threshold.
+    ### print(model_list[0].similarity('golf', 'the'))
+    ## Check the selected phrases using the model.doesnt_match method in word2vec and disgard phrases until they all match.
+    ### print(model_list[0].doesnt_match(['golf', 'golfer', 'lightweight', 'band', 'mouth', 'play', 'upper', 'water', 'easy_access', 'weather']))
+
 
 def parse_phrases(text):
     '''
@@ -288,6 +307,43 @@ def unstem_phrases(filtered_stemmed_layer, unstemmed_layer):
         original_dict = list(filter(lambda temp_pair: temp_pair['stem'] == stem, unstemmed_layer))
         original_phrases.append(original_dict[0]['phrase'])
     return original_phrases
+
+def phrase_formatter(layer_of_abstracts):
+    '''
+    Remove the <phrase> tags and replace all of the spaces with underscores of multi-word tagged phrases in the abstracts
+    Return the formatted abstracts
+    '''
+    formatted_abstracts = []
+    for abstract in layer_of_abstracts:
+        phrase_list = []
+        soup = BeautifulSoup(abstract, 'lxml')
+        for phrase in soup.find_all(['phrase']):
+            phrase_list.append(phrase.get_text())
+        formatted_phrase_list = []
+        for phrase in phrase_list:
+            formatted_phrase_list.append(phrase.replace(' ', '_'))
+        for i in range(len(phrase_list)):
+            abstract = abstract.replace('<phrase>' + phrase_list[i] + '</phrase>', formatted_phrase_list[i])
+        formatted_abstracts.append(abstract.lower())
+    return formatted_abstracts
+
+def sentence_splitter(layer_of_abstracts):
+    '''
+    Create a list of sentences from the abstracts
+    Return the list of sentences
+    '''
+    layer_of_sentences = []
+    for abstract in layer_of_abstracts:
+        layer_of_sentences += re.split('(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', abstract)
+    return layer_of_sentences
+
+def model_trainer(layer):
+    '''
+    Train a word2vec model on a given layer
+    Return the trained model
+    '''
+    tokenized_corpus = [word_tokenize(sentence) for sentence in layer]
+    return models.Word2Vec(tokenized_corpus, min_count = 1, size = 32, workers = 8)
 
 if __name__ == '__main__':
     main()
