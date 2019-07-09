@@ -15,7 +15,7 @@ def main():
     output = []
     for layer in selected_phrases:
         output.append(elastic_query(layer))
-    print(output)
+    # print(output)
 
     with open('./output_data/tmp/article_pool.json', 'w') as output_file:
         json.dump(output, output_file, indent = 4)
@@ -43,7 +43,9 @@ def elastic_query(phrase_list):
                 }
             }, size = TOP_K)
             top_articles = result['hits']['total']['value']
-            for article in top_articles:
+            if top_articles > TOP_K:
+                top_articles = TOP_K
+            for x in range(top_articles):
                 articles.append({
                     'phrase': pair,
                     'article': result['hits']['hits'][x]['_source']['abstract']
