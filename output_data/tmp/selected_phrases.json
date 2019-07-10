@@ -13,9 +13,6 @@
             "band"
         ],
         [
-            "easy access"
-        ],
-        [
             "mouth"
         ],
         [
@@ -28,7 +25,10 @@
             "water"
         ],
         [
-            "rain"
+            "easy access"
+        ],
+        [
+            "weather"
         ]
     ],
     [
@@ -36,11 +36,23 @@
             "golf"
         ],
         [
-            "rain"
-        ],
-        [
             "cover",
             "covered"
+        ],
+        [
+            "logos"
+        ],
+        [
+            "open configuration"
+        ],
+        [
+            "open mouth"
+        ],
+        [
+            "peripheral rim"
+        ],
+        [
+            "printing"
         ],
         [
             "gas"
@@ -50,18 +62,6 @@
         ],
         [
             "polyethylene"
-        ],
-        [
-            "golfer"
-        ],
-        [
-            "lightweight"
-        ],
-        [
-            "central cavity"
-        ],
-        [
-            "centrally located"
         ]
     ]
 ]
