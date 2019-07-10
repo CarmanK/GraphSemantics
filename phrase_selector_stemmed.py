@@ -111,9 +111,9 @@ def main():
     # Ideas on how to implement this
     #1. Compute the top model.most_similar words and output them to a separate file. This file can then be used as a secondary ranking when selecting sentences.
     ### print(model_list[0].most_similar('golf'))
-    #2. Check the selected phrases against each other and disgard phrases that do not pass a threshold.
+    #2. Check the selected phrases against each other and discard phrases that do not pass a threshold.
     ### print(model_list[0].similarity('golf', 'the'))
-    #3. Check the selected phrases using the model.doesnt_match method in word2vec and disgard phrases until they all match.
+    #3. Check the selected phrases using the model.doesnt_match method in word2vec and discard phrases until they all match.
     ### print(model_list[0].doesnt_match(['golf', 'golfer', 'lightweight', 'band', 'mouth', 'play', 'upper', 'water', 'easy_access', 'weather']))
 
     # Implementing option 1.
