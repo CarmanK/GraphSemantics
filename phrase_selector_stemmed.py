@@ -109,7 +109,7 @@ def main():
         model_list.append(model_trainer(layer))
 
     # Ideas on how to implement this
-    #1. Compute the top model.most_similar words and output them to a separate file. This file can then be used as a secondary ranking when selecting sentences. THIS OUTPUT NEEDS TO FILTER STOPWORDS
+    #1. Compute the top model.most_similar words and output them to a separate file. This file can then be used as a secondary ranking when selecting sentences.
     ### print(model_list[0].most_similar('golf'))
     #2. Check the selected phrases against each other and disgard phrases that do not pass a threshold.
     ### print(model_list[0].similarity('golf', 'the'))
@@ -120,7 +120,7 @@ def main():
     # Generate the most similar words of each of the selected phrases in a given layer
     final_similar_phrases = []
     for i in range(len(final_selected_phrases)):
-        final_similar_phrases.append(generate_similar_phrases(final_selected_phrases[i], model_list[i]))
+        final_similar_phrases.append(generate_similar_phrases(final_selected_phrases[i], model_list[i], stopwords))
 
     with open('./output_data/tmp/selected_similar_phrases.json', 'w') as json_out:
         json.dump(final_similar_phrases, json_out, indent = 4)
@@ -289,9 +289,9 @@ def filter_stopwords(buffered_top_phrases_layer, stopwords):
     stopword_indexes = []
     for i in range(len(phrase_list)):
         for word in stopwords:
-            if phrase_list[i] == word:
+            if phrase_list[i] == word[:-1]:
                 stopword_indexes.append(i)
-                print('The selected phrase "' + word + '" was indetified as a stopword and removed.')
+                print('The selected phrase "' + word[:-1] + '" was indetified as a stopword and removed.')
                 break
     # Delete the identified stopwords from the list while ensuring at least K are returned
     stopword_indexes.reverse()
@@ -352,17 +352,29 @@ def model_trainer(layer):
     tokenized_corpus = [word_tokenize(sentence) for sentence in layer]
     return models.Word2Vec(tokenized_corpus, min_count = 1, size = 32, workers = 8)
 
-def generate_similar_phrases(layer, model):
+def generate_similar_phrases(layer, model, stopwords):
     '''
     Generate the most similar words of each of the selected phrases
     Return a list of dictionaries containing the phrase and the similar phrases
     '''
     similar_phrase_layer = []
+    additional_stopwords = ['(', ')', '\'', '\'\'', '.', ',']
     for phrase_list in layer:
         similar_phrase_list = []
         for phrase in phrase_list:
-            for similar_phrase_tuple in model.most_similar(phrase.replace(' ', '_')):
+            for similar_phrase_tuple in model.wv.most_similar(phrase.replace(' ', '_')):
                 similar_phrase_list.append(similar_phrase_tuple[0])
+        # Filter stopwords from the similar_phrase_list
+        stopword_indexes = []
+        for i in range(len(similar_phrase_list)):
+            for word in stopwords:
+                if similar_phrase_list[i] == word[:-1] or similar_phrase_list[i] in additional_stopwords:
+                    stopword_indexes.append(i)
+                    break
+        stopword_indexes.reverse()
+        for i in stopword_indexes:
+            del similar_phrase_list[i]
+        # Add the phrase dictionary to the layer list
         similar_phrase_layer.append({
             'phrase': phrase_list,
             'similar_phrases': similar_phrase_list

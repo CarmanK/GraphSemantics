@@ -269,7 +269,6 @@ may
 maybe
 me
 mean
-meanwhile
 merely
 might
 more
@@ -514,7 +513,6 @@ whereupon
 wherever
 whether
 which
-while
 whither
 who
 whoever
@@ -843,7 +841,6 @@ whereupon
 wherever
 whether
 which
-while
 whither
 who
 whoever
