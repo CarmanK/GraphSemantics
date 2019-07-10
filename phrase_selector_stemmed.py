@@ -5,7 +5,6 @@ from collections import Counter
 from nltk.stem import PorterStemmer
 ps = PorterStemmer()
 from nltk.tokenize import word_tokenize
-import pandas as pd
 from gensim import models
 import re
 
@@ -110,7 +109,7 @@ def main():
         model_list.append(model_trainer(layer))
 
     # Ideas on how to implement this
-    #1. Compute the top model.most_similar words and output them to a separate file. This file can then be used as a secondary ranking when selecting sentences.
+    #1. Compute the top model.most_similar words and output them to a separate file. This file can then be used as a secondary ranking when selecting sentences. THIS OUTPUT NEEDS TO FILTER STOPWORDS
     ### print(model_list[0].most_similar('golf'))
     #2. Check the selected phrases against each other and disgard phrases that do not pass a threshold.
     ### print(model_list[0].similarity('golf', 'the'))
@@ -122,10 +121,9 @@ def main():
     final_similar_phrases = []
     for i in range(len(final_selected_phrases)):
         final_similar_phrases.append(generate_similar_phrases(final_selected_phrases[i], model_list[i]))
-    print(final_similar_phrases)
 
-    # with open('./output_data/tmp/selected_similar_phrases.json', 'w') as json_out:
-    #     json.dump(model_list[0].most_similar('golf'), json_out, indent = 4)
+    with open('./output_data/tmp/selected_similar_phrases.json', 'w') as json_out:
+        json.dump(final_similar_phrases, json_out, indent = 4)
 
 def parse_phrases(text):
     '''
@@ -361,7 +359,15 @@ def generate_similar_phrases(layer, model):
     '''
     similar_phrase_layer = []
     for phrase_list in layer:
-        
+        similar_phrase_list = []
+        for phrase in phrase_list:
+            for similar_phrase_tuple in model.most_similar(phrase.replace(' ', '_')):
+                similar_phrase_list.append(similar_phrase_tuple[0])
+        similar_phrase_layer.append({
+            'phrase': phrase_list,
+            'similar_phrases': similar_phrase_list
+        })
+    return similar_phrase_layer        
 
 if __name__ == '__main__':
     main()

@@ -1,42 +1,357 @@
 [
     [
-        "below",
-        0.5097683072090149
+        {
+            "phrase": [
+                "golf"
+            ],
+            "similar_phrases": [
+                "provides",
+                "protect",
+                "rotation",
+                "v",
+                "be",
+                "elastic",
+                "present",
+                "thereto",
+                "ingress",
+                "depending"
+            ]
+        },
+        {
+            "phrase": [
+                "golfer"
+            ],
+            "similar_phrases": [
+                "short",
+                "generally",
+                "an",
+                "sheet",
+                "has",
+                "having",
+                "includes",
+                "slipped",
+                "covering",
+                "extends"
+            ]
+        },
+        {
+            "phrase": [
+                "lightweight"
+            ],
+            "similar_phrases": [
+                "thus",
+                "composed",
+                "preferably",
+                "bags",
+                "20",
+                "26",
+                "constructed",
+                "extends",
+                "fastened",
+                "ends"
+            ]
+        },
+        {
+            "phrase": [
+                "band"
+            ],
+            "similar_phrases": [
+                "as",
+                "car",
+                "integrally",
+                "distance",
+                "preferably",
+                "allowed",
+                "fasten",
+                "short",
+                "rolled",
+                "moisture"
+            ]
+        },
+        {
+            "phrase": [
+                "mouth"
+            ],
+            "similar_phrases": [
+                "circumferentially",
+                "received",
+                "is",
+                ",",
+                "are",
+                "section",
+                "play",
+                "portion",
+                "therein",
+                "on"
+            ]
+        },
+        {
+            "phrase": [
+                "play"
+            ],
+            "similar_phrases": [
+                "received",
+                "the",
+                "slipcover",
+                "by",
+                "access",
+                "has",
+                "returned",
+                "to",
+                "during",
+                "front"
+            ]
+        },
+        {
+            "phrase": [
+                "upper"
+            ],
+            "similar_phrases": [
+                "select",
+                "hood",
+                "releasably",
+                "portions",
+                "will",
+                "elastic",
+                "secured",
+                "form",
+                "so",
+                "frustoconical"
+            ]
+        },
+        {
+            "phrase": [
+                "water"
+            ],
+            "similar_phrases": [
+                "is",
+                "part",
+                "frustoconical",
+                "fastened",
+                "across",
+                "flat",
+                "in",
+                "with",
+                "panel",
+                "rotation"
+            ]
+        },
+        {
+            "phrase": [
+                "easy access"
+            ],
+            "similar_phrases": [
+                "protective",
+                "and",
+                "parallel",
+                "first",
+                "so",
+                "cover",
+                "provide",
+                "side-by-side",
+                "during",
+                "remove"
+            ]
+        },
+        {
+            "phrase": [
+                "weather"
+            ],
+            "similar_phrases": [
+                "edge",
+                "reach",
+                "positioned",
+                "integrally",
+                "attachment",
+                "walls",
+                "skirt",
+                "across",
+                "view",
+                "clear"
+            ]
+        }
     ],
     [
-        "edge",
-        0.46107566356658936
-    ],
-    [
-        "the",
-        0.46002817153930664
-    ],
-    [
-        "a",
-        0.45477503538131714
-    ],
-    [
-        "mouth",
-        0.4224848449230194
-    ],
-    [
-        "roof",
-        0.41524916887283325
-    ],
-    [
-        "opening",
-        0.3868005871772766
-    ],
-    [
-        "cover",
-        0.3818823993206024
-    ],
-    [
-        "hood",
-        0.3743934631347656
-    ],
-    [
-        "with",
-        0.37203168869018555
+        {
+            "phrase": [
+                "golf"
+            ],
+            "similar_phrases": [
+                "be",
+                "to",
+                "the",
+                "invention",
+                ",",
+                "bottom",
+                "a",
+                "(",
+                "an",
+                "clubs"
+            ]
+        },
+        {
+            "phrase": [
+                "cover",
+                "covered"
+            ],
+            "similar_phrases": [
+                "the",
+                "(",
+                "a",
+                "be",
+                "for",
+                "top",
+                ",",
+                "and",
+                "when",
+                ")",
+                "walls",
+                "surrounded",
+                "apron",
+                "closeable",
+                "since",
+                "generally",
+                "primary",
+                "overlaps",
+                "new",
+                "objects"
+            ]
+        },
+        {
+            "phrase": [
+                "logos"
+            ],
+            "similar_phrases": [
+                "parallel",
+                "ovcr",
+                "hang",
+                "sides",
+                "strength",
+                "again",
+                "improved",
+                "such",
+                "into",
+                "new"
+            ]
+        },
+        {
+            "phrase": [
+                "open configuration"
+            ],
+            "similar_phrases": [
+                "laterally",
+                "under",
+                "opposite",
+                "framework",
+                "easily",
+                "equipment",
+                "completely",
+                "tubular",
+                "portion",
+                "dirt"
+            ]
+        },
+        {
+            "phrase": [
+                "open mouth"
+            ],
+            "similar_phrases": [
+                "includes",
+                "sheet",
+                "openable",
+                "placed",
+                "completely",
+                "score",
+                "loop",
+                "rapidly",
+                "86",
+                "("
+            ]
+        },
+        {
+            "phrase": [
+                "peripheral rim"
+            ],
+            "similar_phrases": [
+                "without",
+                "openable",
+                "snugly",
+                "surface",
+                "surrounded",
+                "since",
+                "graphics",
+                "plurality",
+                "connected",
+                "closures"
+            ]
+        },
+        {
+            "phrase": [
+                "printing"
+            ],
+            "similar_phrases": [
+                "card",
+                "part",
+                "same",
+                "extends_beyond",
+                "walls",
+                "plurality",
+                "entering",
+                "rolled",
+                "progress",
+                "down"
+            ]
+        },
+        {
+            "phrase": [
+                "gas"
+            ],
+            "similar_phrases": [
+                "with",
+                "sheet",
+                "envelope",
+                "position",
+                "closed",
+                "also",
+                "be",
+                "to",
+                "open",
+                "between"
+            ]
+        },
+        {
+            "phrase": [
+                "play"
+            ],
+            "similar_phrases": [
+                "access",
+                "has",
+                "by",
+                "received",
+                "continuous",
+                "selected",
+                "front",
+                "on",
+                "tubular",
+                "mates"
+            ]
+        },
+        {
+            "phrase": [
+                "polyethylene"
+            ],
+            "similar_phrases": [
+                "terminates",
+                "pulled",
+                "extend",
+                "central_cavity",
+                "99",
+                "merges",
+                "tubular",
+                "downwardly",
+                "detaching",
+                "preventing"
+            ]
+        }
     ]
 ]
