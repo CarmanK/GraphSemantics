@@ -457,10 +457,11 @@ def main_func_new():
 #             json.dump(full_output, outfile, indent = 4)
     
     a =  filter_sentence(allsentence,list_phrase)
-
-    new_annot(a,list_phrase)
     with open('./output_data/summaries.json', 'w') as outfile:
         json.dump(a, outfile, indent = 4)
+        
+    new_annot(a,list_phrase)
+
 
 
 
