@@ -211,6 +211,11 @@ def BM25_score(sentence_list,unique_phrase_list,p_list):
 
 #%%
 #%%
+
+def contains_word(s, w):
+    return (' ' + w + ' ') in (' ' + s + ' ')
+
+
 def set_cover(sentence_list,unique_phrase_list,p_list):
     #at each iteration
         #find the sentence that cover most number of unvisted phrase
@@ -228,7 +233,8 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
             #compute num of touched
             tmpcount = 0
             for j in range(len(p_list)):
-                if 1 in [c in sentence_list[i] for c in p_list[j]]:
+#                 if 1 in [c in sentence_list[i] for c in p_list[j]]:
+                if 1 in [contains_word(sentence_list[i],c) for c in p_list[j]]:
 #                 if p_list[j] in sentence_list[i]:
                     tmpcount+=1
     
@@ -254,7 +260,8 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
 #         print('what is sentence now', selected_max_sentence)
         
         for loc in range(len(p_list)):
-            if 1 in [c in selected_max_sentence for c in p_list[loc]] and p_list[loc] not in visited_list:
+#             if 1 in [c in selected_max_sentence for c in p_list[loc]] and p_list[loc] not in visited_list:
+            if 1 in [contains_word(selected_max_sentence,c) for c in p_list[loc]] and p_list[loc] not in visited_list:
 #             if p_list[loc] in selected_max_sentence and p_list[loc] not in visited_list:
                 visited_list.append(p_list[loc])
                 
@@ -338,7 +345,7 @@ def new_annot(answer,p_list):
     for i in range(len(answer)):
         for j in range(len(p_list[0])):
             #first check if that exist
-            if 1 in [c in answer[i] for c in p_list[0][j]]:
+            if 1 in [contains_word(answer[i],c) for c in p_list[0][j]]:
                 #find the index 
                 index = np.argmax([c in answer[i] for c in p_list[0][j]])
 #             if p_list[0][j] in answer[i]:
@@ -348,7 +355,7 @@ def new_annot(answer,p_list):
                 answer[i] = answer[i][0:start] + colored(p_list[0][j][index],'red') + answer[i][end:]
                 
         for j in range(len(p_list[1])):
-            if 1 in [c in answer[i] for c in p_list[1][j]]:
+            if 1 in [contains_word(answer[i],c) for c in p_list[1][j]]:
                 #find the index 
                 index = np.argmax([c in answer[i] for c in p_list[1][j]])
 #             if p_list[0][j] in answer[i]:
@@ -360,7 +367,7 @@ def new_annot(answer,p_list):
                 
         if len(p_list) >=3:       
             for j in range(len(p_list[2])):
-                if 1 in [c in answer[i] for c in p_list[2][j]]:
+                if 1 in [contains_word(answer[i],c) for c in p_list[2][j]]:
                     #find the index 
                     index = np.argmax([c in answer[i] for c in p_list[2][j]])
     #             if p_list[0][j] in answer[i]:
@@ -372,6 +379,14 @@ def new_annot(answer,p_list):
                 
     for i in range(len(answer)):
         print('index :', i, '', answer[i] +'\n')
+        
+
+#scoring system
+ # of phrases covered
+ # of pairs of phrases covered
+ # of layers covered
+
+
         
 
 #scoring system
