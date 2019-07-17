@@ -1,13 +1,73 @@
+from bs4 import BeautifulSoup
 import json
-from requests import get
+import os
+import requests
 from requests.exceptions import RequestException
 from contextlib import closing
-url = 'http://www.patentsview.org/api/patents/query?q={"patent_number":["4474388"]}'
-# url = 'http://www.patentsview.org/api/patents/query?q='
-# patent = {'patent_number': ["0"]}
+import time
 
-try:
-    with closing(get(url, stream = True)) as response:
-        print(response.content)
-except RequestException as e:
-    print('Error during request to {0} : {1}'.format(url, str(e)))
+def main():
+    # This scraper is data specific
+    # Scrape all of the titles and sbtracts and store the lines in a text file
+    if not os.path.exists('output_data'):
+        os.mkdir('output_data')
+    if not os.path.exists('output_data/tmp'):
+        os.mkdir('output_data/tmp')
+
+    url = 'http://patft.uspto.gov/netacgi/nph-Parser?Sect2=PTO1&Sect2=HITOFF&p=1&u=%2Fnetahtml%2FPTO%2Fsearch-bool.html&r=1&f=G&l=50&d=PALL&RefSrch=yes&Query=PN%2F'
+
+    with open('./input_data/patent_ids.txt', 'r') as input_file:
+        patent_ids = input_file.readlines()
+    
+    with open('./output_data/tmp/scraped_patent_text.txt', 'w') as output_file:
+        for id in range(0, 10000):
+            raw_html = html_get(patent_ids[id], url)
+            if raw_html is not None:
+                html = BeautifulSoup(raw_html, 'html.parser')
+
+                abstract = html.find_all(['p'])[0].get_text()
+                if abstract[:21] != '  Current U.S. Class:':
+                    # Clean up the abstract
+                    abstract = abstract.replace('\n', '')
+                    abstract = abstract.replace('    ', '')
+                    output_file.write(abstract + '\n')
+                else:
+                    print('The abstract of ID "' + patent_ids[id][:-1] + '" could not be found.')
+
+def html_get(id, url):
+    '''
+    Gets the content at `url` by making an HTTP GET request.
+    If the content-type of the response is HTML, return the text content, otherwise return None.
+    '''
+    time.sleep(0.01)
+    session = requests.Session()
+    session.headers.update({'Host': 'patft.uspto.gov',
+                            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0',
+                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                            'Accept-Language': 'pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3',
+                            'Accept-Encoding': 'gzip, deflate',
+                            'Connection': 'keep-alive',
+                            'Pragma': 'no-cache',
+                            'Cache-Control': 'no-cache'})
+    url += str(id)
+    try:
+        with closing(session.get(url, stream = True)) as response:
+            if is_html(response):
+                return response.content
+            else:
+                return None
+    except RequestException as e:
+        print('Error during request to {0} : {1}'.format(url, str(e)))
+        return None
+
+def is_html(response):
+    '''
+    Returns True if the response is HTML, false otherwise.
+    '''
+    content_type = response.headers['Content-Type'].lower()
+    return (response.status_code == 200 
+            and content_type is not None 
+            and content_type.find('html') > -1)
+
+if __name__ == '__main__':
+    main()
