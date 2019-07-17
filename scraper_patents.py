@@ -5,6 +5,7 @@ import requests
 from requests.exceptions import RequestException
 from contextlib import closing
 import time
+import random
 
 def main():
     # This scraper is data specific
@@ -39,7 +40,7 @@ def html_get(id, url):
     Gets the content at `url` by making an HTTP GET request.
     If the content-type of the response is HTML, return the text content, otherwise return None.
     '''
-    time.sleep(0.01)
+    time.sleep(random.random())
     session = requests.Session()
     session.headers.update({'Host': 'patft.uspto.gov',
                             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0',
