@@ -22,15 +22,27 @@ def main():
         patent_ids = input_file.readlines()
     
     with open('./output_data/tmp/scraped_patent_text.txt', 'w') as output_file:
-        for id in range(0, 10000):
+        for id in range(0, 100):
             raw_html = html_get(patent_ids[id], url, url2)
             if raw_html is not None:
                 html = BeautifulSoup(raw_html, 'html.parser')
-                divs = html.findAll("div", {"class": "abstract"})
+                
+                spans = html.findAll('span', {'itemprop': 'title'})
+                title = ''
+                if spans:
+                    title = spans[0].get_text()[:-1].strip()
+                    if title[-1:] != '.':
+                        title += '.'
+                
+                divs = html.findAll('div', {'class': 'abstract'})
+                abstract = ' '
                 if divs:
-                    output_file.write(divs[0].get_text() + '\n')
-                else:
-                    print(patent_ids[id])
+                    abstract += divs[0].get_text()[:-1]
+                    if abstract[-1:] != '.':
+                        abstract += '.'
+
+                combined = title + abstract
+                output_file.write(combined + '\n')
 
                 # abstract = html.find_all(['p'])[0].get_text()
                 # if abstract[:21] != '  Current U.S. Class:':
