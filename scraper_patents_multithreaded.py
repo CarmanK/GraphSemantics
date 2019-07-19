@@ -65,8 +65,9 @@ if __name__ == '__main__':
         os.mkdir('output_data')
     if not os.path.exists('output_data/tmp'):
         os.mkdir('output_data/tmp')
-    if not os.path.exists('output_data/tmp/threads'):
-        os.mkdir('output_data/tmp/threads')
+    if os.path.exists('output_data/tmp/threads'):
+        shutil.rmtree('output_data/tmp/threads')
+    os.mkdir('output_data/tmp/threads')
     
     THREADS = 16
     url = 'https://patents.google.com/patent/US'
@@ -89,15 +90,14 @@ if __name__ == '__main__':
         thread.join()
 
     # Combine all of the data collected by the threads into one file
-    if sys.platform == 'win32':
-        os.chdir('./output_data/tmp/threads/')
-        files = os.listdir()
+    os.chdir('./output_data/tmp/threads/')
+    files = os.listdir()
+    if sys.platform == 'win32':    
         command = 'type '
-        for data in files:
-            command += data + ' '
-        os.system(command + '> ../scraped_text.txt')
-        os.chdir('..')
-        shutil.rmtree('./threads/')
     else:
-        # cat
-        print('do this but in linux')
+        command = 'cat '
+    for data in files:
+        command += data + ' '
+    os.system(command + '> ../scraped_text.txt')
+    os.chdir('..')
+    shutil.rmtree('./threads/')
