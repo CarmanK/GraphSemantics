@@ -12,7 +12,7 @@ def main(patent_ids, lower_bound, upper_bound, url, url2, thread_number):
     # This scraper is data specific
     # Scrape all of the titles and sbtracts and store the lines in a text file
     path = './output_data/tmp/threads/scraped_patent_text_' + str(thread_number) + '.txt'
-    with open(path, 'w') as output_file:
+    with open(path, 'w', encoding = 'utf-8') as output_file:
         for i in range(lower_bound, upper_bound):
             raw_html = html_get(patent_ids[i], url, url2)
             if raw_html is not None:
@@ -32,8 +32,8 @@ def main(patent_ids, lower_bound, upper_bound, url, url2, thread_number):
                     if abstract[-1:] != '.':
                         abstract += '.'
 
-                combined = title + abstract
-                output_file.write(combined + '\n')
+                combined = (title + abstract + '\n')
+                output_file.write(combined)
 
 def html_get(id, url, url2):
     '''
@@ -68,11 +68,11 @@ if __name__ == '__main__':
     if not os.path.exists('output_data/tmp/threads'):
         os.mkdir('output_data/tmp/threads')
     
-    THREADS = 13
+    THREADS = 16
     url = 'https://patents.google.com/patent/US'
     url2 = '/en?oq='
 
-    with open('./input_data/golf_patent_ids.txt', 'r') as input_file:
+    with open('./input_data/patent_ids.txt', 'r') as input_file:
         patent_ids = input_file.readlines()
 
     threads = []
@@ -95,7 +95,7 @@ if __name__ == '__main__':
         command = 'type '
         for data in files:
             command += data + ' '
-        os.system(command + '> ../scraped_patent_data.txt')
+        os.system(command + '> ../scraped_text.txt')
         os.chdir('..')
         shutil.rmtree('./threads/')
     else:
