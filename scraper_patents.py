@@ -4,8 +4,7 @@ import os
 import requests
 from requests.exceptions import RequestException
 from contextlib import closing
-import time
-import random
+import progressbar
 
 def main():
     # This scraper is data specific
@@ -18,12 +17,18 @@ def main():
     url = 'https://patents.google.com/patent/US'
     url2 = '/en?oq='
 
-    with open('./input_data/patent_ids.txt', 'r') as input_file:
+    widgets = [
+        ' [', progressbar.Timer(), '] ',
+        progressbar.Bar(),
+        ' (', progressbar.ETA(), ') ',
+    ]
+
+    with open('./input_data/golf_patent_ids.txt', 'r') as input_file:
         patent_ids = input_file.readlines()
     
     with open('./output_data/tmp/scraped_patent_text.txt', 'w') as output_file:
-        for id in range(0, 100):
-            raw_html = html_get(patent_ids[id], url, url2)
+        for id in progressbar.progressbar(patent_ids, widgets = widgets):
+            raw_html = html_get(id, url, url2)
             if raw_html is not None:
                 html = BeautifulSoup(raw_html, 'html.parser')
                 
@@ -44,30 +49,11 @@ def main():
                 combined = title + abstract
                 output_file.write(combined + '\n')
 
-                # abstract = html.find_all(['p'])[0].get_text()
-                # if abstract[:21] != '  Current U.S. Class:':
-                #     # Clean up the abstract
-                #     abstract = abstract.replace('\n', '')
-                #     abstract = abstract.replace('    ', '')
-                #     output_file.write(abstract + '\n')
-                # else:
-                #     print('The abstract of ID "' + patent_ids[id][:-1] + '" could not be found.')
-
 def html_get(id, url, url2):
     '''
     Gets the content at `url` by making an HTTP GET request.
     If the content-type of the response is HTML, return the text content, otherwise return None.
     '''
-    # time.sleep(random.random())
-    # session = requests.Session()
-    # session.headers.update({'Host': 'patft.uspto.gov',
-    #                         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0',
-    #                         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    #                         'Accept-Language': 'pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3',
-    #                         'Accept-Encoding': 'gzip, deflate',
-    #                         'Connection': 'keep-alive',
-    #                         'Pragma': 'no-cache',
-    #                         'Cache-Control': 'no-cache'})
     url += (id[:-1] + url2 + id[:-1])
     try:
         with closing(requests.get(url, stream = True)) as response:
