@@ -1,4 +1,4 @@
-MODEL=${MODEL:- "models/GraphSemantics"}
+MODEL=${MODEL:- "models/Patents"}
 OUTPUT_LOCATION=${OUTPUT_LOCATION:- ../output_data/tmp}
 TEXT_TO_SEG=${TEXT_TO_SEG:-../output_data/tmp/scraped_text.txt}
 HIGHLIGHT_SINGLE=${HIGHLIGHT_SINGLE:- 1.0}

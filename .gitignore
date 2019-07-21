@@ -4,3 +4,4 @@ __pycache__/
 AutoPhrase/tmp
 AutoPhrase/data/scraped_patent_text.txt
 test.ipynb
+token.txt
