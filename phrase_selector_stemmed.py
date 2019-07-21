@@ -7,9 +7,11 @@ ps = PorterStemmer()
 from nltk.tokenize import word_tokenize
 from gensim import models
 import re
+import os
 
 TOP_K_SELECTED = 10 # Adjust this value to the desired number of phrases to return
 BUFFER = 10 # This value shoudn't need to be adjusted. Its purpose is to lower the computation required for filtering the stopwords from the selected phrases.
+MODEL = 'Patents' # The directory that contains the trained word2vec model
 
 def main():
     with open('./output_data/tmp/segmentation.txt', 'r') as segmentation_file:
@@ -90,6 +92,14 @@ def main():
     with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
         json.dump(final_selected_phrases, json_out, indent = 4)
 
+    # Ideas on how to implement this
+    #1. Compute the top model.most_similar words and output them to a separate file. This file can then be used as a secondary ranking when selecting sentences.
+    ### print(model_list[0].most_similar('golf'))
+    #2. Check the selected phrases against each other and discard phrases that do not pass a threshold.
+    ### print(model_list[0].similarity('golf', 'the'))
+    #3. Check the selected phrases using the model.doesnt_match method in word2vec and discard phrases until they all match.
+    ### print(model_list[0].doesnt_match(['golf', 'golfer', 'lightweight', 'band', 'mouth', 'play', 'upper', 'water', 'easy_access', 'weather']))
+
     # Word2Vec
     # Create a list of layers from segmentation.txt but remove the <phrase> tags and replace all of the spaces with underscores of multi-word tagged phrases
     total = 0
@@ -103,27 +113,25 @@ def main():
     for layer in formatted_abstracts:
         layers_of_sentences.append(sentence_splitter(layer))
 
-    # Train the word2vec model on a given layer
-    model_list = []
-    for layer in layers_of_sentences:
-        model_list.append(model_trainer(layer))
+    # Load the respective word2vec model or train one to be used in the future
+    path = 'output_data/models/'
+    if not os.path.exists(path):
+        os.mkdir(path)
+        print('No trained word2vec model can be found at the specified path!')
+    else:
+        if not os.path.exists(path + MODEL + '.model'):
+            print('No trained word2vec model can be found at the specified path!')
+        else:
+            model = models.Word2Vec.load(path + MODEL + '.model')
 
-    # Ideas on how to implement this
-    #1. Compute the top model.most_similar words and output them to a separate file. This file can then be used as a secondary ranking when selecting sentences.
-    ### print(model_list[0].most_similar('golf'))
-    #2. Check the selected phrases against each other and discard phrases that do not pass a threshold.
-    ### print(model_list[0].similarity('golf', 'the'))
-    #3. Check the selected phrases using the model.doesnt_match method in word2vec and discard phrases until they all match.
-    ### print(model_list[0].doesnt_match(['golf', 'golfer', 'lightweight', 'band', 'mouth', 'play', 'upper', 'water', 'easy_access', 'weather']))
+            # Implementing option 1.
+            # Generate the most similar words of each of the selected phrases in a given layer
+            final_similar_phrases = []
+            for i in range(len(final_selected_phrases)):
+                final_similar_phrases.append(generate_similar_phrases(final_selected_phrases[i], model, stopwords))
 
-    # Implementing option 1.
-    # Generate the most similar words of each of the selected phrases in a given layer
-    final_similar_phrases = []
-    for i in range(len(final_selected_phrases)):
-        final_similar_phrases.append(generate_similar_phrases(final_selected_phrases[i], model_list[i], stopwords))
-
-    with open('./output_data/tmp/selected_similar_phrases.json', 'w') as json_out:
-        json.dump(final_similar_phrases, json_out, indent = 4)
+            with open('./output_data/tmp/selected_similar_phrases.json', 'w') as json_out:
+                json.dump(final_similar_phrases, json_out, indent = 4)
 
 def parse_phrases(text):
     '''
@@ -344,14 +352,6 @@ def sentence_splitter(layer_of_abstracts):
         layer_of_sentences += re.split('(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', abstract)
     return layer_of_sentences
 
-def model_trainer(layer):
-    '''
-    Train a word2vec model on a given layer
-    Return the trained model
-    '''
-    tokenized_corpus = [word_tokenize(sentence) for sentence in layer]
-    return models.Word2Vec(tokenized_corpus, min_count = 1, size = 32, workers = 8)
-
 def generate_similar_phrases(layer, model, stopwords):
     '''
     Generate the most similar words of each of the selected phrases
@@ -374,10 +374,14 @@ def generate_similar_phrases(layer, model, stopwords):
         stopword_indexes.reverse()
         for i in stopword_indexes:
             del similar_phrase_list[i]
+        # Return the inserted _s back to ' 's
+        final_similar_phrases = []
+        for phrase in similar_phrase_list:
+            final_similar_phrases.append(phrase.replace('_', ' '))
         # Add the phrase dictionary to the layer list
         similar_phrase_layer.append({
             'phrase': phrase_list,
-            'similar_phrases': similar_phrase_list
+            'similar_phrases': final_similar_phrases
         })
     return similar_phrase_layer        
 

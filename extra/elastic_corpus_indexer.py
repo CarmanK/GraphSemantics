@@ -2,7 +2,7 @@ import progressbar
 from elasticsearch import Elasticsearch
 es = Elasticsearch()
 
-INDEX = 'pubmed'
+INDEX = 'patents'
 
 with open('../input_data/100MB.txt', 'r') as corpus_file:
     lines = corpus_file.readlines()

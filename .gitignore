@@ -2,6 +2,6 @@ __pycache__/
 .vscode/
 # output_data/
 AutoPhrase/tmp
-AutoPhrase/data/scraped_patent_text.txt
 test.ipynb
+output_data/models
 token.txt

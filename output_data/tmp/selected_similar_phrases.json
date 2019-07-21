@@ -2,13 +2,44 @@
     [
         {
             "phrase": [
+                "lower"
+            ],
+            "similar_phrases": [
+                "upper",
+                "middle",
+                "higher",
+                "narrower",
+                "smaller",
+                "intermediate",
+                "wider"
+            ]
+        },
+        {
+            "phrase": [
                 "bag",
                 "bags"
             ],
             "similar_phrases": [
-                "portion",
-                "opening",
-                "invention"
+                "pouch",
+                "sack",
+                "container",
+                "carton",
+                "bags",
+                "wrapper",
+                "bottle",
+                "flexible bag",
+                "pocket",
+                "bladder",
+                "pouches",
+                "sacks",
+                "containers",
+                "cartons",
+                "plastic bags",
+                "envelopes",
+                "packages",
+                "bag",
+                "bottles",
+                "cans"
             ]
         },
         {
@@ -18,26 +49,35 @@
                 "covers"
             ],
             "similar_phrases": [
-                "attachment",
-                "access",
-                "lens",
-                "preferably",
-                "wing",
-                "scorecard",
-                "waterproof",
-                "plastic",
+                "lid",
+                "cap",
+                "protective cover",
+                "hood",
+                "base plate",
+                "closure",
+                "skirt",
+                "base member",
+                "lid member",
+                "surrounded",
+                "overlaid",
+                "lined",
+                "coated",
+                "spanned",
+                "encircled",
+                "formed",
+                "pierced",
+                "filled",
+                "overlain",
+                "covering",
+                "overlies",
+                "encloses",
+                "overhangs",
+                "cover",
+                "overlaps",
                 "surrounds",
-                "retained",
-                "slots",
-                "deployed_position",
-                "scorecard",
-                "located",
-                "lightweight",
-                "seal",
-                "stored",
-                "play",
-                "snap_fasteners",
-                "cooperating"
+                "completely covers",
+                "conceals",
+                "envelops"
             ]
         },
         {
@@ -45,10 +85,16 @@
                 "bonnet"
             ],
             "similar_phrases": [
-                "openings",
-                "clubs",
-                "upper",
-                "protecting"
+                "seat ring",
+                "closure plug",
+                "closure member",
+                "locking nut",
+                "cap",
+                "valve plug",
+                "screw cap",
+                "doorknob",
+                "locking ring",
+                "grommet"
             ]
         },
         {
@@ -56,7 +102,16 @@
                 "lens"
             ],
             "similar_phrases": [
-                "cover"
+                "objective lens",
+                "lenses",
+                "eyepiece",
+                "objective",
+                "focusing lens",
+                "zoom lens",
+                "prism",
+                "mirror",
+                "projection lens",
+                "condenser lens"
             ]
         },
         {
@@ -64,9 +119,16 @@
                 "hood"
             ],
             "similar_phrases": [
-                "lens",
-                "opening",
-                "roof"
+                "firebox",
+                "canopy",
+                "shroud",
+                "grill",
+                "cover",
+                "cowling",
+                "enclosure",
+                "toilet bowl",
+                "bowl",
+                "toilet seat"
             ]
         },
         {
@@ -74,10 +136,16 @@
                 "golf"
             ],
             "similar_phrases": [
-                "bag",
-                "opening",
-                "portion",
-                "lower"
+                "baseball",
+                "tennis",
+                "football",
+                "golf club",
+                "basketball",
+                "clubs",
+                "club",
+                "soccer",
+                "hockey",
+                "fairway"
             ]
         },
         {
@@ -85,15 +153,16 @@
                 "slip"
             ],
             "similar_phrases": [
-                "short",
-                "cylinder",
-                "moisture",
-                "elements",
-                "returned",
-                "modulated",
-                "atop",
-                "deflector",
-                "compact"
+                "slippage",
+                "friction",
+                "drag",
+                "wear",
+                "slipping",
+                "frictional",
+                "braking action",
+                "slack",
+                "torque",
+                "traction"
             ]
         },
         {
@@ -101,10 +170,16 @@
                 "waterproof"
             ],
             "similar_phrases": [
-                "cover",
-                "attachment",
-                "lens",
-                "sleeve"
+                "weatherproof",
+                "water-proof",
+                "pliable",
+                "transparent plastic",
+                "pliant",
+                "breathable",
+                "clear plastic",
+                "watertight",
+                "protective cover",
+                "water-resistant"
             ]
         },
         {
@@ -112,28 +187,16 @@
                 "coat"
             ],
             "similar_phrases": [
-                "clear",
-                "released",
-                "laser",
-                "moisture",
-                "surface",
-                "circumferentially",
-                "sufficient"
-            ]
-        },
-        {
-            "phrase": [
-                "john"
-            ],
-            "similar_phrases": [
-                "photodetector",
-                "straps",
-                "large",
-                "delivers",
-                "atop",
-                ";",
-                "20b",
-                "shower"
+                "coating",
+                "base coat",
+                "coats",
+                "lacquer",
+                "enamel",
+                "protective coating",
+                "surface coating",
+                "backing layer",
+                "release liner",
+                "glaze"
             ]
         }
     ]
