@@ -1,67 +1,37 @@
 [
     [
         [
-            "golf"
-        ],
-        [
-            "golfer"
-        ],
-        [
-            "lightweight"
-        ],
-        [
-            "band"
-        ],
-        [
-            "mouth"
-        ],
-        [
-            "play"
-        ],
-        [
-            "upper"
-        ],
-        [
-            "water"
-        ],
-        [
-            "easy access"
-        ],
-        [
-            "weather"
-        ]
-    ],
-    [
-        [
-            "golf"
+            "bag",
+            "bags"
         ],
         [
             "cover",
-            "covered"
+            "covered",
+            "covers"
         ],
         [
-            "logos"
+            "bonnet"
         ],
         [
-            "open configuration"
+            "lens"
         ],
         [
-            "open mouth"
+            "hood"
         ],
         [
-            "peripheral rim"
+            "golf"
         ],
         [
-            "printing"
+            "slip"
         ],
         [
-            "gas"
+            "waterproof"
         ],
         [
-            "play"
+            "coat"
         ],
         [
-            "polyethylene"
+            "john"
         ]
     ]
 ]

@@ -73,7 +73,7 @@ def main():
     buffered_top_phrases = []
     for i in range(len(tf_idf_score)):
         buffered_top_phrases.append(choose_top_phrases(tf_idf_score[i]))
-
+    
     # Filter the stopwords
     with open('./AutoPhrase/data/EN/stopwords.txt', 'r') as stopwords_file:
         stopwords = stopwords_file.readlines()
@@ -273,7 +273,7 @@ def choose_top_phrases(tf_idf_scores_layer):
     Return the selected phrases
     '''
     sorted_list = sorted(tf_idf_scores_layer, key = lambda j: (j['score'], j['phrase']))
-    return sorted_list[:TOP_K_SELECTED + BUFFER]
+    return sorted_list[-(TOP_K_SELECTED + BUFFER):]
 
 def filter_stopwords(buffered_top_phrases_layer, stopwords):
     '''
@@ -301,7 +301,7 @@ def filter_stopwords(buffered_top_phrases_layer, stopwords):
             break
         else:
             del phrase_list[i]
-    return phrase_list[:TOP_K_SELECTED]
+    return phrase_list[-TOP_K_SELECTED:]
 
 def unstem_phrases(filtered_stemmed_layer, unstemmed_layer):
     '''
