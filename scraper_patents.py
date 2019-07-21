@@ -26,7 +26,7 @@ def main():
     with open('./input_data/golf_patent_ids.txt', 'r') as input_file:
         patent_ids = input_file.readlines()
     
-    with open('./output_data/tmp/scraped_patent_text.txt', 'w') as output_file:
+    with open('./output_data/tmp/scraped_text.txt', 'w') as output_file:
         for id in progressbar.progressbar(patent_ids, widgets = widgets):
             raw_html = html_get(id, url, url2)
             if raw_html is not None:
