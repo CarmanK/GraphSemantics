@@ -2,20 +2,6 @@
     [
         {
             "phrase": [
-                "lower"
-            ],
-            "similar_phrases": [
-                "upper",
-                "middle",
-                "higher",
-                "narrower",
-                "smaller",
-                "intermediate",
-                "wider"
-            ]
-        },
-        {
-            "phrase": [
                 "bag",
                 "bags"
             ],
@@ -163,6 +149,23 @@
                 "slack",
                 "torque",
                 "traction"
+            ]
+        },
+        {
+            "phrase": [
+                "means"
+            ],
+            "similar_phrases": [
+                "drive means",
+                "control means",
+                "mechanism",
+                "device",
+                "coupling means",
+                "driving means",
+                "guide means",
+                "actuating means",
+                "mechanisms",
+                "arrangement"
             ]
         },
         {
