@@ -75,18 +75,18 @@ def main():
     buffered_top_phrases = []
     for i in range(len(tf_idf_score)):
         buffered_top_phrases.append(choose_top_phrases(tf_idf_score[i]))
-    
+
+    # Replace the stemmed phrases with their original phrases
+    top_original_phrases = []
+    for i in range(len(buffered_top_phrases)):
+        top_original_phrases.append(unstem_phrases(buffered_top_phrases[i], stem_phrase_pairs[i]))
+
     # Filter the stopwords
     with open('./AutoPhrase/data/EN/stopwords.txt', 'r') as stopwords_file:
         stopwords = stopwords_file.readlines()
-    filtered_top_phrases = []
-    for i in range(len(buffered_top_phrases)):
-        filtered_top_phrases.append(filter_stopwords(buffered_top_phrases[i], stopwords))
-
-    # Replace the stemmed phrases with their original phrases
     final_selected_phrases = []
-    for i in range(len(filtered_top_phrases)):
-        final_selected_phrases.append(unstem_phrases(filtered_top_phrases[i], stem_phrase_pairs[i]))
+    for i in range(len(top_original_phrases)):
+        final_selected_phrases.append(filter_stopwords(top_original_phrases[i], stopwords))
 
     # Output selected phrases
     with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
@@ -286,39 +286,53 @@ def choose_top_phrases(tf_idf_scores_layer):
 def filter_stopwords(buffered_top_phrases_layer, stopwords):
     '''
     Remove any phrases that are defined as stopwords from the layer
-    Return the filtered list with the buyffer removed
+    Return the filtered list with the buffer removed
+    '''
+    # Check the buffered amount of selected phrases against the provided stopwords
+    removal_indices = []
+    for i in range(len(buffered_top_phrases_layer)):
+        if len(buffered_top_phrases_layer[i]) == 1:
+            # Single word list so remove the entire list if stopword
+            for word in stopwords:
+                if buffered_top_phrases_layer[i][0] == word[:-1]:
+                    removal_indices.append(i)
+                    print('The selected phrase "' + word[:-1] + '" was indetified as a stopword and removed.')
+                    break
+        else:
+            # Either remove the entire list or remove an entry from the list
+            length = len(buffered_top_phrases_layer[i])
+            sub_removal_indices = []
+            for j in range(length):
+                for word in stopwords:
+                    if buffered_top_phrases_layer[i][j] == word[:-1]:
+                        sub_removal_indices.append(j)
+                        print('The selected phrase "' + word[:-1] + '" was indetified as a stopword and removed.')
+                        break
+            if len(sub_removal_indices) == length:
+                removal_indices.append(i)
+            else:
+                sub_removal_indices.reverse()
+                for j in sub_removal_indices:
+                    del buffered_top_phrases_layer[i][j]
+
+    # Delete the identified stopwords from the list while ensuring at least K are returned
+    removal_indices.reverse()
+    for i in removal_indices:
+        del buffered_top_phrases_layer[i]
+    return buffered_top_phrases_layer[-TOP_K_SELECTED:]
+
+def unstem_phrases(buffered_top_phrases_layer, unstemmed_layer):
+    '''
+    Replace the stem with its original phrases
+    Return a list of the original phrases
     '''
     # Extract the phrases into a list
     phrase_list = []
     for i in range(len(buffered_top_phrases_layer)):
         phrase_list.append(buffered_top_phrases_layer[i]['phrase'])
 
-    # Check the buffered amount of selected phrases against the provided stopwords
-    stopword_indexes = []
-    for i in range(len(phrase_list)):
-        for word in stopwords:
-            if phrase_list[i] == word[:-1]:
-                stopword_indexes.append(i)
-                print('The selected phrase "' + word[:-1] + '" was indetified as a stopword and removed.')
-                break
-    # Delete the identified stopwords from the list while ensuring at least K are returned
-    stopword_indexes.reverse()
-    for i in stopword_indexes:
-        if len(phrase_list) <= TOP_K_SELECTED:
-            print("Warning: Selected phrase quality may be lower than normal.")
-            break
-        else:
-            del phrase_list[i]
-    return phrase_list[-TOP_K_SELECTED:]
-
-def unstem_phrases(filtered_stemmed_layer, unstemmed_layer):
-    '''
-    Replace the stem with its original phrases
-    Return a list of the original phrases
-    '''
-    # stem_dict = list(filter(lambda temp_stem_dict: temp_stem_dict['stem'] == stem, before_and_after))
     original_phrases = []
-    for stem in filtered_stemmed_layer:
+    for stem in phrase_list:
         original_dict = list(filter(lambda temp_pair: temp_pair['stem'] == stem, unstemmed_layer))
         original_phrases.append(original_dict[0]['phrase'])
     return original_phrases
