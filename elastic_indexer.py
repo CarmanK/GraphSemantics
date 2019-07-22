@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch
 es = Elasticsearch()
 
-INDEX = 'pubmed'
+INDEX = 'patents'
 
 with open('./output_data/tmp/scraped_text.txt', 'r') as scraped_file:
     lines = scraped_file.readlines()

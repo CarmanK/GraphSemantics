@@ -45,7 +45,7 @@ nltk punkt
 gensim
 lmxl
 curl
-progressbar
+progressbar2
 elasticsearch
 pandas
 rank_bm25

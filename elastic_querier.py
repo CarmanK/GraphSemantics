@@ -3,7 +3,7 @@ from elasticsearch import Elasticsearch
 es = Elasticsearch()
 
 TOP_K = 10 # Number of articles to return per pair of phrase
-INDEX = 'pubmed'
+INDEX = 'patents'
 
 def main():
     with open('./output_data/tmp/selected_phrases.json', 'r') as input_file:
