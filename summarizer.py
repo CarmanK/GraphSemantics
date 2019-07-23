@@ -27,6 +27,13 @@ from functools import reduce
 
 
 #%%
+def generate_list_of_phrase(p_list):
+    ans = []
+    for i in range(len(p_list)):
+        if p_list[i]['phrase'] not in ans:
+            ans.append(p_list[i]['phrase'])
+    return ans
+
 def create_sentece_list(unique_phrase_list):
     list_of_phrase_list = []
     for i in range(len(unique_phrase_list)):
@@ -40,7 +47,7 @@ def create_sentece_list(unique_phrase_list):
 def p_list_fixed_points(layer_num):
     ans = []
     for i in range(layer_num):
-        p_list = list(pd.read_json('./output_data/tmp/selected_phrases.json',typ='series')[i])
+        p_list = list(pd.read_json('./output_data/tmp/selected_similar_phrases.json',typ='series')[i])
         for j in range(len(p_list)):
             if p_list[j] not in ans:
                 ans.append(p_list[j])
@@ -234,7 +241,7 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
             tmpcount = 0
             for j in range(len(p_list)):
 #                 if 1 in [c in sentence_list[i] for c in p_list[j]]:
-                if 1 in [contains_word(sentence_list[i],c) for c in p_list[j]]:
+                if 1 in [contains_word(sentence_list[i],c) for c in p_list[j]['phrase']] or 1 in [contains_word(sentence_list[i],c) for c in p_list[j]['similar_phrases']]:
 #                 if p_list[j] in sentence_list[i]:
                     tmpcount+=1
     
@@ -261,20 +268,44 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
         
         for loc in range(len(p_list)):
 #             if 1 in [c in selected_max_sentence for c in p_list[loc]] and p_list[loc] not in visited_list:
-            if 1 in [contains_word(selected_max_sentence,c) for c in p_list[loc]] and p_list[loc] not in visited_list:
+            if 1 in [contains_word(selected_max_sentence,c) for c in p_list[loc]['phrase']] and p_list[loc]['phrase'] not in visited_list:
 #             if p_list[loc] in selected_max_sentence and p_list[loc] not in visited_list:
-                visited_list.append(p_list[loc])
+                visited_list.append(p_list[loc]['phrase'])
+            
+#             if 1 in [contains_word(selected_max_sentence,c) for c in p_list[loc]['similar_phrases']] and p_list[loc]['similar_phrases'] not in visited_list:
+#                 visited_list.append(p_list[loc]['similar_phrases'])
+                
                 
         #delete all visited list
         print('!!!! visted list is', len(visited_list))
-        
-        
+#         print('waht is visited list', visited_list)
+#         print('what is p_list',p_list)
 #         print('what is sentence now', selected_max_sentence)
         if len(visited_list) == 0:
             isempty=True
             break
-        for pos2 in range(len(visited_list)):
-            p_list.remove(visited_list[pos2])
+            
+        newplist = ge_phrase_list_in_setcover(p_list)
+        newpp_list = []
+        while len(visited_list) > 0:
+            curitem = visited_list[0]
+            newplist = ge_phrase_list_in_setcover(p_list)
+            curindex = newplist.index(curitem)
+    #             p_list.remove(visited_list[pos2])
+            if curitem not in newplist:
+                curindex = -1
+            if curindex != -1:
+                del p_list[curindex]
+                visited_list.remove(curitem)
+            else:
+                visited_list.remove(curitem)
+        #delete one by one
+        
+        #<--------part need to be done one by one ....>
+        
+        print('so this is it', len(p_list))
+    
+    
         answer_sentence_list.append(selected_max_sentence)
         #remove the current sentencn
         sentence_list.pop(selected_max_sentence_index)
@@ -394,7 +425,7 @@ def new_annot(answer,p_list):
  # of pairs of phrases covered
  # of layers covered
 
-def filter_sentence(full_output,list_phrase):
+def filter_sentence(full_output,list_phrase,list_sim_phrase):
     final_ans = []
     #save sentence that beencoved from multip layer phrase and sentence that covered by at least 3 phrase in 
     for i in range(len(full_output)):
@@ -425,10 +456,34 @@ def filter_sentence(full_output,list_phrase):
         if np.max(count_list) >=3:
             if full_output[i] not in final_ans:
                 final_ans.append(full_output[i])
+                
+        sim_count_list = [0] * len(list_sim_phrase)
+        for j3 in range(len(list_sim_phrase)):
+            counter = 0
+            for pos3 in range(len(list_sim_phrase[j])):
+                if 1 in [c in full_output[i] for c in list_sim_phrase[j3][pos3]]:
+                    counter+=1
+            sim_count_list[j3] = counter
+            
+        if np.max(sim_count_list) >= 3:
+            print('sentence added to final sentence list based on similar phrase list if not added before ')
+            if full_output[i] not in final_ans:
+                final_ans.append(full_output[i])
+        
             
     return final_ans
 #%%
+def ge_phrase_list_in_setcover(p_list):
+    ans = []
+    for i in range(len(p_list)):
+        ans.append(p_list[i]['phrase'])
+    return ans
 
+def ge_similar_phrase_list_in_setcover(p_list):
+    ans = []
+    for i in range(len(p_list)):
+        ans.append(p_list[i]['similar_phrases'])
+    return ans
 
 #%%
 def main_func_new():
@@ -439,6 +494,7 @@ def main_func_new():
     #<change on 07032019>
     list_phrase = []
     allsentence = []
+    list_sim_phrase = []
     #<change on 07032019>
     for i in range(layer_num):
         data_df_layer_1 = pd.DataFrame(phrase_list[i])
@@ -447,12 +503,13 @@ def main_func_new():
 #         list_of_phrase_list =  create_sentece_list(unique_phrase_list)
         p_list = p_list_fixed_points(layer_num)
         #<change on 07032019 >
-        list_phrase.append(list(pd.read_json('./output_data/tmp/selected_phrases.json',typ='series')[i]))
+        list_phrase.append(generate_list_of_phrase(list(pd.read_json('./output_data/tmp/selected_similar_phrases.json',typ='series')[i])))
         #<change on 07032019 >
         list_sentence = create_sentence_pool(data_df_layer_1)
         #run
         
-    
+        list_sim_phrase.append(ge_similar_phrase_list_in_setcover(list(pd.read_json('./output_data/tmp/selected_similar_phrases.json',typ='series')[i])))
+        
         answer = set_cover(list(list_sentence),list(unique_phrase_list),p_list.copy())
         full_output.append(answer)
         #change 07032019
@@ -470,21 +527,14 @@ def main_func_new():
     #<------change on 0703/2019------------->
 #     with open('./output_data/summaries.json', 'w') as outfile:
 #             json.dump(full_output, outfile, indent = 4)
-    
-    a =  filter_sentence(allsentence,list_phrase)
+    a =  filter_sentence(allsentence,list_phrase,list_sim_phrase)
     with open('./output_data/summaries.json', 'w') as outfile:
         json.dump(a, outfile, indent = 4)
         
-    new_annot(a,list_phrase)
+#     new_annot(a,list_phrase)
 
 
-
-
-
-#%%
-# Runs the entire program
 main_func_new()
-
 
 #%%
 
