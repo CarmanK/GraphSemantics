@@ -87,8 +87,8 @@ def p_list_fixed_points(layer_num):
 
 
 #%%
-def create_sentence_pool(data_df_layer_1):
-    article_list = data_df_layer_1['article'].values
+def create_sentence_pool(article_list):
+#     article_list = data_df_layer_1['article'].values
     #for each article, find all sentence
     article_list[0]
     sentence_dic = {}
@@ -485,27 +485,55 @@ def ge_similar_phrase_list_in_setcover(p_list):
         ans.append(p_list[i]['similar_phrases'])
     return ans
 
+def parse_phrases(text):
+    '''
+    Parse the tagged phrases from the segmentated text file
+    Return the phrases contained within the layer
+    '''
+    layer = []
+    for i in range(len(text)):
+        temp_list = []
+        soup = BeautifulSoup(text[i], 'lxml')
+        for j in soup.find_all(['phrase']):
+            temp_list.append(j.get_text().lower())
+        layer.append(temp_list)
+    return layer
+
 #%%
 def main_func_new():
-    with open('./output_data/tmp/article_pool.json', 'r') as input_file:
-        phrase_list = json.load(input_file)
-    layer_num = len(phrase_list)  #how many layer
+    with open('./output_data/tmp/scraped_text.txt', 'r') as scraped_file:
+            lines = scraped_file.readlines()
+    with open('./output_data/tmp/meta_scraped_text.json', 'r') as lengths_file:
+            lengths = json.load(lengths_file)
+
+    # Phrase Selection
+    # Create a list of all of the parsed phrases for all of the layers
+    total = 0
+    layer_list = []
+    for length in lengths:
+        layer_list.append(lines[total:total + length])
+        total += length
+    
+#     with open('./output_data/tmp/article_pool.json', 'r') as input_file:
+#         phrase_list = json.load(input_file)
+    layer_num = len(layer_list)  #how many layer
     full_output = []
     #<change on 07032019>
     list_phrase = []
     allsentence = []
     list_sim_phrase = []
+    unique_phrase_list = []
     #<change on 07032019>
     for i in range(layer_num):
-        data_df_layer_1 = pd.DataFrame(phrase_list[i])
-        unique_phrase_list = np.unique(data_df_layer_1['phrase'].values)
+#         data_df_layer_1 = pd.DataFrame(phrase_list[i])
+#         unique_phrase_list = np.unique(data_df_layer_1['phrase'].values)
         #p_list = list(pd.read_json('./output_data/tmp/selected_phrases.json',typ='series')[i])
 #         list_of_phrase_list =  create_sentece_list(unique_phrase_list)
         p_list = p_list_fixed_points(layer_num)
         #<change on 07032019 >
         list_phrase.append(generate_list_of_phrase(list(pd.read_json('./output_data/tmp/selected_similar_phrases.json',typ='series')[i])))
         #<change on 07032019 >
-        list_sentence = create_sentence_pool(data_df_layer_1)
+        list_sentence = create_sentence_pool(layer_list[i])
         #run
         
         list_sim_phrase.append(ge_similar_phrase_list_in_setcover(list(pd.read_json('./output_data/tmp/selected_similar_phrases.json',typ='series')[i])))
@@ -533,9 +561,7 @@ def main_func_new():
         
 #     new_annot(a,list_phrase)
 
-
 main_func_new()
-
 #%%
 
 
