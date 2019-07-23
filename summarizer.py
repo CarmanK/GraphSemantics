@@ -453,7 +453,7 @@ def filter_sentence(full_output,list_phrase,list_sim_phrase):
             count_list[j2] = counter
         
 #         print('what is count_list', count_list)
-        if np.max(count_list) >=3:
+        if np.max(count_list) >=2:
             if full_output[i] not in final_ans:
                 final_ans.append(full_output[i])
                 
