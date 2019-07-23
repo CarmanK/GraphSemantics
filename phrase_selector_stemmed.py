@@ -376,8 +376,11 @@ def generate_similar_phrases(layer, model, stopwords):
     for phrase_list in layer:
         similar_phrase_list = []
         for phrase in phrase_list:
-            for similar_phrase_tuple in model.wv.most_similar(phrase.replace(' ', '_')):
-                similar_phrase_list.append(similar_phrase_tuple[0])
+            try:
+                for similar_phrase_tuple in model.wv.most_similar(phrase.replace(' ', '_')):
+                    similar_phrase_list.append(similar_phrase_tuple[0])
+            except KeyError as e:
+                print(e)
         # Filter stopwords from the similar_phrase_list
         stopword_indexes = []
         for i in range(len(similar_phrase_list)):

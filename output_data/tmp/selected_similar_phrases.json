@@ -2,6 +2,92 @@
     [
         {
             "phrase": [
+                "golf bag",
+                "golf bags"
+            ],
+            "similar_phrases": [
+                "hat",
+                "toilet seat",
+                "beverage container",
+                "shopping cart",
+                "user's head",
+                "backpack",
+                "storage box",
+                "ironing board",
+                "golf cart",
+                "bathtub"
+            ]
+        },
+        {
+            "phrase": [
+                "high-resolution"
+            ],
+            "similar_phrases": [
+                "tomographic",
+                "3-d",
+                "continuous tone",
+                "high-definition",
+                "point-by-point",
+                "halftoning",
+                "color picture",
+                "imagery",
+                "half tone",
+                "gray scale"
+            ]
+        },
+        {
+            "phrase": [
+                "high-speed"
+            ],
+            "similar_phrases": [
+                "high speed",
+                "low-speed",
+                "low power consumption",
+                "synchronous",
+                "bi-directional",
+                "bidirectional",
+                "variable speed",
+                "highly reliable",
+                "asynchronous",
+                "low speed"
+            ]
+        },
+        {
+            "phrase": [
+                "self-retaining"
+            ],
+            "similar_phrases": [
+                "self-locking",
+                "shearable",
+                "slip-on",
+                "matingly engages",
+                "quick-acting",
+                "threadless",
+                "releasably retains",
+                "quick-release",
+                "break-away",
+                "screw-on"
+            ]
+        },
+        {
+            "phrase": [
+                "golf bag rain cover"
+            ],
+            "similar_phrases": [
+                "slop-jar",
+                "eckert",
+                "traveling-bags",
+                "spirit-level",
+                "violin-cases",
+                "cotton-bales",
+                "knockdown box",
+                "milk-strainer",
+                "distributing-roller",
+                "assig-stqb"
+            ]
+        },
+        {
+            "phrase": [
                 "protective cover"
             ],
             "similar_phrases": [
@@ -19,188 +105,27 @@
         },
         {
             "phrase": [
-                "bag",
-                "bags"
-            ],
-            "similar_phrases": [
-                "pouch",
-                "sack",
-                "container",
-                "carton",
-                "bags",
-                "wrapper",
-                "bottle",
-                "flexible bag",
-                "pocket",
-                "bladder",
-                "pouches",
-                "sacks",
-                "containers",
-                "cartons",
-                "plastic bags",
-                "envelopes",
-                "packages",
-                "bag",
-                "bottles",
-                "cans"
-            ]
-        },
-        {
-            "phrase": [
-                "cover",
-                "covered",
-                "covers"
-            ],
-            "similar_phrases": [
-                "lid",
-                "cap",
-                "protective cover",
-                "hood",
-                "base plate",
-                "closure",
-                "skirt",
-                "base member",
-                "lid member",
-                "surrounded",
-                "overlaid",
-                "lined",
-                "coated",
-                "spanned",
-                "encircled",
-                "formed",
-                "pierced",
-                "filled",
-                "overlain",
-                "covering",
-                "overlies",
-                "encloses",
-                "overhangs",
-                "cover",
-                "overlaps",
-                "surrounds",
-                "completely covers",
-                "conceals",
-                "envelops"
-            ]
-        },
-        {
-            "phrase": [
-                "bonnet"
-            ],
-            "similar_phrases": [
-                "seat ring",
-                "closure plug",
-                "closure member",
-                "locking nut",
-                "cap",
-                "valve plug",
-                "screw cap",
-                "doorknob",
-                "locking ring",
-                "grommet"
-            ]
-        },
-        {
-            "phrase": [
-                "lens"
-            ],
-            "similar_phrases": [
-                "objective lens",
-                "lenses",
-                "eyepiece",
-                "objective",
-                "focusing lens",
-                "zoom lens",
-                "prism",
-                "mirror",
-                "projection lens",
-                "condenser lens"
-            ]
-        },
-        {
-            "phrase": [
-                "hood"
-            ],
-            "similar_phrases": [
-                "firebox",
-                "canopy",
-                "shroud",
-                "grill",
-                "cover",
-                "cowling",
-                "enclosure",
-                "toilet bowl",
-                "bowl",
-                "toilet seat"
-            ]
-        },
-        {
-            "phrase": [
-                "golf"
-            ],
-            "similar_phrases": [
-                "baseball",
-                "tennis",
-                "football",
                 "golf club",
-                "basketball",
-                "clubs",
+                "golf clubs"
+            ],
+            "similar_phrases": [
+                "putter",
                 "club",
-                "soccer",
-                "hockey",
-                "fairway"
+                "racket",
+                "golf putter",
+                "racquet",
+                "golf",
+                "tennis racket",
+                "club head",
+                "bowling ball",
+                "bat"
             ]
         },
         {
             "phrase": [
-                "slip"
+                "slip cover"
             ],
-            "similar_phrases": [
-                "slippage",
-                "friction",
-                "drag",
-                "wear",
-                "slipping",
-                "frictional",
-                "braking action",
-                "slack",
-                "torque",
-                "traction"
-            ]
-        },
-        {
-            "phrase": [
-                "waterproof"
-            ],
-            "similar_phrases": [
-                "weatherproof",
-                "water-proof",
-                "pliable",
-                "transparent plastic",
-                "pliant",
-                "breathable",
-                "clear plastic",
-                "watertight",
-                "protective cover",
-                "water-resistant"
-            ]
-        },
-        {
-            "phrase": [
-                "coat"
-            ],
-            "similar_phrases": [
-                "coating",
-                "base coat",
-                "coats",
-                "lacquer",
-                "enamel",
-                "protective coating",
-                "surface coating",
-                "backing layer",
-                "release liner",
-                "glaze"
-            ]
+            "similar_phrases": []
         }
     ]
 ]

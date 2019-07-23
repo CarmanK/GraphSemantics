@@ -501,7 +501,7 @@ def parse_phrases(text):
 
 #%%
 def main_func_new():
-    with open('./output_data/tmp/scraped_text.txt', 'r') as scraped_file:
+    with open('./output_data/tmp/abstracts.txt', 'r') as scraped_file:
             lines = scraped_file.readlines()
     with open('./output_data/tmp/meta_scraped_text.json', 'r') as lengths_file:
             lengths = json.load(lengths_file)
