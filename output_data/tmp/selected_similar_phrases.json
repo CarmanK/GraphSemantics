@@ -2,6 +2,23 @@
     [
         {
             "phrase": [
+                "protective cover"
+            ],
+            "similar_phrases": [
+                "protective shield",
+                "cover",
+                "panel assembly",
+                "carrying handle",
+                "tarpaulin",
+                "waterproof",
+                "carrying case",
+                "visor",
+                "sun visor",
+                "face shield"
+            ]
+        },
+        {
+            "phrase": [
                 "bag",
                 "bags"
             ],
@@ -149,23 +166,6 @@
                 "slack",
                 "torque",
                 "traction"
-            ]
-        },
-        {
-            "phrase": [
-                "means"
-            ],
-            "similar_phrases": [
-                "drive means",
-                "control means",
-                "mechanism",
-                "device",
-                "coupling means",
-                "driving means",
-                "guide means",
-                "actuating means",
-                "mechanisms",
-                "arrangement"
             ]
         },
         {
