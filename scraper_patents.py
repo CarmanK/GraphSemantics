@@ -23,7 +23,7 @@ def main():
         ' (', progressbar.ETA(), ') ',
     ]
 
-    with open('./input_data/golf_patent_ids.txt', 'r') as input_file:
+    with open('./input_data/fp_patent_list/cit-Patents_fp_nodes_l5_cc4169328.txt', 'r') as input_file:
         patent_ids = input_file.readlines()
     
     with open('./output_data/tmp/scraped_text.txt', 'w') as output_file:

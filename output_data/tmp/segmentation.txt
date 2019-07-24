@@ -1,26 +1,6 @@
-<phrase>Golf bag</phrase> club cover.
-<phrase>Golf bag</phrase> <phrase>slip cover</phrase>.
-<phrase>Golf bag</phrase> cover.
-<phrase>Golf bag</phrase> club cover.
-<phrase>Golf bag</phrase> hood rain cover.
-<phrase>Golf bag rain cover</phrase>.
-<phrase>Protective cover</phrase> for <phrase>golf bag</phrase>.
-<phrase>Golf bag rain cover</phrase>.
-Method and system for <phrase>high-speed</phrase>, <phrase>high-resolution</phrase>, 3-D imaging of an object at a vision station.
-Waterproof coat for <phrase>golf bags</phrase>.
-<phrase>Golf bag</phrase> cover for protecting clubs.
-<phrase>Golf club</phrase> rain sack.
-<phrase>Golf bag</phrase> club cover.
-<phrase>Self-retaining</phrase> <phrase>golf bag</phrase> cover employing plain sleeve.
-<phrase>Golf bag rain cover</phrase>.
-Rain cover for <phrase>golf bag</phrase> and <phrase>golf clubs</phrase>.
-<phrase>Protective cover</phrase> for <phrase>golf bag</phrase>.
-<phrase>Golf bag rain cover</phrase>.
-<phrase>Golf bag</phrase> cover.
-<phrase>Golf bag</phrase> cover.
-Rain cover for <phrase>golf bag</phrase>.
-<phrase>Golf bag</phrase> cover.
-<phrase>Golf bag</phrase> cover.
-Henrich.
-<phrase>Golf bag</phrase> cover.
-John lines.
+<phrase>Marine cable</phrase> location system.
+Method for locating an on-bottom <phrase>seismic cable</phrase>.
+Method for estimating the location of a sensor relative to a <phrase>seismic energy source</phrase>.
+<phrase>Method and apparatus</phrase> for verifying the location of a seismic bottom cable in <phrase>real time</phrase>.
+Method for verifying the location of an array of sensors.
+Roentgen-ray tube.
