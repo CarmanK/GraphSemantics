@@ -1,7 +1,7 @@
 #!/bin/bash
-MODEL=${MODEL:- "models/Patents"}
+MODEL=${MODEL:- "models/Patents2"}
 # RAW_TRAIN is the input of AutoPhrase, where each line is a single document.
-RAW_TRAIN=${RAW_TRAIN:- data/scraped_patent_text.txt}
+RAW_TRAIN=${RAW_TRAIN:- data/training_scraped_patent_text.txt}
 # When FIRST_RUN is set to 1, AutoPhrase will run all preprocessing. 
 # Otherwise, AutoPhrase directly starts from the current preprocessed data in the tmp/ folder.
 FIRST_RUN=${FIRST_RUN:- 1}

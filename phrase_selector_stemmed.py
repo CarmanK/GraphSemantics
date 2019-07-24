@@ -11,7 +11,7 @@ import os
 
 TOP_K_SELECTED = 10 # Adjust this value to the desired number of phrases to return
 BUFFER = 10 # This value shoudn't need to be adjusted. Its purpose is to lower the computation required for filtering the stopwords from the selected phrases.
-MODEL = 'Patents' # The directory that contains the trained word2vec model
+MODEL = 'Patents2' # The directory that contains the trained word2vec model
 
 def main():
     with open('./output_data/tmp/segmentation.txt', 'r') as segmentation_file:

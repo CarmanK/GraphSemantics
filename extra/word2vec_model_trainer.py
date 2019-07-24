@@ -4,7 +4,7 @@ from gensim import models
 from bs4 import BeautifulSoup
 import re
 
-MODEL = 'Patents' # The directory that contains the trained word2vec model
+MODEL = 'Patents2' # The directory that contains the trained word2vec model
 
 def main():
     with open('./output_data/tmp/training_segmentation.txt', 'r') as segmentation_file:
