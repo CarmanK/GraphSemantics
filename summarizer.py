@@ -372,7 +372,7 @@ def annotating_function(answer,p_list): #only mark the first occurance of a phra
         print('index :', i, '', answer[i] +'\n')
 
 
-def new_annot(answer,p_list):
+def new_annot(answer,p_list,sim_list):
     for i in range(len(answer)):
         for j in range(len(p_list[0])):
             #first check if that exist
@@ -384,17 +384,28 @@ def new_annot(answer,p_list):
                 start = answer[i].find(p_list[0][j][index])
                 end = start + len(p_list[0][j][index])
                 answer[i] = answer[i][0:start] + colored(p_list[0][j][index],'red') + answer[i][end:]
-                
-        for j in range(len(p_list[1])):
-            if 1 in [contains_word(answer[i],c) for c in p_list[1][j]]:
+
+            if 1 in [contains_word(answer[i],c) for c in sim_list[0][j]]:
                 #find the index 
-                index = np.argmax([c in answer[i] for c in p_list[1][j]])
+                index = np.argmax([c in answer[i] for c in sim_list[0][j]])
 #             if p_list[0][j] in answer[i]:
                 #find the starting index
-                start = answer[i].find(p_list[1][j][index])
-                end = start + len(p_list[1][j][index])
-                answer[i] = answer[i][0:start] + colored(p_list[1][j][index],'green') + answer[i][end:]
-                
+                start = answer[i].find(sim_list[0][j][index])
+                end = start + len(sim_list[0][j][index])
+                answer[i] = answer[i][0:start] + colored(sim_list[0][j][index],'green') + answer[i][end:]
+
+
+        if len(p_list) >= 2:        
+            for j in range(len(p_list[1])):
+                if 1 in [contains_word(answer[i],c) for c in p_list[1][j]]:
+                    #find the index 
+                    index = np.argmax([c in answer[i] for c in p_list[1][j]])
+    #             if p_list[0][j] in answer[i]:
+                    #find the starting index
+                    start = answer[i].find(p_list[1][j][index])
+                    end = start + len(p_list[1][j][index])
+                    answer[i] = answer[i][0:start] + colored(p_list[1][j][index],'green') + answer[i][end:]
+                    
                 
         if len(p_list) >=3:       
             for j in range(len(p_list[2])):
@@ -559,7 +570,9 @@ def main_func_new():
     with open('./output_data/summaries.json', 'w') as outfile:
         json.dump(a, outfile, indent = 4)
         
-#     new_annot(a,list_phrase)
+    new_annot(a,list_phrase,list_sim_phrase)
+
+
 
 main_func_new()
 #%%
