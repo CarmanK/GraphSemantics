@@ -89,8 +89,8 @@ def main():
         final_selected_phrases.append(filter_stopwords(top_original_phrases[i], stopwords))
 
     # Output selected phrases
-    with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
-        json.dump(final_selected_phrases, json_out, indent = 4)
+    # with open('./output_data/tmp/selected_phrases.json', 'w') as json_out:
+    #     json.dump(final_selected_phrases, json_out, indent = 4)
 
     # Ideas on how to implement this
     #1. Compute the top model.most_similar words and output them to a separate file. This file can then be used as a secondary ranking when selecting sentences.

@@ -27,27 +27,28 @@ def main():
         patent_ids = input_file.readlines()
     
     with open('./output_data/tmp/scraped_text.txt', 'w') as output_file:
-        for id in progressbar.progressbar(patent_ids, widgets = widgets):
-            raw_html = html_get(id, url, url2)
-            if raw_html is not None:
-                html = BeautifulSoup(raw_html, 'html.parser')
-                
-                spans = html.findAll('span', {'itemprop': 'title'})
-                title = ''
-                if spans:
-                    title = spans[0].get_text()[:-1].strip()
-                    if title[-1:] != '.':
-                        title += '.'
-                
-                divs = html.findAll('div', {'class': 'abstract'})
-                abstract = ' '
-                if divs:
-                    abstract += divs[0].get_text()[:-1]
-                    if abstract[-1:] != '.':
-                        abstract += '.'
+        with open('./output_data/tmp/abstracts.txt', 'w') as abstract_file:
+            for id in progressbar.progressbar(patent_ids, widgets = widgets):
+                raw_html = html_get(id, url, url2)
+                if raw_html is not None:
+                    html = BeautifulSoup(raw_html, 'html.parser')
+                    
+                    spans = html.findAll('span', {'itemprop': 'title'})
+                    title = ''
+                    if spans:
+                        title = spans[0].get_text()[:-1].strip()
+                        if title[-1:] != '.':
+                            title += '.'
+                    
+                    divs = html.findAll('div', {'class': 'abstract'})
+                    abstract = ' '
+                    if divs:
+                        abstract += divs[0].get_text()[:-1]
+                        if abstract[-1:] != '.':
+                            abstract += '.'
 
-                combined = title + abstract
-                output_file.write(combined + '\n')
+                    output_file.write(title + '\n')
+                    abstract_file.write(abstract + '\n')
 
 def html_get(id, url, url2):
     '''
