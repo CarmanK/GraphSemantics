@@ -41,14 +41,16 @@ def main():
                             title += '.'
                     
                     divs = html.findAll('div', {'class': 'abstract'})
-                    abstract = ' '
+                    abstract = ''
                     if divs:
                         abstract += divs[0].get_text()[:-1]
                         if abstract[-1:] != '.':
                             abstract += '.'
 
-                    output_file.write(title + '\n')
-                    abstract_file.write(abstract + '\n')
+                    if title != '':
+                        output_file.write(title + '\n')
+                    if abstract != '':
+                        abstract_file.write(abstract + '\n')
 
 def html_get(id, url, url2):
     '''
