@@ -2,162 +2,173 @@
     [
         {
             "phrase": [
-                "method of making"
+                "engaging element"
             ],
             "similar_phrases": [
-                "method for making",
-                "method of manufacturing",
-                "method for manufacturing",
-                "method of producing",
-                "method for producing",
-                "process for making",
-                "process of making",
-                "process for manufacturing",
-                "method of fabricating",
-                "method and apparatus for making"
+                "engaging mechanism",
+                "engagement member",
+                "linkage member",
+                "drive lever",
+                "actuating link",
+                "actuating shaft",
+                "operating arm",
+                "actuating plate",
+                "pivotal lever",
+                "operating rod"
             ]
         },
         {
             "phrase": [
-                "casting method"
+                "protective shield"
             ],
             "similar_phrases": [
-                "rotational molding",
-                "packaging process",
-                "forgings",
-                "molding method",
-                "casting metals",
-                "pressure casting",
-                "casting of metals",
-                "continuous extrusion",
-                "countergravity casting",
-                "packaging method"
+                "protective cover",
+                "face shield",
+                "protective covering",
+                "protective enclosure",
+                "support pad",
+                "cover assembly",
+                "protective hood",
+                "skylight",
+                "protective sleeve",
+                "guard assembly"
             ]
         },
         {
             "phrase": [
-                "metal impregnated"
+                "amusement device"
             ],
             "similar_phrases": [
-                "corrosion-proofing",
-                "high temperature resistant",
-                "lignified",
-                "heterofilament",
-                "treatiment",
-                "photosensitively",
-                "fiber reinforced glass matrix composite",
-                "self-fluxing alloy",
-                "colloidalblend",
-                "maloubiee"
+                "game device",
+                "educational device",
+                "toy",
+                "training aid",
+                "game apparatus",
+                "exercising device",
+                "toys",
+                "training apparatus",
+                "trainer",
+                "amusement"
             ]
         },
         {
             "phrase": [
-                "refractory materials"
+                "dry cleaning"
             ],
             "similar_phrases": [
-                "ceramic materials",
-                "shaped bodies",
-                "aluminum alloys",
-                "metal alloys",
-                "ceramic powders",
-                "boron carbide",
-                "boron nitride",
-                "refractory metals",
-                "metallic materials",
-                "inorganic oxides"
+                "sanitizing",
+                "degreasing",
+                "deodorizing",
+                "deinking",
+                "dewaxing",
+                "water softening",
+                "water treatment",
+                "disinfection",
+                "dishwashing",
+                "photographic processing"
             ]
         },
         {
             "phrase": [
-                "ceramic-metal"
+                "pressure measuring"
             ],
             "similar_phrases": [
-                "flame retardant polyester",
-                "fiber reinforced composite",
-                "metal-ceramic",
-                "sensitized photoconductive",
-                "dental restorative",
-                "separatory",
-                "urea-aldehyde",
-                "multicellular",
-                "composite foam",
-                "reinforced composite"
+                "force measuring",
+                "flow measurement",
+                "gas analysis",
+                "leak detection",
+                "temperature controlling",
+                "fluid mixing",
+                "pressure measurement",
+                "capacitance measuring",
+                "radiation detection",
+                "pressure sensing"
             ]
         },
         {
             "phrase": [
-                "cast metal"
+                "pressure measuring device"
             ],
             "similar_phrases": [
-                "casting mold",
-                "ingot",
-                "cast product",
-                "molten aluminum",
-                "solidified",
-                "cast iron",
-                "green compact",
-                "metal powder",
-                "ingots",
-                "shaped body"
+                "pressure indicator",
+                "pressure gage",
+                "temperature compensator",
+                "bellows pump",
+                "demand regulator",
+                "o-ringless",
+                "underwater breathing apparatus",
+                "sphygmomanometers",
+                "liquid meter",
+                "liquid level indicator"
             ]
         },
         {
             "phrase": [
-                "composite article"
+                "temperature control"
             ],
             "similar_phrases": [
-                "composite body",
-                "plastic article",
-                "composite articles",
-                "nonwoven fabrics",
-                "plastic articles",
-                "laminated article",
-                "composite structures",
-                "laminate structure",
-                "thermoplastic articles",
-                "ceramic article"
+                "heating and cooling",
+                "defrosting",
+                "water heating",
+                "thermostatic control",
+                "heater control",
+                "temperature measurement",
+                "chiller",
+                "temperature controller",
+                "air cooling",
+                "temperature sensing"
             ]
         },
         {
             "phrase": [
-                "reinforced composites"
+                "animated toy"
             ],
             "similar_phrases": [
-                "dispersion-modified",
-                "artificial stone",
-                "battery separator",
-                "fuel briquettes",
-                "urea-fatty substance",
-                "acrylonitrile fibers",
-                "bulky yarn",
-                "hexanitrobibenzyl",
-                "phenolic foams",
-                "artificial fuel"
+                "action toy",
+                "educational toy",
+                "convertible chair",
+                "equipment carrier",
+                "childs",
+                "indian",
+                "vender",
+                "quiz",
+                "t-cushion",
+                "sneezing"
             ]
         },
         {
             "phrase": [
-                "reinforced metal matrix composite"
+                "pressure gauge"
             ],
             "similar_phrases": [
-                "refractory carbide",
-                "corrosion resisting",
-                "semi-hard magnetic",
-                "high temperature oxidation resistant",
-                "duplex stainless steel",
-                "nanocrystalline",
-                "polyhalocarbon",
-                "polyimide/metallic foil",
-                "wire fabric",
-                "brazeable"
+                "manometer",
+                "pressure transducer",
+                "pressure sensor",
+                "pressure indicator",
+                "flow meter",
+                "flow sensor",
+                "flowmeter",
+                "bourdon tube",
+                "pressure regulator",
+                "pressure measuring device"
             ]
         },
         {
             "phrase": [
-                "metal-matrix"
+                "door-latch"
             ],
-            "similar_phrases": []
+            "similar_phrases": [
+                "wire-stretcher",
+                "acetylene-gas generator",
+                "street-sweeper",
+                "bottle-stopper",
+                "ash-sifter",
+                "flushing-valve",
+                "door-check",
+                "roller-skate",
+                "improvement in fire-escapes",
+                "pct no"
+            ]
         }
     ]
 ]

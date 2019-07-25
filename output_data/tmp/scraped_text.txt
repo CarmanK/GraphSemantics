@@ -1,87 +1,58 @@
-Method for continuously fabricating an impervious metal coated fibrous glass sheet.
-Composite ceramic-metal bodies and methods for the preparation thereof.
-Method of producing an engine piston with a heat insulating layer.
-Method of casting employing self-generated vacuum.
-Process for impregnating porous solids.
-Production of reinforced composites.
-Metal impregnated composite casting method.
-Method for forming metal-filled ceramics of near theoretical density.
-Ceramic-metal systems by infiltration.
-Method of making gradient ceramic-metal material.
-Method for producing metal dies or molds containing cooling channels by sintering powdered metals.
-Method of manufacturing a metal-impregnated body.
-Method of manufacturing composite materials.
-Reinforced metal matrix composite.
-Composite materials and their production.
-Carbon-reinforced metal-matrix composites.
-Pyrolyzed pitch coatings for carbon fiber.
-Composite metallic and refractory article and method of manufacturing the article.
-Fiber reinforced metal type composite material with high purity aluminum alloy containing magnesium as matrix metal.
-Continuous production of metal alloy composites.
-Method of increasing the wettability of a surface by a molten metal.
-Method for manufacturing a rotor for a rotary fluid pump.
-Cast metal composite article.
-Bonding aluminum to refractory materials.
-Composite materials having a matrix of magnesium or magnesium alloy reinforced with discontinuous silicon carbide particles.
-Composite material having matrix of aluminum or aluminum alloy with dispersed fibrous or particulate reinforcement.
-Alumina composite body and method for its manufacture.
-Fiber-reinforced piston for internal combustion engines and associated method of construction.
-Reinforced pistons.
-Production of aluminum-SiC composite using sodium tetrasborate as an addition agent.
-Carbon fiber-reinforced light metal composites.
-Method for producing composite material having an aluminum alloy matrix with a silicon carbide reinforcement.
-Method for making composite material using oxygen.
-Metal matrix composites.
-Method of making metal matrix composites.
-Method of producing reinforced composite materials.
-Method of making metal matrix composite with the use of a barrier.
-Inverse shape replication method for forming metal matrix composite bodies and products produced therefrom.
-Method of modifying the properties of a metal matrix composite body.
-Method of forming metal matrix composites by use of an immersion casting technique and product produced thereby.
-Method of surface bonding materials together by use of a metal matrix composite, and products produced thereby.
-Method of thermo-forming a novel metal matrix composite body and products produced therefrom.
-Method for making metal matrix composites by the use of a negative alloy mold and products produced thereby.
-Method for forming a metal matrix composite body by an outside-in spontaneous infiltration process, and products produced thereby.
-Method of providing a gating means, and products produced thereby.
-Method for forming metal matrix composite bodies containing three-dimensionally interconnected co-matrices and products produced thereby.
-Method of forming metal matrix composite bodies by utilizing a crushed polycrystalline oxidation reaction product as a filler, and products produced thereby.
-Investment casting technique for the formation of metal matrix composite bodies and products produced thereby.
-Method of forming a metal matrix composite body by a spontaneous infiltration technique.
-Directional solidification of metal matrix composites.
-Method for forming metal matrix composites having variable filler loadings and products produced thereby.
-Methods for forming macrocomposite bodies and macrocomposite bodies produced thereby.
-Method of forming a metal matrix composite through the use of a gating means.
-Metal matrix composite with a barrier.
-Method of forming metal matrix composites by use of an immersion casting technique and product produced thereby.
-Method of forming electronic packages.
-Directional solidification of metal matrix composites.
-Method of forming a metal matrix composite body by a spontaneous infiltration technique.
-Investment casting technique for the formation of metal matrix composite bodies and products produced thereby.
-Method of surface bonding materials together by use of a metal matrix composite, and products produced thereby.
-Method of providing a gating means, and products thereby.
-Method for forming a metal matrix composite body by an outside-in spontaneous infiltration process, and products produced thereby.
-Metal matrix composite which utilizes a barrier.
-Methods for making thin metal matrix composite bodies and articles produced thereby.
-Method for forming metal matrix composites having variable filler loadings and products produced thereby.
-Method of modifying the properties of a metal matrix composite body.
-Directional solidification of metal matrix composites.
-Method of forming a metal matrix composite body by a spontaneous infiltration technique.
-Method of making metal matrix composite bodies with use of a reactive barrier.
-Method of forming a filler material for use in various metal matrix composite body formation processes.
-Rigidized filler materials for metal matrix composites and precursors to supportive structural refractory molds.
-Method for making internal shapes in a metal matrix composite body.
-Method of forming metal matrix composites by use of an immersion casting technique.
-Metal matrix composites.
-Method of making metal matrix composite with the use of a barrier.
-Method for forming metal matrix composite bodies by using a modified spontaneous infiltration process and products produced thereby.
-Macrocomposite bodies and production methods.
-Barrier materials for making metal matrix composites.
-Methods of forming electronic packages.
-Thin metal matrix composites and production methods.
-Method of forming metal matrix composites by use of an immersion casting technique and products produced thereby.
-Metal matrix composite bodies utilizing a crushed polycrystalline oxidation reaction product as a filler.
-Methods for making thin metal matrix composite bodies and articles produced thereby.
-Macrocomposite bodies.
-Metal matrix composite bodies containing three-dimensionally interconnected co-matrices.
-Method for forming metal matrix composites having variable filler loadings.
-Half to e.
+Robert hunter.
+kqlbassieff.
+Door-latch.
+Toy playground.
+Toy submarine.
+Lamp.
+Nursery play apparatus.
+Child's handbag novelty.
+Temperature control device.
+Dry cleaning machine.
+Aquatic figure and apparatus for actuating the same.
+Pressure measuring device.
+Pressure measuring apparatus.
+Animated toy.
+Diver's helmet for welding and burning.
+Animated amusement device.
+Flowmeter.
+Removable clamp shoe with til table work engaging element.
+Fishing indicator.
+Pressure gauge.
+Protective shield for a fireman's hood.
+Apparatus for propulsion of submersible objects.
+Inlet control for escape appliance.
+Welder's helmet.
+Visor helmet.
+Cartesian diver type device.
+Sand and water toy.
+Cartesian diver toy.
+Toy.
+Pivotable structure.
+Variable-area fluid flowmeters.
+Educational device.
+Form fit vertical flow diving head gear.
+Sanitary diaper handling apparatus.
+Cartesian toy.
+Lift-front firefighter's hood.
+Amusement device with fluid movable articulated member.
+Cartesian diving toy.
+Serving mat.
+Structural improvement of motion type solid water ball.
+Sandbox and swimming pool playset.
+Precision controlled cartesian diver.
+Full view welding shield.
+Pressure compensated communication system.
+Electrostatic display device.
+Diver's rescue apparatus.
+Rescue helmet apparatus.
+Apparatus and method for underwater acoustic receiving system installation in diving helmet.
+Placemat with floating figurine.
+Device for measuring variations in ambient pressure.
+Bottom mounted air trap device.
+Serving mat with floating figurines that are alignable with graphics in the base of the serving mat.
+Facial screen with connecting elastic.
+Decorative display device.
+Amusement device passing within tube.
+Flowmeter with improved end stops.
+Diving mask with a structure for drain and flow guide.
+Machine.
