@@ -56,12 +56,12 @@ def p_list_fixed_points(layer_num):
 #%% [markdown]
 # # attention: Every sentence in the articles from the pool is a candidate sentence for the final summary.
 # # step: compute a BM25 score for every candidate sentence
-# 
+#
 # # to compute BM25
 # # 1. find all sentence in current layer(done)
 # # 2. index all sentence(done)
 # # 3. compute score for all current sentence
-# # 4. question here-> should we use the sentence with highest score 
+# # 4. question here-> should we use the sentence with highest score
 # # to cover the phrase? or to cover pair of phrase?
 # # If so, after phrase been recoverd, tag the sentence been used,
 # # recompute the BM25 in unused sentence pool
@@ -77,11 +77,11 @@ def p_list_fixed_points(layer_num):
 # s_count = 0 #sentence index
 # for i in range(len(article_list)):
 #     #for every sentence, if not in sentence_list, push sentence in list
-#     tmp_sentence_list = article_list[i].split(".")    
+#     tmp_sentence_list = article_list[i].split(".")
 #     for j in range(len(tmp_sentence_list)):
 # #         if tmp_sentence_list[j] not in article_list:
 #         sentence_dic[s_count] = tmp_sentence_list[j]
-#         list_sentence.append(tmp_sentence_list[j])        
+#         list_sentence.append(tmp_sentence_list[j])
 #         s_count +=1
 # list_sentence = np.unique(list_sentence)
 
@@ -116,8 +116,8 @@ def BM25_score(sentence_list,unique_phrase_list,p_list):
         #6.finsihed current iteration
         #7.check whether the lenght of phrass list becomes 0 or num of iteration hit max
         #8.if either happens, exit the problem, return the sentence list, and the touched phrase list
-        
-    
+
+
     answer_sentence_list = []
     touched_phrase_list = []
     count = 0
@@ -140,7 +140,7 @@ def BM25_score(sentence_list,unique_phrase_list,p_list):
                 cur_pair_phrase_dic[sentence_score] = i
         #step2
         highest_score_index = np.argmax(score_list_current_iter)
-        high_sen = sentence_list[sentence_idx_list[highest_score_index]] 
+        high_sen = sentence_list[sentence_idx_list[highest_score_index]]
         answer_sentence_list.append(high_sen)
         #step three
         cur_touched_phrase = []  #record how many phrase been touched by this sentence
@@ -168,8 +168,8 @@ def BM25_score(sentence_list,unique_phrase_list,p_list):
 #         #if the current pair of phrase that lead to this sentence which has max score contains two phrase in cur_touched_phrase
 #         #pop this pair of phrase out of pair of phrase list
 #         #return the pair of phrase by useing dic
-        curpair = unique_phrase_list[cur_pair_phrase_dic[np.max(score_list_current_iter)]] 
-#         #count how many phrase in cur_touched_phrase 
+        curpair = unique_phrase_list[cur_pair_phrase_dic[np.max(score_list_current_iter)]]
+#         #count how many phrase in cur_touched_phrase
         count_now = 0
         for loc in range(len(cur_touched_phrase)):
             if cur_touched_phrase[loc] in curpair:
@@ -182,7 +182,7 @@ def BM25_score(sentence_list,unique_phrase_list,p_list):
         #unique_phrase_list.remove(curpair)
         #remove sentence
         sentence_list.remove(high_sen)
-        
+
         #add cur touched list to total touched list
         for inx in range(len(cur_touched_phrase)):
             if cur_touched_phrase[inx] not in touched_phrase_list:
@@ -195,7 +195,7 @@ def BM25_score(sentence_list,unique_phrase_list,p_list):
                 if cur_touched_phrase[p] != cur_touched_phrase[q]:
                     tmp_phrase_pair.append([cur_touched_phrase[p],cur_touched_phrase[q]])
         #iter thorught unique_phrase_list if pair is exist in touched list, dequeue them
-        
+
         deletelist = []
 #         print('tmo coutched list is', len(tmp_phrase_pair))
 #         print('tmp phrase pari look like ', tmp_phrase_pair)
@@ -204,7 +204,7 @@ def BM25_score(sentence_list,unique_phrase_list,p_list):
                 if tmp_phrase_pair[p2][0] in unique_phrase_list[q2] and tmp_phrase_pair[p2][1] in unique_phrase_list[q2]:
                     if unique_phrase_list[q2] not in deletelist:
                         deletelist.append(unique_phrase_list[q2])
-        
+
 #         print('look of deletelist, ', deletelist)
 #         print('len of delete list', len(deletelist))
         for p3 in range(len(deletelist)):
@@ -241,10 +241,10 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
             tmpcount = 0
             for j in range(len(p_list)):
 #                 if 1 in [c in sentence_list[i] for c in p_list[j]]:
-                if 1 in [contains_word(sentence_list[i],c) for c in p_list[j]['phrase']] or 1 in [contains_word(sentence_list[i],c) for c in p_list[j]['similar_phrases']]:
+                if 1 in [c in sentence_list[i].lower() for c in p_list[j]['phrase']]:
 #                 if p_list[j] in sentence_list[i]:
                     tmpcount+=1
-    
+
             if tmpcount > global_max_count:
                 global_max_count = tmpcount
             # save current result in dic
@@ -257,7 +257,7 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
                 tmplist.append(i)
                 touch_count_dic[tmpcount] = tmplist
         #use the global max count to return lit of index of sentence that lead to the max current count
-        
+
         list_of_max_index_sentence = touch_count_dic[global_max_count]
         #pick the first one
         selected_max_sentence_index = list_of_max_index_sentence[0]
@@ -265,26 +265,27 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
         #set cover
         visited_list = []
 #         print('what is sentence now', selected_max_sentence)
-        
+
         for loc in range(len(p_list)):
 #             if 1 in [c in selected_max_sentence for c in p_list[loc]] and p_list[loc] not in visited_list:
-            if 1 in [contains_word(selected_max_sentence,c) for c in p_list[loc]['phrase']] and p_list[loc]['phrase'] not in visited_list:
+            if 1 in [c in selected_max_sentence.lower() for c in p_list[loc]['phrase']] and p_list[loc]['phrase'] not in visited_list:
 #             if p_list[loc] in selected_max_sentence and p_list[loc] not in visited_list:
                 visited_list.append(p_list[loc]['phrase'])
-            
+
 #             if 1 in [contains_word(selected_max_sentence,c) for c in p_list[loc]['similar_phrases']] and p_list[loc]['similar_phrases'] not in visited_list:
 #                 visited_list.append(p_list[loc]['similar_phrases'])
-                
-                
+
+
         #delete all visited list
         print('!!!! visted list is', len(visited_list))
+        # print('cur list is ', p_list)
 #         print('waht is visited list', visited_list)
 #         print('what is p_list',p_list)
 #         print('what is sentence now', selected_max_sentence)
         if len(visited_list) == 0:
             isempty=True
             break
-            
+
         newplist = ge_phrase_list_in_setcover(p_list)
         newpp_list = []
         while len(visited_list) > 0:
@@ -292,6 +293,7 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
             newplist = ge_phrase_list_in_setcover(p_list)
             curindex = newplist.index(curitem)
     #             p_list.remove(visited_list[pos2])
+            print('len of visited list', len(visited_list))
             if curitem not in newplist:
                 curindex = -1
             if curindex != -1:
@@ -300,12 +302,12 @@ def set_cover(sentence_list,unique_phrase_list,p_list):
             else:
                 visited_list.remove(curitem)
         #delete one by one
-        
+
         #<--------part need to be done one by one ....>
-        
+
         print('so this is it', len(p_list))
-    
-    
+
+        # print('what is selectedf sentence', selected_max_sentence)
         answer_sentence_list.append(selected_max_sentence)
         #remove the current sentencn
         sentence_list.pop(selected_max_sentence_index)
@@ -320,7 +322,7 @@ def ven_diagram(list_sentence,unique_phrase_list,p_list):
     while counter > 0:
         list_of_list_com.append(list(itertools.combinations(p_list,counter)))
         counter-=1
-        
+
     #venn cover
     len_p_list = len(p_list)#len of p_list
     #find the sentence that matches current cover
@@ -333,7 +335,7 @@ def ven_diagram(list_sentence,unique_phrase_list,p_list):
             for pos in range(len(p_list)):
                 if p_list[pos] not in cur_list:
                     not_in_list.append(p_list[pos])
-            
+
             #find the sentence that cover all phrase in list_of_list_com[i][j] and not covered in not_in_list
             for p in  range(len(list_sentence)):
                 flag_good = True
@@ -350,9 +352,9 @@ def ven_diagram(list_sentence,unique_phrase_list,p_list):
                 #push current setence to result
                 if flag_good==True and flag_good_filter==True and list_sentence[p] not in ans:
                     ans.append(list_sentence[p])
-                    
+
         print('combination:',len_p_list,' choose ',len_p_list - i,' current lengh of ans is', len(ans))
-                    
+
     return ans
 
 
@@ -377,7 +379,7 @@ def new_annot(answer,p_list,sim_list):
         for j in range(len(p_list[0])):
             #first check if that exist
             if 1 in [contains_word(answer[i],c) for c in p_list[0][j]]:
-                #find the index 
+                #find the index
                 index = np.argmax([c in answer[i] for c in p_list[0][j]])
 #             if p_list[0][j] in answer[i]:
                 #find the starting index
@@ -386,7 +388,7 @@ def new_annot(answer,p_list,sim_list):
                 answer[i] = answer[i][0:start] + colored(p_list[0][j][index],'red') + answer[i][end:]
 
             if 1 in [contains_word(answer[i],c) for c in sim_list[0][j]]:
-                #find the index 
+                #find the index
                 index = np.argmax([c in answer[i] for c in sim_list[0][j]])
 #             if p_list[0][j] in answer[i]:
                 #find the starting index
@@ -395,22 +397,22 @@ def new_annot(answer,p_list,sim_list):
                 answer[i] = answer[i][0:start] + colored(sim_list[0][j][index],'green') + answer[i][end:]
 
 
-        if len(p_list) >= 2:        
+        if len(p_list) >= 2:
             for j in range(len(p_list[1])):
                 if 1 in [contains_word(answer[i],c) for c in p_list[1][j]]:
-                    #find the index 
+                    #find the index
                     index = np.argmax([c in answer[i] for c in p_list[1][j]])
     #             if p_list[0][j] in answer[i]:
                     #find the starting index
                     start = answer[i].find(p_list[1][j][index])
                     end = start + len(p_list[1][j][index])
                     answer[i] = answer[i][0:start] + colored(p_list[1][j][index],'green') + answer[i][end:]
-                    
-                
-        if len(p_list) >=3:       
+
+
+        if len(p_list) >=3:
             for j in range(len(p_list[2])):
                 if 1 in [contains_word(answer[i],c) for c in p_list[2][j]]:
-                    #find the index 
+                    #find the index
                     index = np.argmax([c in answer[i] for c in p_list[2][j]])
     #             if p_list[0][j] in answer[i]:
                     #find the starting index
@@ -418,10 +420,10 @@ def new_annot(answer,p_list,sim_list):
                     end = start + len(p_list[2][j][index])
                     answer[i] = answer[i][0:start] + colored(p_list[2][j][index],'blue') + answer[i][end:]
 
-                
+
     for i in range(len(answer)):
         print('index :', i, '', answer[i] +'\n')
-        
+
 
 #scoring system
  # of phrases covered
@@ -429,7 +431,7 @@ def new_annot(answer,p_list,sim_list):
  # of layers covered
 
 
-        
+
 
 #scoring system
  # of phrases covered
@@ -438,22 +440,22 @@ def new_annot(answer,p_list,sim_list):
 
 def filter_sentence(full_output,list_phrase,list_sim_phrase):
     final_ans = []
-    #save sentence that beencoved from multip layer phrase and sentence that covered by at least 3 phrase in 
+    #save sentence that beencoved from multip layer phrase and sentence that covered by at least 3 phrase in
     for i in range(len(full_output)):
         #iter through every sentence
         flag_list = [0]*len(list_phrase)
         for j in range(len(list_phrase)):
-            #at current 
+            #at current
             for pos in range(len(list_phrase[j])):
                 if 1 in [c in full_output[i] for c in list_phrase[j][pos]]:
                 #if list_phrase[j][pos] in full_output[i]:
                     flag_list[j] = 1
                     break
         if flag_list.count(1) >=2:
-            
+
             if full_output[i] not in final_ans:
                 final_ans.append(full_output[i])
-        
+
         count_list =[0]*len(list_phrase)
         for j2 in range(len(list_phrase)):
             counter = 0
@@ -462,12 +464,12 @@ def filter_sentence(full_output,list_phrase,list_sim_phrase):
                 #if list_phrase[j2][pos2] in full_output[i]:
                     counter+=1
             count_list[j2] = counter
-        
+
 #         print('what is count_list', count_list)
         if np.max(count_list) >=2:
             if full_output[i] not in final_ans:
                 final_ans.append(full_output[i])
-                
+
         sim_count_list = [0] * len(list_sim_phrase)
         for j3 in range(len(list_sim_phrase)):
             counter = 0
@@ -475,13 +477,13 @@ def filter_sentence(full_output,list_phrase,list_sim_phrase):
                 if 1 in [c in full_output[i] for c in list_sim_phrase[j3][pos3]]:
                     counter+=1
             sim_count_list[j3] = counter
-            
+
         if np.max(sim_count_list) >= 3:
             print('sentence added to final sentence list based on similar phrase list if not added before ')
             if full_output[i] not in final_ans:
                 final_ans.append(full_output[i])
-        
-            
+
+
     return final_ans
 #%%
 def ge_phrase_list_in_setcover(p_list):
@@ -525,10 +527,11 @@ def main_func_new():
         layer_list.append(lines)
         # layer_list.append(lines[total:total + length])
         # total += length
-    
+
 #     with open('./output_data/tmp/article_pool.json', 'r') as input_file:
 #         phrase_list = json.load(input_file)
     layer_num = len(layer_list)  #how many layer
+    print('how many layer', layer_num)
     full_output = []
     #<change on 07032019>
     list_phrase = []
@@ -547,9 +550,9 @@ def main_func_new():
         #<change on 07032019 >
         list_sentence = create_sentence_pool(layer_list[i])
         #run
-        
+
         list_sim_phrase.append(ge_similar_phrase_list_in_setcover(list(pd.read_json('./output_data/tmp/selected_similar_phrases.json',typ='series')[i])))
-        
+
         answer = set_cover(list(list_sentence),list(unique_phrase_list),p_list.copy())
         full_output.append(answer)
         #change 07032019
@@ -558,20 +561,21 @@ def main_func_new():
         print('current layer is: ',i )
         #annotating_function(answer.copy(),p_list)
         print('length of current p_list ', len(p_list))
-        
+
     #<------change on 0703/2019------------->
     #filter the selected sentence
-    
-    
-   
+
+
+
     #<------change on 0703/2019------------->
 #     with open('./output_data/summaries.json', 'w') as outfile:
 #             json.dump(full_output, outfile, indent = 4)
-    a =  filter_sentence(allsentence,list_phrase,list_sim_phrase)
+    print('len of sentence', len(allsentence))
+    # a =  filter_sentence(allsentence,list_phrase,list_sim_phrase)
     with open('./output_data/summaries.json', 'w') as outfile:
-        json.dump(a, outfile, indent = 4)
-        
-    new_annot(a,list_phrase,list_sim_phrase)
+        json.dump(allsentence, outfile, indent = 4)
+
+    new_annot(allsentence,list_phrase,list_sim_phrase)
 
 
 
@@ -585,6 +589,3 @@ main_func_new()
 
 
 #%%
-
-
-
