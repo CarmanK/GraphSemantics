@@ -522,8 +522,9 @@ def main_func_new():
     total = 0
     layer_list = []
     for length in lengths:
-        layer_list.append(lines[total:total + length])
-        total += length
+        layer_list.append(lines)
+        # layer_list.append(lines[total:total + length])
+        # total += length
     
 #     with open('./output_data/tmp/article_pool.json', 'r') as input_file:
 #         phrase_list = json.load(input_file)

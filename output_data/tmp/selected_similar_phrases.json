@@ -2,88 +2,162 @@
     [
         {
             "phrase": [
-                "method and apparatus"
+                "method of making"
             ],
             "similar_phrases": [
-                "apparatus and method",
-                "process and apparatus",
-                "methods and apparatus",
-                "apparatus and process",
-                "method",
-                "apparatus",
-                "technique",
-                "process",
-                "systems and methods",
-                "methods and systems"
+                "method for making",
+                "method of manufacturing",
+                "method for manufacturing",
+                "method of producing",
+                "method for producing",
+                "process for making",
+                "process of making",
+                "process for manufacturing",
+                "method of fabricating",
+                "method and apparatus for making"
             ]
         },
         {
             "phrase": [
-                "real time"
+                "casting method"
             ],
             "similar_phrases": [
-                "real-time",
-                "digital form",
-                "frequency domain",
-                "on-line",
-                "historical",
-                "statistical",
-                "seismic data",
-                "time domain",
-                "simulation",
-                "digital computer"
+                "rotational molding",
+                "packaging process",
+                "forgings",
+                "molding method",
+                "casting metals",
+                "pressure casting",
+                "casting of metals",
+                "continuous extrusion",
+                "countergravity casting",
+                "packaging method"
             ]
         },
         {
             "phrase": [
-                "seismic energy source"
+                "metal impregnated"
             ],
             "similar_phrases": [
-                "bed construction",
-                "hockey game",
-                "4-acylcephems",
-                "centrifugal drier",
-                "vibratory apparatus",
-                "toy motorcycle",
-                "heat developable light-sensitive material",
-                "massage table",
-                "display-stand",
-                "rock-gathering apparatus"
+                "corrosion-proofing",
+                "high temperature resistant",
+                "lignified",
+                "heterofilament",
+                "treatiment",
+                "photosensitively",
+                "fiber reinforced glass matrix composite",
+                "self-fluxing alloy",
+                "colloidalblend",
+                "maloubiee"
             ]
         },
         {
             "phrase": [
-                "seismic cable"
+                "refractory materials"
             ],
             "similar_phrases": [
-                "carrier/retractor",
-                "sheave-block",
-                "mono-rail",
-                "cerclage",
-                "nh.co.nh",
-                "golf-bag",
-                "toy railroad",
-                "multiterminal",
-                "weight-carrying",
-                "solderless wire"
+                "ceramic materials",
+                "shaped bodies",
+                "aluminum alloys",
+                "metal alloys",
+                "ceramic powders",
+                "boron carbide",
+                "boron nitride",
+                "refractory metals",
+                "metallic materials",
+                "inorganic oxides"
             ]
         },
         {
             "phrase": [
-                "marine cable"
+                "ceramic-metal"
             ],
             "similar_phrases": [
-                "tank gauge",
-                "diester-amides",
-                "epi-microscopes",
-                "roadway marker",
-                "oateepillaes",
-                "thiazolodiazepines",
-                "w-h",
-                "magazine-pouch",
-                "above-knee",
-                "rexucing"
+                "flame retardant polyester",
+                "fiber reinforced composite",
+                "metal-ceramic",
+                "sensitized photoconductive",
+                "dental restorative",
+                "separatory",
+                "urea-aldehyde",
+                "multicellular",
+                "composite foam",
+                "reinforced composite"
             ]
+        },
+        {
+            "phrase": [
+                "cast metal"
+            ],
+            "similar_phrases": [
+                "casting mold",
+                "ingot",
+                "cast product",
+                "molten aluminum",
+                "solidified",
+                "cast iron",
+                "green compact",
+                "metal powder",
+                "ingots",
+                "shaped body"
+            ]
+        },
+        {
+            "phrase": [
+                "composite article"
+            ],
+            "similar_phrases": [
+                "composite body",
+                "plastic article",
+                "composite articles",
+                "nonwoven fabrics",
+                "plastic articles",
+                "laminated article",
+                "composite structures",
+                "laminate structure",
+                "thermoplastic articles",
+                "ceramic article"
+            ]
+        },
+        {
+            "phrase": [
+                "reinforced composites"
+            ],
+            "similar_phrases": [
+                "dispersion-modified",
+                "artificial stone",
+                "battery separator",
+                "fuel briquettes",
+                "urea-fatty substance",
+                "acrylonitrile fibers",
+                "bulky yarn",
+                "hexanitrobibenzyl",
+                "phenolic foams",
+                "artificial fuel"
+            ]
+        },
+        {
+            "phrase": [
+                "reinforced metal matrix composite"
+            ],
+            "similar_phrases": [
+                "refractory carbide",
+                "corrosion resisting",
+                "semi-hard magnetic",
+                "high temperature oxidation resistant",
+                "duplex stainless steel",
+                "nanocrystalline",
+                "polyhalocarbon",
+                "polyimide/metallic foil",
+                "wire fabric",
+                "brazeable"
+            ]
+        },
+        {
+            "phrase": [
+                "metal-matrix"
+            ],
+            "similar_phrases": []
         }
     ]
 ]

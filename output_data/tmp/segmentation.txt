@@ -1,6 +1,87 @@
-<phrase>Marine cable</phrase> location system.
-Method for locating an on-bottom <phrase>seismic cable</phrase>.
-Method for estimating the location of a sensor relative to a <phrase>seismic energy source</phrase>.
-<phrase>Method and apparatus</phrase> for verifying the location of a seismic bottom cable in <phrase>real time</phrase>.
-Method for verifying the location of an array of sensors.
-Roentgen-ray tube.
+Method for continuously fabricating an impervious <phrase>metal coated</phrase> <phrase>fibrous glass</phrase> sheet.
+<phrase>Composite ceramic</phrase>-<phrase>metal bodies</phrase> and methods for the <phrase>preparation thereof</phrase>.
+<phrase>Method of producing</phrase> an engine piston with a <phrase>heat insulating</phrase> layer.
+Method of casting employing self-generated vacuum.
+Process for impregnating porous solids.
+Production of <phrase>reinforced composites</phrase>.
+<phrase>Metal impregnated</phrase> composite <phrase>casting method</phrase>.
+Method for forming <phrase>metal-filled</phrase> ceramics of near <phrase>theoretical density</phrase>.
+<phrase>Ceramic-metal</phrase> systems by infiltration.
+<phrase>Method of making</phrase> gradient <phrase>ceramic-metal</phrase> material.
+<phrase>Method for producing</phrase> metal dies or molds containing <phrase>cooling channels</phrase> by sintering <phrase>powdered metals</phrase>.
+<phrase>Method of manufacturing</phrase> a <phrase>metal-impregnated</phrase> body.
+<phrase>Method of manufacturing</phrase> <phrase>composite materials</phrase>.
+<phrase>Reinforced metal matrix composite</phrase>.
+<phrase>Composite materials</phrase> and their production.
+Carbon-reinforced <phrase>metal-matrix</phrase> composites.
+Pyrolyzed pitch coatings for <phrase>carbon fiber</phrase>.
+Composite metallic and <phrase>refractory article</phrase> and <phrase>method of manufacturing</phrase> the article.
+<phrase>Fiber reinforced</phrase> metal type <phrase>composite material</phrase> with <phrase>high purity aluminum</phrase> alloy containing magnesium as <phrase>matrix metal</phrase>.
+<phrase>Continuous production</phrase> of <phrase>metal alloy</phrase> composites.
+Method of increasing the wettability of a surface by a <phrase>molten metal</phrase>.
+<phrase>Method for manufacturing</phrase> a rotor for a rotary <phrase>fluid pump</phrase>.
+<phrase>Cast metal</phrase> <phrase>composite article</phrase>.
+Bonding aluminum to <phrase>refractory materials</phrase>.
+<phrase>Composite materials</phrase> having a matrix of magnesium or <phrase>magnesium alloy</phrase> reinforced with discontinuous <phrase>silicon carbide</phrase> particles.
+<phrase>Composite material</phrase> having matrix of <phrase>aluminum or aluminum alloy</phrase> with dispersed fibrous or particulate reinforcement.
+<phrase>Alumina composite</phrase> body and method for its manufacture.
+<phrase>Fiber-reinforced</phrase> <phrase>piston for internal combustion engines</phrase> and associated method of construction.
+Reinforced pistons.
+Production of aluminum-SiC composite using sodium tetrasborate as an <phrase>addition agent</phrase>.
+<phrase>Carbon fiber</phrase>-reinforced <phrase>light metal</phrase> composites.
+<phrase>Method for producing</phrase> <phrase>composite material</phrase> having an <phrase>aluminum alloy</phrase> matrix with a <phrase>silicon carbide</phrase> reinforcement.
+<phrase>Method for making</phrase> <phrase>composite material</phrase> using oxygen.
+<phrase>Metal matrix</phrase> composites.
+<phrase>Method of making</phrase> <phrase>metal matrix</phrase> composites.
+<phrase>Method of producing</phrase> <phrase>reinforced composite</phrase> materials.
+<phrase>Method of making</phrase> <phrase>metal matrix composite</phrase> with the use of a barrier.
+Inverse shape replication method for forming <phrase>metal matrix composite</phrase> bodies and products <phrase>produced therefrom</phrase>.
+Method of modifying the properties of a <phrase>metal matrix composite</phrase> body.
+<phrase>Method of forming</phrase> <phrase>metal matrix</phrase> composites by use of an immersion casting technique and product produced thereby.
+Method of surface <phrase>bonding materials</phrase> together by use of a <phrase>metal matrix composite</phrase>, and products produced thereby.
+Method of <phrase>thermo-forming</phrase> a novel <phrase>metal matrix composite</phrase> body and products <phrase>produced therefrom</phrase>.
+<phrase>Method for making</phrase> <phrase>metal matrix</phrase> composites by the use of a negative alloy mold and products produced thereby.
+Method for forming a <phrase>metal matrix composite</phrase> body by an outside-in spontaneous infiltration process, and products produced thereby.
+Method of providing a gating means, and products produced thereby.
+Method for forming <phrase>metal matrix composite</phrase> bodies containing <phrase>three-dimensionally</phrase> interconnected co-matrices and products produced thereby.
+<phrase>Method of forming</phrase> <phrase>metal matrix composite</phrase> bodies by utilizing a crushed polycrystalline <phrase>oxidation reaction product</phrase> as a filler, and products produced thereby.
+<phrase>Investment casting</phrase> technique for the formation of <phrase>metal matrix composite</phrase> bodies and products produced thereby.
+<phrase>Method of forming</phrase> a <phrase>metal matrix composite</phrase> body by a spontaneous infiltration technique.
+<phrase>Directional solidification</phrase> of <phrase>metal matrix</phrase> composites.
+Method for forming <phrase>metal matrix</phrase> composites having variable filler loadings and products produced thereby.
+Methods for forming macrocomposite bodies and macrocomposite bodies produced thereby.
+<phrase>Method of forming</phrase> a <phrase>metal matrix composite</phrase> through the use of a gating means.
+<phrase>Metal matrix composite</phrase> with a barrier.
+<phrase>Method of forming</phrase> <phrase>metal matrix</phrase> composites by use of an immersion casting technique and product produced thereby.
+<phrase>Method of forming</phrase> <phrase>electronic packages</phrase>.
+<phrase>Directional solidification</phrase> of <phrase>metal matrix</phrase> composites.
+<phrase>Method of forming</phrase> a <phrase>metal matrix composite</phrase> body by a spontaneous infiltration technique.
+<phrase>Investment casting</phrase> technique for the formation of <phrase>metal matrix composite</phrase> bodies and products produced thereby.
+Method of surface <phrase>bonding materials</phrase> together by use of a <phrase>metal matrix composite</phrase>, and products produced thereby.
+Method of providing a gating means, and products thereby.
+Method for forming a <phrase>metal matrix composite</phrase> body by an outside-in spontaneous infiltration process, and products produced thereby.
+<phrase>Metal matrix composite</phrase> which utilizes a barrier.
+Methods for making thin <phrase>metal matrix composite</phrase> bodies and articles produced thereby.
+Method for forming <phrase>metal matrix</phrase> composites having variable filler loadings and products produced thereby.
+Method of modifying the properties of a <phrase>metal matrix composite</phrase> body.
+<phrase>Directional solidification</phrase> of <phrase>metal matrix</phrase> composites.
+<phrase>Method of forming</phrase> a <phrase>metal matrix composite</phrase> body by a spontaneous infiltration technique.
+<phrase>Method of making</phrase> <phrase>metal matrix composite</phrase> bodies with use of a reactive barrier.
+<phrase>Method of forming</phrase> a <phrase>filler material</phrase> for use in various <phrase>metal matrix composite</phrase> body formation processes.
+Rigidized <phrase>filler materials</phrase> for <phrase>metal matrix</phrase> composites and precursors to supportive structural refractory molds.
+<phrase>Method for making</phrase> internal shapes in a <phrase>metal matrix composite</phrase> body.
+<phrase>Method of forming</phrase> <phrase>metal matrix</phrase> composites by use of an immersion casting technique.
+<phrase>Metal matrix</phrase> composites.
+<phrase>Method of making</phrase> <phrase>metal matrix composite</phrase> with the use of a barrier.
+Method for forming <phrase>metal matrix composite</phrase> bodies by using a modified spontaneous infiltration process and products produced thereby.
+Macrocomposite bodies and production methods.
+Barrier materials for making <phrase>metal matrix</phrase> composites.
+Methods of forming <phrase>electronic packages</phrase>.
+Thin <phrase>metal matrix</phrase> composites and production methods.
+<phrase>Method of forming</phrase> <phrase>metal matrix</phrase> composites by use of an immersion casting technique and products produced thereby.
+<phrase>Metal matrix composite</phrase> bodies utilizing a crushed polycrystalline <phrase>oxidation reaction product</phrase> as a filler.
+Methods for making thin <phrase>metal matrix composite</phrase> bodies and articles produced thereby.
+Macrocomposite bodies.
+<phrase>Metal matrix composite</phrase> bodies containing <phrase>three-dimensionally</phrase> interconnected co-matrices.
+Method for forming <phrase>metal matrix</phrase> composites having variable filler loadings.
+Half to e.
