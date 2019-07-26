@@ -1,0 +1,8 @@
+beautifulsoup4
+nltk
+gensim
+lxml
+progressbar2
+pandas
+rank_bm25
+termcolor

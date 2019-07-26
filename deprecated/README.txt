@@ -1,0 +1,1 @@
+The files in this folder were used in this project at one point but are now, as the folder name might suggest, deprecated.

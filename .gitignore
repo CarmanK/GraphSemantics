@@ -1,8 +1,8 @@
 __pycache__/
 .vscode/
-# output_data/
-AutoPhrase/tmp
-test.ipynb
-output_data/models
-token.txt
-input_data/fp_patents/
+input_data/
+output_data/summaries.json
+output_data/tmp/
+word2vec_models/
+/src/AutoPhrase/models/
+/src/AutoPhrase/tmp/
