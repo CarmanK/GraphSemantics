@@ -4,7 +4,6 @@
 ## Research Documentation
 
 Please cite the following paper if you are using my tool, thanks!
-
 * Kevin Carman, "[Automated Phrase and Sentence Mining to Develop Graph Stories](http://reu.dimacs.rutgers.edu/~kc1125/content/Kevin_Carman_Research_Paper.pdf)," Rutgers University, 2019.
 
 ## Related GitHub Repository
@@ -12,17 +11,14 @@ Please cite the following paper if you are using my tool, thanks!
 *  [AutoPhrase](https://github.com/shangjingbo1226/AutoPhrase)
 
 ## Requirements
+
 * g++ `$ sudo apt-get install g++`
-
 * Java `$ sudo apt-get default-jdk`
-
 * curl `$ sudo apt-get install curl`
-
 * `$ pip3 install -r requirements.txt`
-
 * `$ python3 -m nltk.downloader punkt`
 
-## Default Run
+## Training the models
 nothing will happen unless you have data
 
 training your data beforehand
@@ -37,7 +33,13 @@ now run trainers/word2vec_model_trainer.py
 
 return the TEXT_TO_SEG path in phrasal_segmentation.sh to '../../output_data/tmp/scraped_text.txt'
 
+## Running the Process
+A default data collector and default data are included to show what an expected output looks like, but the models are not included due to their size.
 
-A default scraper is provided that works with patent IDs.
-The scraper must output to two files, titles in one file titled titles.txt, and another file called abstracts.txt in output_data/tmp
-then simply run $ ./graphsemantics and the summary will be output not only to the terminal, but also to the summaries.json file in the output_data directory
+If you build your own data collector, it must output the following two files to the output_data/tmp directory.
+* titles.txt
+* abstracts.txt
+
+Run `$ ./graphsemantics` to begin the process.
+
+Output will not only be shown and highlighted in the terminal, but will also be saved in output_data/summaries.json.
