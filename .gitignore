@@ -1,6 +1,5 @@
 __pycache__/
 .vscode/
-input_data/
 word2vec_models/
 /src/AutoPhrase/models/
 /src/AutoPhrase/tmp/
