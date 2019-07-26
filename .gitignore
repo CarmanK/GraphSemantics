@@ -1,5 +1,6 @@
 __pycache__/
 .vscode/
-word2vec_models/
-/src/AutoPhrase/models/
-/src/AutoPhrase/tmp/
+word2vec_models/*
+!word2vec_models/word2vec_model_trainer.py
+src/AutoPhrase/models/
+src/AutoPhrase/tmp/

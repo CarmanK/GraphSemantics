@@ -26,10 +26,7 @@ def main():
         model_list.append(model_trainer(layer))
 
     # Save the model
-    path = '../word2vec_models/' + MODEL
-    if not os.path.exists('../word2vec_models/'):
-        os.mkdir('../word2vec_models/')
-    model_list[0].save(path + '.model')
+    model_list[0].save('../word2vec_models/' + MODEL + '.model')
 
 def phrase_formatter(layer_of_abstracts):
     '''
