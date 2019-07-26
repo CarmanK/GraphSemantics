@@ -115,7 +115,7 @@ def main():
         layers_of_sentences.append(sentence_splitter(layer))
 
     # Load the respective word2vec model or train one to be used in the future
-    path = '../word2vec_models/'
+    path = './word2vec_models/'
     if not os.path.exists(path):
         os.mkdir(path)
         print('No trained word2vec model can be found at the specified path!')

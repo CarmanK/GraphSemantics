@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import re
 
 MODEL = 'Trained_Model' # The directory that contains the trained word2vec model
-SEGMENTED_TRAINING_FILE_PATH = '../output_data/tmp/segmentation.txt'
+SEGMENTED_TRAINING_FILE_PATH = '../../output_data/tmp/segmentation.txt'
 
 def main():
     with open(SEGMENTED_TRAINING_FILE_PATH, 'r') as segmentation_file:
