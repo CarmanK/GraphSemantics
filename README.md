@@ -7,22 +7,20 @@ Please cite the following paper if you are using my tool, thanks!
 
 * Kevin Carman, "[Automated Phrase and Sentence Mining to Develop Graph Stories](http://reu.dimacs.rutgers.edu/~kc1125/content/Kevin_Carman_Research_Paper.pdf)," Rutgers University, 2019.
 
-## Related GitHub Repositories
+## Related GitHub Repository
 
 *  [AutoPhrase](https://github.com/shangjingbo1226/AutoPhrase)
 
-
-
 ## Requirements
-g++ `$ sudo apt-get install g++`
+* g++ `$ sudo apt-get install g++`
 
-Java `$ sudo apt-get default-jdk`
+* Java `$ sudo apt-get default-jdk`
 
-curl `$ sudo apt-get install curl`
+* curl `$ sudo apt-get install curl`
 
-`$ pip3 install -r requirements.txt`
+* `$ pip3 install -r requirements.txt`
 
-`$ python3 -m nltk.downloader punkt`
+* `$ python3 -m nltk.downloader punkt`
 
 ## Default Run
 nothing will happen unless you have data

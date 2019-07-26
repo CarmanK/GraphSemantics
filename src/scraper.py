@@ -6,7 +6,7 @@ from requests.exceptions import RequestException
 from contextlib import closing
 import progressbar
 
-INPUT_FILE = 'golf_patent_ids.txt' # List of Patent IDs
+INPUT_FILE = 'sample.txt' # List of Patent IDs
 
 def main():
     # This scraper is data specific
