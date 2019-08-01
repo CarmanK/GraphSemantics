@@ -11,7 +11,7 @@ Please cite the following paper if you are using my process, thanks!
 *  [AutoPhrase](https://github.com/shangjingbo1226/AutoPhrase)
 
 ## Requirements
-Ubuntu:
+Ubuntu 18.04:
 * g++ `$ sudo apt-get install g++`
 * Java `$ sudo apt-get default-jdk`
 * curl `$ sudo apt-get install curl`
