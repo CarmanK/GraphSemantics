@@ -1,52 +1,44 @@
-# GraphSemantics
-Traverse an Abello fixed point. Scrape the metadata associated with each vertex. Use AutoPhrase to extract information about the data. Build a story of all of the data.
-
-# Documentation
-Note that this is currently a proof of concept and much of the code is still messy. This documentation was also written fairly quickly.
-
-## Running
-Simply run the graphsemantics shell script to sequentially run all of the different processes.
-
-## Step 1
-1. scraper.py takes lists of urls associated with each layer (the metadata for each protein vertex) and uses the functions defined in html_requests.py to scrape the title and abstract of the associated PubMed publication.
-
-  * This is currently specific to this component for scraping the exact paragraph and header associated with the title and abstract of the publication.
-  * The output is stored in two places:
-     * output_data/tmp/scraped_text.txt: each line is in the form title + ' ' + abstract for each website
-     * output_data/tmp/meta_scraped_text.txt: a list of the lengths of the various layers for use in decomposing the scraped_txt file back to layers later on.
-
-2. The scraped_text.txt is then run through AutoPhrase, which was trained on a 1GB file containing various other PubMed abstracts concatenated with the scraped text from the websites. The output is stored in ../output_data/tmp/segmentation.txt. This text file tags all of the important phrases obtained from step 1.1.
-   
-3. The phrase_selector.py then extracts the phrases from segmentation.txt with regards to their respective layer and calculates the TF-IDF scores to select the top-k phrases per layer.
-
-  * The k we chose for this proof of concept was 10. This k should be tinkered with for more efficient computations.
-
-## Step 2
-1. elastic_indexer.py then indexes all of the titles + abstracts obtained in step 1.1 to our elasticsearch index.
-
-2. elastic_querier.py then takes the top-k phrases obtained from step 1.3 and queries every possible phrase combination in each layer in our elasticsearch. The top-k articles are then dumped to a json file.
-   
-  * The current output format is:
-     * "phrase": phrases
-     * "article": article
-  * The output is stored as ./output_data/tmp/article_pool.json.
-  * We are still currently playing around with the value of k for the pool of articles. We have tried 10 and 50 so far, but the next step is computationally heavy, so there needs to be a healthy balance.
-
-3. The last step takes the article_pool.json and uses a greedy algorithm to find which sentences cover the most unique phrases and generate a summary.
-
-  * The output is stored in ./output_data/summaries.json as a list of lists for each summaries of each layer.
+# Automated Phrase and Sentence Mining to Develop Graph Stories
 
 
-## Dependecies
-java
-beautifulsoup4
-nltk
-nltk punkt
-gensim
-lmxl
-curl
-progressbar2
-elasticsearch
-pandas
-rank_bm25
-termcolor
+## Research Documentation
+
+Please cite the following paper if you are using my process, thanks!
+* Kevin Carman, "[Automated Phrase and Sentence Mining to Develop Graph Stories](http://reu.dimacs.rutgers.edu/~kc1125/content/Kevin_Carman_Research_Paper.pdf)," Rutgers University, 2019.
+
+## Related GitHub Repository
+
+*  [AutoPhrase](https://github.com/shangjingbo1226/AutoPhrase)
+
+## Requirements
+Ubuntu:
+* g++ `$ sudo apt-get install g++`
+* Java `$ sudo apt-get default-jdk`
+* curl `$ sudo apt-get install curl`
+* `$ pip3 install -r requirements.txt`
+* `$ python3 -m nltk.downloader punkt`
+
+## Training the models
+You must train the AutoPhrase and word2vec model before running my process! Refer to the AutoPhrase repository linked above for more information regarding the thresholds.
+
+1. Gather a large corpus of data, preferably >500MB
+2. Move the dataset into src/AutoPhrase/data
+3. Edit the auto_phrase.sh MODEL and RAW_TRAIN variables where necessary
+4. Run `$ ./auto_phrase.sh` from the src/AutoPhrase directory
+5. Edit the phrasal_segmentation.sh MODEL variable if necessary
+6. Temporarily change the TEXT_TO_SEG path to data/training_data.txt
+7. Adjust the HIGHLIGHT_SINGLE and HIGHLIGHT_MULTI variables to your liking
+8. Run `$ ./phrasal_segmentation.sh`
+9. Return the TEXT_TO_SEG path back to ../../output_data/tmp/titles.txt
+10. Run `$ python3 word2vec_model_trainer.py` from the src/word2vec_models directory
+
+## Running the Process
+A default data collector and default data are included to show what an expected output looks like, but the models are not included due to their size.
+
+If you build your own data collector, it must output the following two files to the output_data/tmp directory.
+* titles.txt
+* abstracts.txt
+
+Run `$ ./graphsemantics` to begin the process.
+
+Output will not only be shown and highlighted in the terminal, but will also be saved in output_data/summaries.json.
